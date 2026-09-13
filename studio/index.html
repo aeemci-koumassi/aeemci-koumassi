@@ -606,29 +606,7 @@
           </div>
         </div>
 
-        <div class="carte-tableau" style="padding: 28px;">
-          <h3 style="margin-bottom: 18px; color: var(--vert-institutionnel);">Membres du Bureau avec Accès Admin</h3>
-          <ul style="list-style: none;">
-            <li style="padding: 12px 0; border-bottom: 1px solid var(--bordure-carte); display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <strong>Sow Mohamed</strong> — <span style="color: var(--or-sombre); font-weight: 700;">Président</span>
-              </div>
-              <span class="badge-statut valide">Super Admin</span>
-            </li>
-            <li style="padding: 12px 0; border-bottom: 1px solid var(--bordure-carte); display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <strong>Diabaté Fodé</strong> — <span style="color: var(--or-sombre); font-weight: 700;">Secrétaire Général</span>
-              </div>
-              <span class="badge-statut valide">Admin Éditeur</span>
-            </li>
-            <li style="padding: 12px 0; display: flex; justify-content: space-between; align-items: center;">
-              <div>
-                <strong>Kokora Mohamed</strong> — <span style="color: var(--or-sombre); font-weight: 700;">Délégué Culturel</span>
-              </div>
-              <span class="badge-statut valide">Admin Éditeur</span>
-            </li>
-          </ul>
-        </div>
+        <div id="containerBureauCMS"></div>
 
         <!-- FORMULAIRE DE CONFIGURATION DES COORDONNÉES & FOOTER DU SITE PUBLIC -->
         <div class="carte-tableau" style="padding: 28px; margin-top: 24px;">
@@ -760,6 +738,44 @@
       <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
         <button type="button" class="bouton-action-contour btn-touch-evt" onclick="fermerModalAjoutEvenement()">Annuler</button>
         <button type="submit" class="bouton-action-pro btn-touch-evt">Enregistrer &amp; Publier sur le Site</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ==================== MODALE AJOUT / MODIFICATION MEMBRE DU BUREAU ==================== -->
+<div class="modal-overlay" id="modalMembreBureau">
+  <div class="modal-conteneur">
+    <div class="modal-header">
+      <h3 id="modalMembreTitre">➕ Ajouter un Membre au Bureau</h3>
+      <button class="modal-fermer" onclick="fermerModalMembreBureau()">&times;</button>
+    </div>
+    <form class="modal-body" id="formMembreBureauCMS" onsubmit="enregistrerMembreBureau(event)">
+      <input type="hidden" id="cmsMembreId">
+
+      <div class="form-groupe">
+        <label>Nom &amp; Prénoms du Membre *</label>
+        <input type="text" id="cmsMembreNom" placeholder="ex: Sow Mohamed" required>
+      </div>
+
+      <div class="form-groupe">
+        <label>Poste / Titre Officiel *</label>
+        <input type="text" id="cmsMembreTitre" placeholder="ex: Président Exécutif / Secrétaire Général" required>
+      </div>
+
+      <div class="form-groupe">
+        <label>Ordre d'Affichage dans l'Organigramme</label>
+        <input type="number" id="cmsMembreOrdre" placeholder="ex: 1" min="1" value="1">
+      </div>
+
+      <div class="form-groupe">
+        <label>Photo de Profil du Membre</label>
+        <input type="file" id="cmsMembrePhotoFile" accept="image/*">
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px;">
+        <button type="button" class="bouton-action-contour btn-touch-evt" onclick="fermerModalMembreBureau()">Annuler</button>
+        <button type="submit" class="bouton-action-pro btn-touch-evt">Enregistrer le Membre</button>
       </div>
     </form>
   </div>
