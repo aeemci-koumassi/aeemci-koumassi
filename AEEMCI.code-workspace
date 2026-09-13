@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../STUDIO AEEMCI"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "AEEMCI"
+	}
+}
