@@ -1,4 +1,4 @@
-# Robots.txt — Site Officiel AEEMCI Sous-Comité de Koumassi
+﻿# Robots.txt â€” Site Officiel AEEMCI Sous-ComitÃ© de Koumassi
 User-agent: *
 Allow: /
 Allow: /index.html
@@ -11,9 +11,10 @@ Allow: /css/
 Allow: /js/
 Allow: /images/
 
-# Sécurité & Discrétion : Interdiction d'indexer l'espace d'administration Studio
+# SÃ©curitÃ© & DiscrÃ©tion : Interdiction d'indexer l'espace d'administration Studio
 Disallow: /studio/
 Disallow: /studio/*
 
 # Emplacement Officiel du Sitemap pour Google Search Console
-Sitemap: https://koumayaya72-del.github.io/aeemci-koumassi/sitemap.xml
+Sitemap: https://aeemci-koumassi.github.io/aeemci-koumassi/sitemap.xml
+
