@@ -681,7 +681,7 @@ function chargerActualitesCMS() {
   });
 }
 
-window.ajouterActualiteCMS = function(e) {
+window.ajouterActualiteCMS = async function(e) {
   if (e) e.preventDefault();
 
   const idInput = document.getElementById('cmsActuId');
@@ -878,7 +878,7 @@ function initialiserDragAndDropGalerie() {
   }, false);
 }
 
-function compresserImageCanvas(base64Str, maxDimension, quality, callback) {
+window.compresserImageCanvas = function(base64Str, maxDimension, quality, callback) {
   const img = new Image();
   img.onload = function() {
     let width = img.width;
@@ -1000,7 +1000,7 @@ function attacherGestionnairesTactiles() {
 }
 
 // 7. GESTION DES MILITANTS
-async function chargerMilitantsCMS() {
+async async function chargerMilitantsCMS() {
   let militants = [];
   if (window.militantsDb && typeof window.militantsDb.fetchMilitants === 'function') {
     militants = await window.militantsDb.fetchMilitants();
