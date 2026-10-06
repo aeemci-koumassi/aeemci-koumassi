@@ -1002,3 +1002,31 @@ window.enregistrerContactCMS = async function(e) {
   }
   showToast("✅ Coordonnées et liens WhatsApp mis à jour avec succès !");
 };
+
+/* ==========================================================================
+   YOUTUBE STUDIO CREATOR INTERACTION HELPERS
+   ========================================================================== */
+window.toggleMenuCreer = function(event) {
+  if (event) event.stopPropagation();
+  const menu = document.getElementById('menuCreerDropdown');
+  if (menu) {
+    menu.classList.toggle('actif');
+  }
+};
+
+window.rechercherStudioGlobal = function(query) {
+  if (!query) query = '';
+  const input1 = document.getElementById('rechercheMilitantInput');
+  if (input1) {
+    input1.value = query;
+    if (typeof filtrerMilitantsTable === 'function') filtrerMilitantsTable(query);
+  }
+};
+
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('menuCreerDropdown');
+  const btn = e.target.closest('.bouton-creer-yt');
+  if (menu && menu.classList.contains('actif') && !btn && !e.target.closest('#menuCreerDropdown')) {
+    menu.classList.remove('actif');
+  }
+});

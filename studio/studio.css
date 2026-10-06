@@ -761,3 +761,203 @@ body {
     margin-left: 0;
   }
 }
+
+/* ==========================================================================
+   YOUTUBE STUDIO CREATOR DASHBOARD EXECUTIVE STYLES (2026)
+   ========================================================================== */
+
+/* BARRE DE RECHERCHE GLOBALE TOPBAR */
+.topbar-recherche {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--fond-body);
+  border: 1px solid var(--bordure-carte);
+  padding: 8px 16px;
+  border-radius: 20px;
+  width: min(420px, 100%);
+  transition: var(--transition);
+}
+.topbar-recherche:focus-within {
+  border-color: var(--vert-accent);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+  background: #FFFFFF;
+}
+.topbar-recherche input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  width: 100%;
+  color: var(--texte-principal);
+}
+
+/* BOUTON + CRÃ‰ER YOUTUBE STUDIO STYLE */
+.dropdown-creer-box {
+  position: relative;
+}
+
+.bouton-creer-yt {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 50%, #FEF08A 100%);
+  color: #062114;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  font-size: 0.88rem;
+  padding: 10px 18px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+  transition: var(--transition);
+}
+.bouton-creer-yt:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.45);
+}
+
+.menu-creer-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 260px;
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid var(--bordure-carte);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+  padding: 8px;
+  z-index: 1000;
+}
+.menu-creer-dropdown.actif {
+  display: block;
+  animation: fadeInDown 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.menu-creer-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  color: var(--texte-principal);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.menu-creer-dropdown a:hover {
+  background: var(--vert-tendre);
+  color: var(--vert-institutionnel);
+}
+
+/* CARTE DE PRÃ‰SENTATION DU SOUS-COMITÃ‰ / CRÃ‰ATEUR (YOUTUBE CREATOR OVERVIEW) */
+.creator-overview-card {
+  background: linear-gradient(135deg, var(--vert-sombre) 0%, var(--vert-fond) 100%);
+  border-radius: 20px;
+  padding: 32px 36px;
+  color: #FFFFFF;
+  margin-bottom: 28px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 15px 35px rgba(12, 56, 35, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.creator-overview-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.15), transparent 70%);
+  pointer-events: none;
+}
+.creator-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.creator-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: 3px solid var(--or);
+  padding: 4px;
+  background: #FFFFFF;
+  object-fit: contain;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+.creator-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge-verifie {
+  font-size: 0.76rem;
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--vert-clair);
+  border: 1px solid var(--vert-accent);
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+.creator-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.92rem;
+  margin-top: 4px;
+}
+
+.creator-metrics {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 14px 24px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.metric-valeur {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--or-clair);
+}
+.metric-label {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+}
+.metric-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
