@@ -3,16 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galerie & Médiathèque — AEEMCI Sous-Comité de Koumassi</title>
-<meta name="description" content="Médiathèque et photothèque officielle du Sous-Comité AEEMCI de Koumassi. Retrouvez l'ensemble des photos d'archives et vidéos de nos événements et activités. Slogan : AEEMCI, Pour une identité islamique !">
+<title>Galerie & MÃ©diathÃ¨que â€” AEEMCI Sous-ComitÃ© de Koumassi</title>
+<meta name="description" content="MÃ©diathÃ¨que et photothÃ¨que officielle du Sous-ComitÃ© AEEMCI de Koumassi. Retrouvez l'ensemble des photos d'activitÃ©s et Ã©vÃ©nements. Slogan : AEEMCI, Pour une identitÃ© islamique !">
 <link rel="icon" href="images/logo.png">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/base_donnees.js" defer></script>
 <meta name="google-site-verification" content="eBhRI8A4nX2XsSqSKXnH_ou9wjGBq4_Fa7ZyyNVceHM" />
+<style>
+  .empty-gallery-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(232, 245, 233, 0.5) 100%);
+    border: 2px dashed rgba(212, 175, 55, 0.4);
+    border-radius: 20px;
+    padding: 60px 30px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(12, 56, 35, 0.05);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease;
+  }
+  .empty-gallery-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--or);
+  }
+  .empty-gallery-icon {
+    font-size: 3.8rem;
+    margin-bottom: 16px;
+  }
+  .empty-gallery-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--vert-emeraude);
+    margin-bottom: 8px;
+  }
+  .empty-gallery-desc {
+    color: var(--texte-doux);
+    font-size: 0.96rem;
+    max-width: 540px;
+    margin: 0 auto 24px auto;
+    line-height: 1.6;
+  }
+  .btn-studio-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0C3823 0%, #10B981 100%);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 12px 24px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(12, 56, 35, 0.2);
+    transition: all 0.3s ease;
+  }
+  .btn-studio-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(12, 56, 35, 0.3);
+    color: var(--or-clair);
+  }
+</style>
 </head>
 <body>
 
-<!-- ===== VOILE D'ARRIÈRE-PLAN & SIDEBAR LATÉRALE (DARK MODE STYLE GEMINI) ===== -->
+<!-- ===== VOILE D'ARRIÃˆRE-PLAN & SIDEBAR LATÃ‰RALE ===== -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="fermerSidebar()"></div>
 
 <aside class="sidebar-panneau" id="sidebarPanneau">
@@ -30,71 +84,39 @@
   <div class="sidebar-corps">
     <div class="sidebar-section-titre">Navigation</div>
     <ul class="sidebar-liens">
-      <li>
-        <a href="index.html" class="sidebar-lien">
-          <svg class="sidebar-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-          <span>Accueil</span>
-        </a>
-      </li>
-      <li>
-        <a href="historique.html" class="sidebar-lien">
-          <svg class="sidebar-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 16 14"></polyline></svg>
-          <span>Historique</span>
-        </a>
-      </li>
-      <li>
-        <a href="activites.html" class="sidebar-lien">
-          <svg class="sidebar-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          <span>Activités</span>
-        </a>
-      </li>
-      <li>
-        <a href="actualites.html" class="sidebar-lien">
-          <svg class="sidebar-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 20H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v1m2 13a2 2 0 0 1-2-2V7m2 13a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2m-4-3H9M7 16h6M7 8h6m-6 4h6"></path></svg>
-          <span>Actualités</span>
-        </a>
-      </li>
-      <li>
-        <a href="galerie.html" class="sidebar-lien actif">
-          <svg class="sidebar-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-          <span>Galerie</span>
-        </a>
-      </li>
-      <li>
-        <a href="contact.html" class="sidebar-lien">
-          <svg class="sidebar-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          <span>Contact</span>
-        </a>
-      </li>
+      <li><a href="index.html" class="sidebar-lien"><span>Accueil</span></a></li>
+      <li><a href="historique.html" class="sidebar-lien"><span>Historique</span></a></li>
+      <li><a href="activites.html" class="sidebar-lien"><span>ActivitÃ©s</span></a></li>
+      <li><a href="actualites.html" class="sidebar-lien"><span>ActualitÃ©s</span></a></li>
+      <li><a href="galerie.html" class="sidebar-lien actif"><span>Galerie</span></a></li>
+      <li><a href="contact.html" class="sidebar-lien"><span>Contact</span></a></li>
     </ul>
-
-    <div class="sidebar-section-titre" style="margin-top: 24px;">Engagement</div>
+    <div class="sidebar-section-titre" style="margin-top: 24px;">Administration</div>
     <div class="sidebar-engagement-box">
-      <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="sidebar-bouton-rejoindre">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
-        <span>Groupe WhatsApp Officiel</span>
+      <a href="studio/index.html" class="sidebar-bouton-rejoindre" style="background: var(--or-gradient); color: var(--vert-sombre); font-weight: 800;">
+        <span>ðŸ” AccÃ©der au Studio</span>
       </a>
     </div>
   </div>
 
   <div class="sidebar-footer">
     <img loading="lazy" src="images/logo.png" alt="Logo AEEMCI" onerror="this.src='logo.png'">
-    <span>AEEMCI — Pour une identité islamique !</span>
+    <span>AEEMCI â€” Pour une identitÃ© islamique !</span>
   </div>
 </aside>
 
-<!-- ===== EN-TÊTE DE PAGE / HEADER ===== -->
+<!-- ===== EN-TÃŠTE DE PAGE / HEADER ===== -->
 <header class="entete-site">
   <div class="conteneur barre-navigation">
     <a href="index.html" class="logo-marque">
       <img loading="lazy" src="images/logo.png" alt="Logo AEEMCI" onerror="this.src='logo.png'">
       <div class="nom-organisation">
         <span class="sigle-aeemci">AEEMCI</span>
-        <span class="sous-sigle-koumassi">Sous-Comité de Koumassi</span>
+        <span class="sous-sigle-koumassi">Sous-ComitÃ© de Koumassi</span>
       </div>
     </a>
 
-    <button class="menu-burger" aria-label="Ouvrir le menu latéral" onclick="ouvrirSidebar()">
+    <button class="menu-burger" aria-label="Ouvrir le menu latÃ©ral" onclick="ouvrirSidebar()">
       <span></span>
       <span></span>
       <span></span>
@@ -103,107 +125,100 @@
     <nav class="menu-navigation">
       <a href="index.html">Accueil</a>
       <a href="historique.html">Historique</a>
-      <a href="activites.html">Activités</a>
-      <a href="actualites.html">Actualités</a>
+      <a href="activites.html">ActivitÃ©s</a>
+      <a href="actualites.html">ActualitÃ©s</a>
       <a href="galerie.html" class="actif">Galerie</a>
       <a href="contact.html">Contact</a>
-      <a href="contact.html#adhesion" class="bouton-cta-primaire">Rejoindre</a>
+      <a href="studio/index.html" class="bouton-cta-primaire" style="background: var(--or-gradient); color: var(--vert-sombre); font-weight: 800;">Studio Admin</a>
     </nav>
   </div>
 </header>
+
 <main>
 
-<!-- ===== BANNIÈRE GALERIE ===== -->
+<!-- ===== BANNIÃˆRE GALERIE ===== -->
 <section class="hero-moderne" style="padding: 60px 0;">
   <div class="conteneur texte-centre m-auto" style="max-width: 760px;">
-    <span class="badge-tag or">AEEMCI — Pour une identité islamique !</span>
+    <span class="badge-tag or">AEEMCI â€” Pour une identitÃ© islamique !</span>
     <h1 class="hero-titre" style="margin-top: 12px; font-size: clamp(2.2rem, 4vw, 3.2rem);">
-      Galerie &amp; <span class="or-accent">Médiathèque</span>
+      Galerie &amp; <span class="or-accent">MÃ©diathÃ¨que</span>
     </h1>
     <p class="hero-description m-auto" style="font-size: 1.1rem;">
-      Retrouvez l'ensemble des photos d'archives et des capsules vidéo du Sous-Comité AEEMCI de Koumassi regroupés dans un espace fluide, optimisé et sans aucun dysfonctionnement.
+      Espace officiel d'archivage visuel des Ã©vÃ©nements, formations et temps forts du Sous-ComitÃ© AEEMCI de Koumassi.
     </p>
   </div>
 </section>
 
-<!-- ===== GALERIE PHOTO GLOBALE UNIFIÉE (TOUTES LES IMAGES) ===== -->
+<!-- ===== GALERIE PHOTO DYNAMIQUE ===== -->
 <section class="section-piliers">
   <div class="conteneur">
 
-    <div style="margin-bottom: 30px;">
-      <span class="badge-tag or">Archives Photos</span>
-      <h2 style="font-size: 1.8rem; color: var(--vert-emeraude); margin-top: 6px;">Photothèque des Militants</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 30px;">
+      <div>
+        <span class="badge-tag or">PhotothÃ¨que Officielle</span>
+        <h2 style="font-size: 1.8rem; color: var(--vert-emeraude); margin-top: 6px;">Photos d'ActivitÃ©s</h2>
+      </div>
+      <div id="badgeCompteurPhotos" style="background: var(--vert-tendre); border: 1px solid var(--or); padding: 8px 16px; border-radius: 50px; font-size: 0.88rem; font-weight: 700; color: var(--vert-emeraude);">
+        ðŸ“· Chargement des photos...
+      </div>
     </div>
 
     <div id="container-galerie" class="grille-galerie-filtree">
       <!-- Les photos s'affichent dynamiquement ici depuis le Studio -->
     </div>
+
   </div>
 </section>
 
-<!-- ===== FOOTER EXÉCUTIF (DESIGN PRO 2026) ===== -->
+</main>
+
+<!-- ===== FOOTER EXÃ‰CUTIF ===== -->
 <footer class="pied-site">
   <div class="conteneur">
     <div class="grille-pied">
-      
-      <!-- Colonne 1 : Identité & Mission -->
       <div class="pied-colonne">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
           <img loading="lazy" src="images/logo.png" alt="Logo AEEMCI" style="height: 48px; width: 48px; border-radius: 50%; border: 2px solid var(--or);">
           <div>
-            <h3 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 800; font-family: var(--font-titre);">AEEMCI KOUMASSI</h3>
-            <span style="color: var(--or-clair); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Sous-Comité de Koumassi</span>
+            <h3 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 800;">AEEMCI KOUMASSI</h3>
+            <span style="color: var(--or-clair); font-size: 0.76rem; font-weight: 700; text-transform: uppercase;">Sous-ComitÃ© de Koumassi</span>
           </div>
         </div>
         <p style="font-size: 0.9rem; line-height: 1.65; color: rgba(255, 255, 255, 0.78); margin-bottom: 18px;">
-          Cultiver la foi, bâtir la réussite scolaire et promouvoir la solidarité parmi les élèves et étudiants musulmans de Koumassi.
+          Cultiver la foi, bÃ¢tir la rÃ©ussite scolaire et promouvoir la solidaritÃ© parmi les Ã©lÃ¨ves et Ã©tudiants musulmans de Koumassi.
         </p>
-        <span class="badge-tag or" style="font-size: 0.76rem;">« Ensemble nous sommes plus forts »</span>
+        <span class="badge-tag or" style="font-size: 0.76rem;">Â« Ensemble nous sommes plus forts Â»</span>
       </div>
 
-      <!-- Colonne 2 : Navigation Rapide -->
       <div class="pied-colonne">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="index.html">➔ Accueil</a></li>
-          <li><a href="historique.html">➔ Historique &amp; Devise</a></li>
-          <li><a href="activites.html">➔ Activités &amp; Formations</a></li>
-          <li><a href="actualites.html">➔ Actualités &amp; Événements</a></li>
-          <li><a href="galerie.html">➔ Galerie Média HD</a></li>
-          <li><a href="contact.html">➔ Contact &amp; Adhésion</a></li>
+          <li><a href="index.html">âž” Accueil</a></li>
+          <li><a href="historique.html">âž” Historique &amp; Devise</a></li>
+          <li><a href="activites.html">âž” ActivitÃ©s &amp; Formations</a></li>
+          <li><a href="actualites.html">âž” ActualitÃ©s &amp; Ã‰vÃ©nements</a></li>
+          <li><a href="galerie.html">âž” Galerie MÃ©dia HD</a></li>
+          <li><a href="contact.html">âž” Contact &amp; AdhÃ©sion</a></li>
         </ul>
       </div>
 
-      <!-- Colonne 3 : Siège & Coordonnées -->
       <div class="pied-colonne">
-        <h4>Siège &amp; Contact</h4>
+        <h4>SiÃ¨ge &amp; Contact</h4>
         <ul>
-          <li><span style="color: var(--or-clair); font-weight: 700;">📍 Localisation :</span> Koumassi, Abidjan</li>
-          <li><span style="color: var(--or-clair); font-weight: 700;">📞 Contacts :</span> +225 05 45 30 51 80 / 07 57 47 73 72</li>
-          <li><span style="color: var(--or-clair); font-weight: 700;">✉️ Email :</span> aeemci.koumassi@gmail.com</li>
-          <li><span style="color: var(--or-clair); font-weight: 700;">⏰ Réunions :</span> Chaque Samedi (IST-ISG La Colombe)</li>
+          <li><span style="color: var(--or-clair); font-weight: 700;">ðŸ“ Localisation :</span> Koumassi, Abidjan</li>
+          <li><span style="color: var(--or-clair); font-weight: 700;">ðŸ“ž Contacts :</span> +225 05 45 30 51 80 / 07 57 47 73 72</li>
+          <li><span style="color: var(--or-clair); font-weight: 700;">âœ‰ï¸ Email :</span> aeemci.koumassi@gmail.com</li>
+          <li><span style="color: var(--or-clair); font-weight: 700;">â° RÃ©unions :</span> Chaque Samedi (IST-ISG La Colombe)</li>
         </ul>
       </div>
-
-      
-
     </div>
 
-    <!-- Bas du Pied de Page -->
     <div class="bas-pied-site">
-      <p>© 2025 - 2026 AEEMCI Sous-Comité de Koumassi. Tous droits réservés.</p>
-      <span style="color: var(--or-clair); font-weight: 700; font-size: 0.82rem; background: rgba(212, 175, 55, 0.12); padding: 5px 14px; border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.3);">🟢 Mandat Exécutif 2025–2026</span>
+      <p>Â© 2025 - 2026 AEEMCI Sous-ComitÃ© de Koumassi. Tous droits rÃ©servÃ©s.</p>
+      <span style="color: var(--or-clair); font-weight: 700; font-size: 0.82rem; background: rgba(212, 175, 55, 0.12); padding: 5px 14px; border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.3);">ðŸŸ¢ Mandat ExÃ©cutif 2025â€“2026</span>
     </div>
   </div>
 </footer>
-
-<!-- ===== BOUTON FLOTTANT WHATSAPP GLOBAL ===== -->
-<a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="widget-whatsapp-flottant" aria-label="Rejoindre le Groupe WhatsApp Officiel">
-  <div class="bulle-whatsapp-texte">Besoin d'aide ? Écrivez-nous sur WhatsApp</div>
-  <div class="icone-whatsapp-cercle">
-    <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-  </div>
-</a>
 
 <script>
 function ouvrirSidebar() {
@@ -238,27 +253,36 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Injection dynamique des photos importees via AEEMCI Studio dans la Galerie Web
 function chargerGalerieStudio() {
-  var grille = document.querySelector('.grille-galerie-filtree');
+  var grille = document.getElementById('container-galerie');
+  var badgeCounter = document.getElementById('badgeCompteurPhotos');
   if (!grille) return;
 
-  var listeGalerie = JSON.parse(localStorage.getItem('aeemci_galerie_custom') || '[]');
-  listeGalerie.forEach(function(item) {
-    var carte = document.createElement('div');
-    carte.className = 'carte-galerie-item';
-    carte.setAttribute('data-categorie', (item.categorie || 'formation').toLowerCase());
-    carte.innerHTML = '<a href="' + item.photo + '" class="glightbox" data-gallery="galerie-aeemci" data-title="' + item.titre + '"><div class="carte-galerie-image-box"><img src="' + item.photo + '" alt="' + item.titre + '" loading="lazy" onerror="this.src=\'images/logo.png\';"><div class="carte-galerie-survol"><span class="badge-galerie-tag">' + (item.categorie || 'Photos') + '</span><h3 class="carte-galerie-titre">' + item.titre + '</h3></div></div></a>';
-    grille.prepend(carte);
-  });
+  var cmsGalerie = JSON.parse(localStorage.getItem('aeemci_cms_galerie') || '[]');
+  var customGalerie = JSON.parse(localStorage.getItem('aeemci_galerie_custom') || '[]');
+  
+  var toDisplay = (cmsGalerie && cmsGalerie.length > 0) ? cmsGalerie : customGalerie;
 
-  if (typeof GLightbox !== 'undefined') {
-    GLightbox({ selector: '.glightbox' });
+  grille.innerHTML = '';
+
+  if (toDisplay && toDisplay.length > 0) {
+    if (badgeCounter) badgeCounter.textContent = 'ðŸ“· ' + toDisplay.length + ' photo(s) publiÃ©e(s)';
+    
+    toDisplay.forEach(function(item) {
+      var carte = document.createElement('div');
+      carte.className = 'carte-galerie-item';
+      var photoUrl = item.url || item.photo;
+      carte.innerHTML = '<a href="' + photoUrl + '" target="_blank" class="glightbox"><div class="carte-galerie-image-box"><img src="' + photoUrl + '" alt="' + (item.titre || 'Photo AEEMCI') + '" loading="lazy" onerror="this.src=\'images/logo.png\';"><div class="carte-galerie-survol"><span class="badge-galerie-tag">' + (item.categorie || 'PhotothÃ¨que') + '</span><h3 class="carte-galerie-titre">' + (item.titre || 'AEEMCI Koumassi') + '</h3></div></div></a>';
+      grille.appendChild(carte);
+    });
+  } else {
+    if (badgeCounter) badgeCounter.textContent = 'ðŸ“· 0 photo publiÃ©e';
+    
+    grille.innerHTML = '<div class="empty-gallery-card"><div class="empty-gallery-icon">ðŸ“¸</div><h3 class="empty-gallery-title">Aucune photo dans la galerie pour le moment</h3><p class="empty-gallery-desc">Les nouvelles photos d\'activitÃ©s, sÃ©minaires et rassemblements tÃ©lÃ©versÃ©es depuis le Studio AEEMCI s\'afficheront ici en haute dÃ©finition.</p><a href="studio/index.html" class="btn-studio-upload"><span>ðŸ” AccÃ©der au Studio d\'Administration</span></a></div>';
   }
 }
 chargerGalerieStudio();
 </script>
-
 <script src="js/main.js"></script>
 </body>
 </html>
