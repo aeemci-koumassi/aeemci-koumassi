@@ -1,16 +1,15 @@
-/* ==========================================================================
-   SITE PUBLIC AEEMCI KOUMASSI — SCRIPT DE SYNCHRONISATION DYNAMIQUE (MAIN.JS)
+﻿/* ==========================================================================
+   SITE PUBLIC AEEMCI KOUMASSI â€” SCRIPT DE SYNCHRONISATION DYNAMIQUE (MAIN.JS 2026)
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
   lancerSynchronisationGlobale();
   initialiserAnimationsScroll();
   initialiserCompteursChiffres();
-  initialiserCompteAReboursAutomatique();
+  initialiserBlocProchainsEvenements();
 });
 
-
-// Écouteurs d'événements temps réel pour mise à jour instantanée sans rechargement de page
+// Ã‰couteurs d'Ã©vÃ©nements temps rÃ©el pour mise Ã  jour instantanÃ©e sans rechargement de page
 window.addEventListener('storage', function() {
   lancerSynchronisationGlobale();
 });
@@ -19,22 +18,16 @@ window.addEventListener('focus', function() {
   lancerSynchronisationGlobale();
 });
 
-// Gestion du cache pour éviter les appels API excessifs
+// Cache lÃ©ger local
 const CMS_CACHE = {
   lastFetch: 0,
-  ttl: 5 * 60 * 1000, // 5 minutes
-  isExpired: function() {
-    return Date.now() - this.lastFetch > this.ttl;
-  },
-  updateTimestamp: function() {
-    this.lastFetch = Date.now();
-  }
+  ttl: 5 * 60 * 1000,
+  isExpired: function() { return Date.now() - this.lastFetch > this.ttl; },
+  updateTimestamp: function() { this.lastFetch = Date.now(); }
 };
 
 async function lancerSynchronisationGlobale() {
   if (!CMS_CACHE.isExpired()) {
-    console.log("Données CMS encore fraîches, synchronisation légère...");
-    // On synchronise quand même les stats qui peuvent changer souvent
     await synchroniserStatistiquesPublic();
     return;
   }
@@ -48,7 +41,7 @@ async function lancerSynchronisationGlobale() {
   CMS_CACHE.updateTimestamp();
 }
 
-// 1. Synchronisation de la Présidence & Mot du Président
+// 1. Synchronisation de la PrÃ©sidence & Mot du PrÃ©sident
 async function synchroniserBureauPublic() {
   let bureau = await window.cmsRead.fetchSection('bureau');
   if (!bureau) {
@@ -59,7 +52,6 @@ async function synchroniserBureauPublic() {
   if (!bureau) return;
 
   try {
-
     const nomEls = document.querySelectorAll('#site-nom-president, #publicPresidentNom, .carte-president .nom-president');
     const titreEls = document.querySelectorAll('#site-titre-president, #publicPresidentTitre');
     const mandatEls = document.querySelectorAll('#site-mandat-president');
@@ -71,13 +63,12 @@ async function synchroniserBureauPublic() {
     if (bureau.presidentMandat) mandatEls.forEach(el => el.textContent = bureau.presidentMandat);
     if (bureau.presidentMot) motEls.forEach(el => el.textContent = bureau.presidentMot);
     if (bureau.presidentPhoto) photoEls.forEach(el => el.src = bureau.presidentPhoto);
-
   } catch (e) {
-    console.warn("Mise à jour dynamique de la présidence ignorée.");
+    console.warn("Mise Ã  jour dynamique de la prÃ©sidence ignorÃ©e.");
   }
 }
 
-// 2. Synchronisation Dynamique des Événements & Actualités
+// 2. Synchronisation Dynamique des Ã‰vÃ©nements & ActualitÃ©s
 async function synchroniserActualitesPublic() {
   let actualites = await window.cmsRead.fetchSection('actualites');
   const cmsRaw = localStorage.getItem('aeemci_cms_actualites');
@@ -96,7 +87,7 @@ async function synchroniserActualitesPublic() {
           actualites.unshift({
             id: Date.now(),
             titre: c.titre,
-            categorie: c.badge || 'ÉVÉNEMENT',
+            categorie: c.badge || 'Ã‰VÃ‰NEMENT',
             date: c.date || 'Prochainement',
             lieu: c.lieu || 'Koumassi',
             description: c.desc || c.description,
@@ -107,19 +98,6 @@ async function synchroniserActualitesPublic() {
     }
   } catch(e){}
 
-  const prochainActu = actualites.find(a => (a.categorie && a.categorie.toUpperCase().includes('PROCHAIN')) || (a.badge && a.badge.toUpperCase().includes('PROCHAIN')));
-  if (prochainActu) {
-    const heroImg = document.getElementById('hero-actu-image');
-    const heroTitre = document.getElementById('hero-actu-titre');
-    const heroTheme = document.getElementById('hero-actu-theme');
-    const heroDetails = document.getElementById('hero-actu-details');
-
-    if (heroImg && prochainActu.image) heroImg.src = prochainActu.image;
-    if (heroTitre && prochainActu.titre) heroTitre.textContent = prochainActu.titre;
-    if (heroTheme && prochainActu.description) heroTheme.textContent = "Thème : « " + prochainActu.description + " »";
-    if (heroDetails) heroDetails.textContent = `📍 ${prochainActu.lieu || 'Koumassi'} • ${prochainActu.date || 'Prochainement'}`;
-  }
-
   const container = document.getElementById('container-actualites') || document.getElementById('publicNewsContainer') || document.querySelector('.grille-actualites-cartes');
 
   if (container && actualites.length > 0) {
@@ -127,17 +105,17 @@ async function synchroniserActualitesPublic() {
     actualites.forEach(actu => {
       const article = document.createElement('article');
       article.className = 'carte-actualite-moderne';
-      article.innerHTML = `
+      article.innerHTML = 
         <div class="carte-actu-image">
-          <span class="carte-actu-badge or">${actu.categorie || 'ÉVÉNEMENT'}</span>
-          <img src="${actu.image || 'images/logo.png'}" alt="${actu.titre}" loading="lazy" onerror="this.src='images/logo.png';">
+          <span class="carte-actu-badge or"></span>
+          <img src="" alt="" loading="lazy" onerror="this.src='images/logo.png';">
         </div>
         <div class="carte-actu-corps">
-          <span class="carte-actu-date">📅 ${actu.date} ${actu.lieu ? '• 📍 ' + actu.lieu : ''}</span>
-          <h3 class="carte-actu-titre">${actu.titre}</h3>
-          <p class="carte-actu-desc">${actu.description}</p>
+          <span class="carte-actu-date">ðŸ“…  </span>
+          <h3 class="carte-actu-titre"></h3>
+          <p class="carte-actu-desc"></p>
         </div>
-      `;
+      ;
       container.appendChild(article);
     });
   }
@@ -155,30 +133,29 @@ async function synchroniserFormationsPublic() {
   try {
     const container = document.getElementById('container-formations') || document.getElementById('publicFormationsContainer') || document.querySelector('.grille-formations');
 
-
     if (container && formations && formations.length > 0) {
       container.innerHTML = '';
       formations.forEach(f => {
         const item = document.createElement('div');
         item.className = 'carte-formation-item';
         item.style.cssText = "border: 1px solid var(--bordure-carte); border-radius: 16px; padding: 24px; background: #FFFFFF; box-shadow: var(--ombre-carte); display: flex; flex-direction: column; justify-content: space-between;";
-        item.innerHTML = `
+        item.innerHTML = 
           <div>
             <span class="badge-tag or" style="margin-bottom: 10px; display: inline-block;">Module Officiel</span>
-            <h3 style="font-size: 1.2rem; color: var(--vert-emeraude); font-weight: 800; margin-bottom: 8px;">${f.intitule}</h3>
-            <p style="font-size: 0.9rem; color: var(--texte-doux); line-height: 1.6; margin-bottom: 16px;">${f.description}</p>
+            <h3 style="font-size: 1.2rem; color: var(--vert-emeraude); font-weight: 800; margin-bottom: 8px;"></h3>
+            <p style="font-size: 0.9rem; color: var(--texte-doux); line-height: 1.6; margin-bottom: 16px;"></p>
           </div>
           <div>
-            <a href="${f.lien || 'https://wa.me/2250545305180'}" target="_blank" class="bouton-action-contour" style="width: 100%; justify-content: center; font-weight: 700;">
-              Réserver ma place sur WhatsApp →
+            <a href="" target="_blank" rel="noopener" class="bouton-action-contour" style="width: 100%; justify-content: center; font-weight: 700;">
+              RÃ©server ma place sur WhatsApp â†’
             </a>
           </div>
-        `;
+        ;
         container.appendChild(item);
       });
     }
   } catch (e) {
-    console.warn("Mise à jour des formations ignorée.");
+    console.warn("Mise Ã  jour des formations ignorÃ©e.");
   }
 }
 
@@ -199,11 +176,11 @@ async function synchroniserStatistiquesPublic() {
       statMilitants.textContent = totalValides + '+';
     }
   } catch (e) {
-    console.warn("Mise à jour des statistiques ignorée.");
+    console.warn("Mise Ã  jour des statistiques ignorÃ©e.");
   }
 }
 
-// 5. Synchronisation des Photos de la Galerie Uploadées depuis le Studio
+// 5. Synchronisation Galerie
 async function synchroniserGaleriePublic() {
   let listCMS = await window.cmsRead.fetchSection('galerie');
   const cmsRaw = localStorage.getItem('aeemci_cms_galerie');
@@ -235,19 +212,19 @@ async function synchroniserGaleriePublic() {
       const src = photo.url || photo.photo;
       const item = document.createElement('div');
       item.className = 'carte-galerie-item carte-galerie-dynamique-studio';
-      item.innerHTML = `
-        <img src="${src}" alt="${photo.titre || 'Photo AEEMCI Koumassi'}" loading="lazy" onerror="this.src='images/logo.png';">
+      item.innerHTML = 
+        <img src="" alt="" loading="lazy" onerror="this.src='images/logo.png';">
         <div class="carte-galerie-overlay">
-          <span class="carte-galerie-cat">Nouveau • Activité Koumassi</span>
-          <h3 class="carte-galerie-titre">${photo.titre || 'Activité Koumassi'}</h3>
+          <span class="carte-galerie-cat">Nouveau â€¢ ActivitÃ© Koumassi</span>
+          <h3 class="carte-galerie-titre"></h3>
         </div>
-      `;
+      ;
       container.insertBefore(item, container.firstChild);
     });
   }
 }
 
-// 6. Synchronisation des Coordonnées Officielles & Footer
+// 6. Synchronisation CoordonnÃ©es
 async function synchroniserContactPublic() {
   let contact = await window.cmsRead.fetchSection('contact');
   const contactRaw = localStorage.getItem('aeemci_cms_contact');
@@ -257,7 +234,6 @@ async function synchroniserContactPublic() {
   if (!contact) return;
 
   try {
-
     const adresseEls = document.querySelectorAll('#site-contact-adresse, #publicFooterAdresse, .contact-adresse-txt');
     const tel1Els = document.querySelectorAll('#site-contact-phone, #publicFooterTel, .contact-tel-txt');
     const emailEls = document.querySelectorAll('#site-contact-email, #publicFooterEmail, .contact-email-txt');
@@ -267,21 +243,18 @@ async function synchroniserContactPublic() {
     adresseEls.forEach(el => el.textContent = contact.adresse || 'Koumassi, Abidjan');
     tel1Els.forEach(el => el.textContent = (contact.tel1 ? contact.tel1 : '') + (contact.tel2 ? ' / ' + contact.tel2 : ''));
     emailEls.forEach(el => el.textContent = contact.email || 'aeemci.koumassi@gmail.com');
-    horairesEls.forEach(el => el.textContent = contact.horaires || 'Chaque Samedi à 15H00');
+    horairesEls.forEach(el => el.textContent = contact.horaires || 'Chaque Samedi Ã  15H00');
     if (contact.whatsappLink) {
       whatsappLinks.forEach(a => a.href = contact.whatsappLink);
     }
   } catch (e) {
-    console.warn("Mise à jour des coordonnées du footer ignorée.");
+    console.warn("Mise Ã  jour des coordonnÃ©es du footer ignorÃ©e.");
   }
 }
 
-// 7. Initialisation des Animations de Révélation au Défilement (Premium Polish)
+// 7. Animations au DÃ©filement
 function initialiserAnimationsScroll() {
-  const observerOptions = {
-    threshold: 0.15 // Déclenche quand 15% de l'élément est visible
-  };
-
+  const observerOptions = { threshold: 0.15 };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -297,7 +270,7 @@ function initialiserAnimationsScroll() {
   });
 }
 
-// 8. Animation dynamique de comptage pour les Chiffres Clés (Impact)
+// 8. Animations Compteurs
 function initialiserCompteursChiffres() {
   const elements = document.querySelectorAll('.nombre-chiffre-cle[data-compteur]');
   if (elements.length === 0) return;
@@ -327,103 +300,148 @@ function animerCompteur(el) {
   const timer = setInterval(() => {
     depart += increment;
     if (depart >= cible) {
-      el.textContent = `${prefix}${cible}${suffix}`;
+      el.textContent = ${prefix};
       clearInterval(timer);
     } else {
-      el.textContent = `${prefix}${Math.floor(depart)}${suffix}`;
+      el.textContent = ${prefix};
     }
   }, pasTemps);
 }
 
-// 9. Gestion Automatique du Compte à Rebours & Masquage Automatique au Jour J / Échéance
-function initialiserCompteAReboursAutomatique() {
-  const sectionWidget = document.getElementById('section-widget-evenement');
-  if (!sectionWidget) return;
-
-  function obtenirDateCible() {
-    // 1. Essayer de lire la date configurée dans le CMS Config
-    const configRaw = localStorage.getItem('aeemci_cms_config');
-    if (configRaw) {
-      try {
-        const config = JSON.parse(configRaw);
-        if (config.maouloudDate) {
-          const d = new Date(config.maouloudDate);
-          if (!isNaN(d.getTime())) return d.getTime();
-        }
-      } catch(e) {}
-    }
-
-    // 2. Sinon lire la date du prochain événement en cours
-    const actusRaw = localStorage.getItem('aeemci_cms_actualites');
-    if (actusRaw) {
-      try {
-        const actus = JSON.parse(actusRaw);
-        const prochain = actus.find(a => (a.categorie && a.categorie.toUpperCase().includes('PROCHAIN')) || (a.badge && a.badge.toUpperCase().includes('PROCHAIN')));
-        if (prochain && prochain.date) {
-          const parsed = Date.parse(prochain.date);
-          if (!isNaN(parsed)) return parsed;
-        }
-      } catch(e) {}
-    }
-
-    // 3. Date par défaut : Lancement Officiel Soutien Scolaire BEPC & BAC 2026 (01 Septembre 2026 08H00)
-    return new Date('2026-09-01T08:00:00').getTime();
+// 9. SYSTEM DYNAMIQUE PROCHAINS Ã‰VÃ‰NEMENTS (SANS COMPTE Ã€ REBOURS BLOQUÃ‰ + MASQUAGE AUTOMATIQUE DES Ã‰VÃ‰NEMENTS PASSÃ‰S)
+window.PROCHAINS_EVENEMENTS = [
+  {
+    id: 1,
+    titre: "Nuit Du MAHOULOUD 2026",
+    badge: "PROCHAIN Ã‰VÃ‰NEMENT",
+    dateISO: "2026-10-25T20:00:00",
+    dateAffichee: "Nuit du 25 au 26 Octobre 2026 â€¢ DÃ¨s 20H00",
+    lieu: "CollÃ¨ge Moderne La Colombe, Koumassi",
+    theme: "Le Sermon d'Adieu : enseignements et leÃ§ons pour le jeune musulman",
+    image: "images/maouloud.jpg",
+    lienWhatsApp: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
+  },
+  {
+    id: 2,
+    titre: "JournÃ©e de l'Excellence & de la Culture 2026",
+    badge: "EXCELLENCE",
+    dateISO: "2026-11-15T09:00:00",
+    dateAffichee: "Dimanche 15 Novembre 2026 Ã  09H00",
+    lieu: "CollÃ¨ge Moderne La Colombe, Koumassi",
+    theme: "RÃ©compense des laurÃ©ats aux examens scolaires et concours coraniques de Koumassi",
+    image: "images/journee-excellence.jpg",
+    lienWhatsApp: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
   }
+];
 
-  function mettreAJourChronometre() {
-    const targetTime = obtenirDateCible();
-    const now = Date.now();
-    const diff = targetTime - now;
+function initialiserBlocProchainsEvenements() {
+  const container = document.getElementById('section-widget-evenement');
+  if (!container) return;
 
-    // ⚠️ Si la date est arrivée (Jour J) ou déjà passée (diff <= 0) -> Masquage automatique immédiat du widget !
-    if (diff <= 0) {
-      sectionWidget.style.display = 'none';
-      return;
+  const now = Date.now();
+  // Filtrage automatique : conserver uniquement les Ã©vÃ©nements futurs (dateISO >= now)
+  const evenementsFuturs = window.PROCHAINS_EVENEMENTS.filter(item => {
+    const time = new Date(item.dateISO).getTime();
+    return !isNaN(time) && time > now;
+  }).sort((a, b) => new Date(a.dateISO).getTime() - new Date(b.dateISO).getTime());
+
+  if (evenementsFuturs.length > 0) {
+    const prochain = evenementsFuturs[0];
+    const targetTime = new Date(prochain.dateISO).getTime();
+
+    container.innerHTML = 
+      <div class="conteneur">
+        <div class="banniere-evenement-compteur">
+          <div style="position: relative; cursor: pointer;">
+            <img id="hero-actu-image" loading="lazy" src="" alt="" style="width: 95px; height: 125px; object-fit: cover; border-radius: 12px; border: 2px solid var(--or); box-shadow: 0 8px 20px rgba(0,0,0,0.3);" onerror="this.src='images/logo.png';">
+          </div>
+          <div style="flex: 1;">
+            <span class="badge-tag or" style="margin-bottom: 8px; font-weight: 800;"></span>
+            <h3 style="font-size: 1.45rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 6px;"></h3>
+            <div style="font-size: 0.92rem; color: var(--or-clair); font-weight: 700; margin-bottom: 6px;">
+              ThÃ¨me : Â«  Â»
+            </div>
+            <p style="color: rgba(255,255,255,0.9); font-size: 0.88rem; margin: 0;">
+              ðŸ“  â€¢ ðŸ“… 
+            </p>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+            <div class="compte-rebours-box">
+              <div class="chronometre-unite">
+                <div class="chronometre-valeur" id="compteurJours">00</div>
+                <div class="chronometre-label">Jours</div>
+              </div>
+              <div class="chronometre-unite">
+                <div class="chronometre-valeur" id="compteurHeures">00</div>
+                <div class="chronometre-label">Heures</div>
+              </div>
+              <div class="chronometre-unite">
+                <div class="chronometre-valeur" id="compteurMinutes">00</div>
+                <div class="chronometre-label">Min</div>
+              </div>
+              <div class="chronometre-unite">
+                <div class="chronometre-valeur" id="compteurSecondes">00</div>
+                <div class="chronometre-label">Sec</div>
+              </div>
+            </div>
+            <a href="" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem; font-weight: 800; border-radius: 30px;">
+              S'inscrire via WhatsApp â†’
+            </a>
+          </div>
+        </div>
+      </div>
+    ;
+
+    function demarrerChrono() {
+      const diff = targetTime - Date.now();
+      if (diff <= 0) {
+        initialiserBlocProchainsEvenements();
+        return;
+      }
+      const totalSec = Math.floor(diff / 1000);
+      const j = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = Math.floor(totalSec % 60);
+
+      const elJ = document.getElementById('compteurJours');
+      const elH = document.getElementById('compteurHeures');
+      const elM = document.getElementById('compteurMinutes');
+      const elS = document.getElementById('compteurSecondes');
+
+      if (elJ) elJ.textContent = String(j).padStart(2, '0');
+      if (elH) elH.textContent = String(h).padStart(2, '0');
+      if (elM) elM.textContent = String(m).padStart(2, '0');
+      if (elS) elS.textContent = String(s).padStart(2, '0');
     }
 
-    // L'événement est à venir -> Le widget reste affiché et le compte à rebours tourne en direct
-    sectionWidget.style.display = 'block';
-
-    const totalSeconds = Math.floor(diff / 1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = Math.floor(totalSeconds % 60);
-
-    const elJours = document.getElementById('compteurJours');
-    const elHeures = document.getElementById('compteurHeures');
-    const elMin = document.getElementById('compteurMinutes');
-    const elSec = document.getElementById('compteurSecondes');
-
-    if (elJours) elJours.textContent = String(days).padStart(2, '0');
-    if (elHeures) elHeures.textContent = String(hours).padStart(2, '0');
-    if (elMin) elMin.textContent = String(minutes).padStart(2, '0');
-    if (elSec) elSec.textContent = String(seconds).padStart(2, '0');
+    demarrerChrono();
+    setInterval(demarrerChrono, 1000);
+  } else {
+    // Si aucun Ã©vÃ©nement futur n'est trouvÃ©, afficher la banniÃ¨re d'information claire
+    container.innerHTML = 
+      <div class="conteneur">
+        <div class="banniere-evenement-compteur" style="justify-content: space-between; gap: 20px;">
+          <div>
+            <span class="badge-tag or" style="margin-bottom: 8px;">Agenda du Sous-ComitÃ©</span>
+            <h3 style="font-size: 1.35rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px;">Prochants Ã‰vÃ©nements &amp; Rassemblements</h3>
+            <p style="color: rgba(255,255,255,0.9); font-size: 0.92rem; margin: 0;">
+              Le calendrier des prochains sÃ©minaires et confÃ©rences sera publiÃ© sous peu. Rejoignez notre groupe WhatsApp officiel pour recevoir les invitations en direct !
+            </p>
+          </div>
+          <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 12px 24px; font-size: 0.92rem; font-weight: 800; border-radius: 30px; white-space: nowrap;">
+            Rejoindre sur WhatsApp â†’
+          </a>
+        </div>
+      </div>
+    ;
   }
-
-  mettreAJourChronometre();
-  setInterval(mettreAJourChronometre, 1000);
 }
 
-// 10. Accès Discret Administrateur (Raccourci Secret Ctrl + Shift + A & Triple Clic Copyright)
+// 10. AccÃ¨s Raccourci Studio (Ctrl + Shift + A)
 document.addEventListener('keydown', function(e) {
   if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
     e.preventDefault();
     window.location.href = 'studio/index.html';
-  }
-});
-
-let nbClicsFooter = 0;
-let timerClicsFooter = null;
-document.addEventListener('click', function(e) {
-  if (e.target && (e.target.closest('.bas-pied-site') || e.target.closest('footer'))) {
-    nbClicsFooter++;
-    clearTimeout(timerClicsFooter);
-    if (nbClicsFooter >= 4) {
-      nbClicsFooter = 0;
-      window.location.href = 'studio/index.html';
-    } else {
-      timerClicsFooter = setTimeout(() => { nbClicsFooter = 0; }, 1200);
-    }
   }
 });
