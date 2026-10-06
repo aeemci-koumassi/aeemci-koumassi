@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Studio AEEMCI â€” Creator & Administrative Dashboard (Koumassi)</title>
-  <link rel="stylesheet" href="studio.css?v=20261007_pro">
+  <link rel="stylesheet" href="studio.css?v=20261007_v3">
   <link rel="icon" href="../images/logo.png" type="image/png">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-client.js?v=20261007_pro"></script>
-  <script src="js/auth-guard.js?v=20261007_pro"></script>
+  <script src="js/supabase-client.js?v=20261007_v3"></script>
+  <script src="js/auth-guard.js?v=20261007_v3"></script>
 </head>
 <body>
 <div id="toast-container"></div>
@@ -41,10 +41,10 @@
         <span class="nav-badge" id="sidebarBadgeAttente">0</span>
       </a>
 
-      <a class="nav-item" onclick="changerOngletStudio('tab-evenements', this)">
+      <a class="nav-item" onclick="changerOngletStudio('tab-Ã©vÃ©nements', this)">
         <div class="nav-item-gauche">
           <span class="nav-icone">ðŸŽ¬</span>
-          <span>Contenu &amp; ActualitÃ©s</span>
+          <span>Contenu &amp; Actualités</span>
         </div>
       </a>
 
@@ -58,7 +58,7 @@
       <a class="nav-item" onclick="changerOngletStudio('tab-galerie', this)">
         <div class="nav-item-gauche">
           <span class="nav-icone">ðŸ“¸</span>
-          <span>MÃ©diathÃ¨que Asset</span>
+          <span>Médiathèque Asset</span>
         </div>
       </a>
 
@@ -72,7 +72,7 @@
       <a class="nav-item" onclick="changerOngletStudio('tab-parametres', this)">
         <div class="nav-item-gauche">
           <span class="nav-icone">âš™ï¸</span>
-          <span>Bureau &amp; RÃ´les</span>
+          <span>Bureau &amp; Rôles</span>
         </div>
       </a>
     </nav>
@@ -82,10 +82,10 @@
         <div class="user-avatar" id="topUserInitials">SM</div>
         <div class="user-info">
           <h4 id="topUserName">Sow Mohamed</h4>
-          <span id="topUserRole">PrÃ©sident ExÃ©cutif</span>
+          <span id="topUserRole">Président Exécutif</span>
         </div>
       </div>
-      <button class="btn-logout" onclick="window.studioAuth.logout()" title="DÃ©connexion du Studio">ðŸšª</button>
+      <button class="btn-logout" onclick="window.studioAuth.logout()" title="Déconnexion du Studio">ðŸšª</button>
     </div>
   </aside>
 
@@ -96,7 +96,7 @@
     <header class="studio-topbar">
       <div class="topbar-recherche">
         <span>ðŸ”</span>
-        <input type="text" id="studioSearchGlobal" placeholder="Rechercher dans le Studio (Militants, Ã‰vÃ©nements...)..." onkeyup="rechercherStudioGlobal(this.value)">
+        <input type="text" id="studioSearchGlobal" placeholder="Rechercher dans le Studio (Militants, Ã‰vénements...)..." onkeyup="rechercherStudioGlobal(this.value)">
       </div>
 
       <div class="topbar-actions">
@@ -113,8 +113,8 @@
             <span style="font-size: 0.75rem; margin-left: 2px;">â–¼</span>
           </button>
           <div class="menu-creer-dropdown" id="menuCreerDropdown">
-            <a onclick="ouvrirModalAjoutEvenement(); toggleMenuCreer();">ðŸŽ¬ Publier un Ã‰vÃ©nement</a>
-            <a onclick="changerOngletStudio('tab-galerie'); toggleMenuCreer();">ðŸ“¸ TÃ©lÃ©verser des Photos (MÃ©diathÃ¨que)</a>
+            <a onclick="ouvrirModalAjoutEvenement(); toggleMenuCreer();">ðŸŽ¬ Publier un Ã‰vénement</a>
+            <a onclick="changerOngletStudio('tab-galerie'); toggleMenuCreer();">ðŸ“¸ Téléverser des Photos (Médiathèque)</a>
             <a onclick="changerOngletStudio('tab-formations'); toggleMenuCreer();">ðŸŽ“ Ajouter un Module de Formation</a>
             <a onclick="ouvrirModalMembreBureau(); toggleMenuCreer();">ðŸ‘¤ Membre du Bureau</a>
           </div>
@@ -137,14 +137,14 @@
           <div class="creator-header">
             <img src="../images/logo.png" alt="Logo AEEMCI" onerror="this.src='../logo.png'" class="creator-avatar">
             <div>
-              <h2 class="creator-title">Sous-ComitÃ© AEEMCI Koumassi <span class="badge-verifie">âœ” Officiel</span></h2>
-              <p class="creator-subtitle">Tableau de bord crÃ©ateur &amp; d'administration du Sous-ComitÃ© â€¢ Mandat 2025â€“2026</p>
+              <h2 class="creator-title">Sous-Comité AEEMCI Koumassi <span class="badge-verifie">âœ” Officiel</span></h2>
+              <p class="creator-subtitle">Tableau de bord créateur &amp; d'administration du Sous-Comité â€¢ Mandat 2025â€“2026</p>
             </div>
           </div>
           <div class="creator-metrics">
             <div class="metric-item">
               <span class="metric-valeur">+500</span>
-              <span class="metric-label">Militants EncadrÃ©s</span>
+              <span class="metric-label">Militants Encadrés</span>
             </div>
             <div class="metric-divider"></div>
             <div class="metric-item">
@@ -154,7 +154,7 @@
             <div class="metric-divider"></div>
             <div class="metric-item">
               <span class="metric-valeur">100%</span>
-              <span class="metric-label">DisponibilitÃ© HD</span>
+              <span class="metric-label">Disponibilité HD</span>
             </div>
           </div>
         </div>
@@ -162,9 +162,9 @@
         <div class="grille-kpi">
           <div class="carte-kpi">
             <div class="kpi-infos">
-              <h3>Militants EnregistrÃ©s</h3>
+              <h3>Militants Enregistrés</h3>
               <div class="kpi-valeur" id="kpiOverviewTotal">500</div>
-              <span class="kpi-tendance"> ValidÃ©s &amp; Actifs</span>
+              <span class="kpi-tendance"> Validés &amp; Actifs</span>
             </div>
             <div class="kpi-icone-box">ðŸ‘¥</div>
           </div>
@@ -180,9 +180,9 @@
 
           <div class="carte-kpi">
             <div class="kpi-infos">
-              <h3>Ã‰vÃ©nements PubliÃ©s</h3>
+              <h3>Ã‰vénements Publiés</h3>
               <div class="kpi-valeur" id="kpiOverviewEvents">6</div>
-              <span class="kpi-tendance"> Synchro Temps RÃ©el</span>
+              <span class="kpi-tendance"> Synchro Temps Réel</span>
             </div>
             <div class="kpi-icone-box">ðŸŽ¬</div>
           </div>
@@ -201,7 +201,7 @@
         <div class="carte-tableau">
           <div class="tableau-header">
             <div class="tableau-titre">
-              <h3>DerniÃ¨res Demandes d'AdhÃ©sion Militants</h3>
+              <h3>Dernières Demandes d'Adhésion Militants</h3>
             </div>
             <button class="bouton-action-contour" onclick="changerOngletStudio('tab-militants')">Voir le Registre Complet âž”</button>
           </div>
@@ -209,7 +209,7 @@
             <table class="studio-table">
               <thead>
                 <tr>
-                  <th>Nom &amp; PrÃ©noms</th>
+                  <th>Nom &amp; Prénoms</th>
                   <th>Quartier (Koumassi)</th>
                   <th>Ã‰tablissement</th>
                   <th>WhatsApp</th>
@@ -229,8 +229,8 @@
       <section id="tab-militants" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
-            <h1>Registre GÃ©nÃ©ral des Militants</h1>
-            <p>Gestion et validation des adhÃ©sions d'Ã©lÃ¨ves et Ã©tudiants Ã  Koumassi.</p>
+            <h1>Registre Général des Militants</h1>
+            <p>Gestion et validation des adhésions d'élèves et étudiants à Koumassi.</p>
           </div>
           <button class="bouton-action-pro" onclick="exporterMilitantsExcel()">
             <span>ðŸ“¥</span>
@@ -241,19 +241,19 @@
         <div class="carte-tableau">
           <div class="tableau-header">
             <div class="tableau-titre">
-              <h3>Liste IntÃ©grale des AdhÃ©sions</h3>
+              <h3>Liste Intégrale des Adhésions</h3>
             </div>
             <div class="tableau-recherche">
-              <input type="text" id="rechercheMilitantInput" placeholder="ðŸ” Rechercher nom, quartier, Ã©cole..." onkeyup="filtrerMilitantsTable(this.value)">
+              <input type="text" id="rechercheMilitantInput" placeholder="ðŸ” Rechercher nom, quartier, école..." onkeyup="filtrerMilitantsTable(this.value)">
             </div>
           </div>
           <div class="table-responsive">
             <table class="studio-table">
               <thead>
                 <tr>
-                  <th>Nom &amp; PrÃ©noms</th>
+                  <th>Nom &amp; Prénoms</th>
                   <th>Quartier</th>
-                  <th>Ã‰tablissement / UniversitÃ©</th>
+                  <th>Ã‰tablissement / Université</th>
                   <th>WhatsApp</th>
                   <th>Statut</th>
                   <th>Actions</th>
@@ -268,22 +268,22 @@
       </section>
 
       <!-- ==================== TAB 3 : Ã‰VÃ‰NEMENTS & ACTUALITÃ‰S ==================== -->
-      <section id="tab-evenements" class="onglet-contenu">
+      <section id="tab-Ã©vÃ©nements" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
-            <h1>Gestion des Ã‰vÃ©nements &amp; ActualitÃ©s</h1>
-            <p>Publiez et modifiez les confÃ©rences, Mahouloud, SECOFIS et rÃ©visions.</p>
+            <h1>Gestion des Ã‰vénements &amp; Actualités</h1>
+            <p>Publiez et modifiez les conférences, Mahouloud, SECOFIS et révisions.</p>
           </div>
           <button class="bouton-action-pro" onclick="ouvrirModalAjoutEvenement()">
             <span>âž•</span>
-            <span>Publier un Ã‰vÃ©nement</span>
+            <span>Publier un Ã‰vénement</span>
           </button>
         </div>
 
         <div class="carte-tableau" style="padding: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">Ã‰vÃ©nements &amp; Publications Ã  l'Affiche</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">Ã‰vénements &amp; Publications à l'Affiche</h3>
           <div id="containerActualitesCMS" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
-            <!-- GÃ©nÃ©rÃ© dynamiquement en JS -->
+            <!-- Généré dynamiquement en JS -->
           </div>
         </div>
       </section>
@@ -301,7 +301,7 @@
           <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">âž• Ajouter un Nouveau Module de Formation</h3>
           <form id="formAjoutFormationCMS" onsubmit="enregistrerFormationCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
-              <label>IntitulÃ© du Module *</label>
+              <label>Intitulé du Module *</label>
               <input type="text" id="cmsFormationIntitule" placeholder="ex: Module 4 : Leadership &amp; Gestion de Projet" required>
             </div>
 
@@ -312,7 +312,7 @@
 
             <div class="form-groupe" style="grid-column: 1 / -1;">
               <label>Description &amp; Programme du Module *</label>
-              <textarea id="cmsFormationDesc" rows="3" placeholder="Objectifs pÃ©dagogiques, intervenants et public visÃ©..." required></textarea>
+              <textarea id="cmsFormationDesc" rows="3" placeholder="Objectifs pédagogiques, intervenants et public visé..." required></textarea>
             </div>
 
             <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end;">
@@ -324,7 +324,7 @@
         <div class="carte-tableau" style="padding: 28px; margin-top: 24px;">
           <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸŽ“ Modules de Formation Actifs</h3>
           <div id="containerFormationsCMS" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-            <!-- GÃ©nÃ©rÃ© dynamiquement en JS -->
+            <!-- Généré dynamiquement en JS -->
           </div>
         </div>
       </section>
@@ -333,8 +333,8 @@
       <section id="tab-galerie" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
-            <h1>MÃ©diathÃ¨que &amp; Upload de Photos HD</h1>
-            <p>Ajoutez de nouvelles photos d'activitÃ©s avec compression automatique Canvas HD.</p>
+            <h1>Médiathèque &amp; Upload de Photos HD</h1>
+            <p>Ajoutez de nouvelles photos d'activités avec compression automatique Canvas HD.</p>
           </div>
         </div>
 
@@ -342,18 +342,18 @@
 
         <div id="dropZoneGalerie" class="carte-tableau" onclick="declencherSelecteurPhotos()" style="padding: 48px; text-align: center; border: 2px dashed var(--or); background: var(--vert-tendre); transition: all 0.3s ease; cursor: pointer;">
           <div style="font-size: 3.5rem; margin-bottom: 14px;">ðŸ“¸</div>
-          <h3 style="font-size: 1.3rem; color: var(--vert-institutionnel); margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Glissez-dÃ©posez vos photos ici</h3>
-          <p style="color: var(--texte-secondaire); font-size: 0.92rem; margin-bottom: 22px;">Formats acceptÃ©s : JPG, PNG, WEBP (Ou cliquez n'importe oÃ¹ dans la zone)</p>
+          <h3 style="font-size: 1.3rem; color: var(--vert-institutionnel); margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Glissez-déposez vos photos ici</h3>
+          <p style="color: var(--texte-secondaire); font-size: 0.92rem; margin-bottom: 22px;">Formats acceptés : JPG, PNG, WEBP (Ou cliquez n'importe où dans la zone)</p>
           <button type="button" class="bouton-action-pro" onclick="event.stopPropagation(); declencherSelecteurPhotos();">
             <span>ðŸ“</span>
-            <span>SÃ©lectionner des Fichiers</span>
+            <span>Sélectionner des Fichiers</span>
           </button>
         </div>
 
         <div class="carte-tableau" style="padding: 28px; margin-top: 24px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">Photos PubliÃ©es en Galerie</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">Photos Publiées en Galerie</h3>
           <div id="gridGalerieCMS" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 18px;">
-            <!-- Photos affichÃ©es dynamiquement -->
+            <!-- Photos affichées dynamiquement -->
           </div>
         </div>
       </section>
@@ -363,12 +363,12 @@
         <div class="section-header-dashboard">
           <div>
             <h1>Configuration du Site &amp; Textes Hero</h1>
-            <p>Mise Ã  jour des titres, slogans et comptes Ã  rebours de l'accueil.</p>
+            <p>Mise à jour des titres, slogans et comptes à rebours de l'accueil.</p>
           </div>
         </div>
 
         <div class="carte-tableau" style="padding: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">âš™ï¸ ParamÃ¨tres GÃ©nÃ©raux du Site</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">âš™ï¸ Paramètres Généraux du Site</h3>
           <form onsubmit="enregistrerConfigCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
               <label>Titre Principal du Site *</label>
@@ -396,22 +396,22 @@
       <section id="tab-parametres" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
-            <h1>Gestion de la PrÃ©sidence &amp; CoordonnÃ©es</h1>
-            <p>Gestion des membres du bureau exÃ©cutif et des contacts officiels du sous-comitÃ©.</p>
+            <h1>Gestion de la Présidence &amp; Coordonnées</h1>
+            <p>Gestion des membres du bureau exécutif et des contacts officiels du sous-comité.</p>
           </div>
         </div>
 
         <div class="carte-tableau" style="padding: 28px; margin-bottom: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸ‘¤ Profil du PrÃ©sident &amp; Mot d'Orientation</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸ‘¤ Profil du Président &amp; Mot d'Orientation</h3>
           <form onsubmit="enregistrerBureauCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
-              <label>Nom &amp; PrÃ©noms du PrÃ©sident *</label>
+              <label>Nom &amp; Prénoms du Président *</label>
               <input type="text" id="cmsPresidentNom" placeholder="Sow Mohamed" required>
             </div>
 
             <div class="form-groupe">
               <label>Titre Officiel *</label>
-              <input type="text" id="cmsPresidentTitre" placeholder="PrÃ©sident ExÃ©cutif" required>
+              <input type="text" id="cmsPresidentTitre" placeholder="Président Exécutif" required>
             </div>
 
             <div class="form-groupe">
@@ -420,17 +420,17 @@
             </div>
 
             <div class="form-groupe">
-              <label>Photo de Profil du PrÃ©sident</label>
+              <label>Photo de Profil du Président</label>
               <input type="file" id="cmsPresidentPhotoFile" accept="image/*">
             </div>
 
             <div class="form-groupe" style="grid-column: 1 / -1;">
               <label>Mot d'Orientation &amp; Vision *</label>
-              <textarea id="cmsPresidentMot" rows="4" placeholder="Message d'orientation du PrÃ©sident..." required></textarea>
+              <textarea id="cmsPresidentMot" rows="4" placeholder="Message d'orientation du Président..." required></textarea>
             </div>
 
             <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end;">
-              <button type="submit" class="bouton-action-pro">Enregistrer le Profil du PrÃ©sident</button>
+              <button type="submit" class="bouton-action-pro">Enregistrer le Profil du Président</button>
             </div>
           </form>
         </div>
@@ -438,20 +438,20 @@
         <div id="containerBureauCMS"></div>
 
         <div class="carte-tableau" style="padding: 28px; margin-top: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸ“ CoordonnÃ©es du SiÃ¨ge &amp; WhatsApp</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸ“ Coordonnées du Siège &amp; WhatsApp</h3>
           <form onsubmit="enregistrerContactCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
-              <label>Adresse du SiÃ¨ge *</label>
-              <input type="text" id="cmsContactAdresse" placeholder="Koumassi Sicogi, CollÃ¨ge La Colombe" required>
+              <label>Adresse du Siège *</label>
+              <input type="text" id="cmsContactAdresse" placeholder="Koumassi Sicogi, Collège La Colombe" required>
             </div>
 
             <div class="form-groupe">
-              <label>TÃ©lÃ©phone Principal *</label>
+              <label>Téléphone Principal *</label>
               <input type="text" id="cmsContactTel1" placeholder="+225 05 45 30 51 80" required>
             </div>
 
             <div class="form-groupe">
-              <label>TÃ©lÃ©phone Secondaire</label>
+              <label>Téléphone Secondaire</label>
               <input type="text" id="cmsContactTel2" placeholder="+225 07 57 47 73 72">
             </div>
 
@@ -461,8 +461,8 @@
             </div>
 
             <div class="form-groupe">
-              <label>Horaires des RÃ©unions du Samedi *</label>
-              <input type="text" id="cmsContactHoraires" placeholder="Chaque Samedi Ã  15H00 (IST-ISG La Colombe)" required>
+              <label>Horaires des Réunions du Samedi *</label>
+              <input type="text" id="cmsContactHoraires" placeholder="Chaque Samedi à 15H00 (IST-ISG La Colombe)" required>
             </div>
 
             <div class="form-groupe">
@@ -471,7 +471,7 @@
             </div>
 
             <div style="grid-column: 1 / -1; display: flex; justify-content: flex-end;">
-              <button type="submit" class="bouton-action-pro">Enregistrer les CoordonnÃ©es</button>
+              <button type="submit" class="bouton-action-pro">Enregistrer les Coordonnées</button>
             </div>
           </form>
         </div>
@@ -485,19 +485,19 @@
 <div class="modal-overlay" id="modalAjoutEvenement">
   <div class="modal-conteneur">
     <div class="modal-header">
-      <h3 id="modalEvenementTitreHeader">âž• Publier un Nouvel Ã‰vÃ©nement</h3>
+      <h3 id="modalEvenementTitreHeader">âž• Publier un Nouvel Ã‰vénement</h3>
       <button class="modal-fermer" onclick="fermerModalAjoutEvenement()">&times;</button>
     </div>
     <form class="modal-body" id="formAjoutActuCMS" onsubmit="ajouterActualiteCMS(event)">
       <input type="hidden" id="cmsActuId">
 
       <div class="form-groupe">
-        <label>Titre de l'Ã‰vÃ©nement *</label>
+        <label>Titre de l'Ã‰vénement *</label>
         <input type="text" id="cmsActuTitre" placeholder="ex: Nuit du Mahouloud 2026" required>
       </div>
 
       <div class="form-groupe">
-        <label>CatÃ©gorie / Badge *</label>
+        <label>Catégorie / Badge *</label>
         <select id="cmsActuCategorie">
           <option value="PROCHAIN Ã‰VÃ‰NEMENT">PROCHAIN Ã‰VÃ‰NEMENT</option>
           <option value="FORMATION">FORMATION</option>
@@ -509,22 +509,22 @@
       </div>
 
       <div class="form-groupe">
-        <label>Date &amp; Heure de l'Ã‰vÃ©nement</label>
-        <input type="text" id="cmsActuDate" placeholder="ex: Nuit du 25 au 26 AoÃ»t 2026 dÃ¨s 20H">
+        <label>Date &amp; Heure de l'Ã‰vénement</label>
+        <input type="text" id="cmsActuDate" placeholder="ex: Nuit du 25 au 26 AoÃ»t 2026 dès 20H">
       </div>
 
       <div class="form-groupe">
         <label>Lieu / Emplacement</label>
-        <input type="text" id="cmsActuLieu" placeholder="ex: CollÃ¨ge Moderne La Colombe, Koumassi">
+        <input type="text" id="cmsActuLieu" placeholder="ex: Collège Moderne La Colombe, Koumassi">
       </div>
 
       <div class="form-groupe" style="grid-column: 1 / -1;">
         <label>Description &amp; Programme *</label>
-        <textarea id="cmsActuDesc" rows="4" placeholder="DÃ©tails du programme, intervenants..." required></textarea>
+        <textarea id="cmsActuDesc" rows="4" placeholder="Détails du programme, intervenants..." required></textarea>
       </div>
 
       <div class="form-groupe" style="grid-column: 1 / -1;">
-        <label>Photo / Affiche de l'Ã‰vÃ©nement (Canvas HD Auto)</label>
+        <label>Photo / Affiche de l'Ã‰vénement (Canvas HD Auto)</label>
         <input type="file" id="cmsActuImageFile" accept="image/*">
       </div>
 
@@ -546,13 +546,13 @@
       <input type="hidden" id="cmsMembreId">
 
       <div class="form-groupe">
-        <label>Nom &amp; PrÃ©noms *</label>
+        <label>Nom &amp; Prénoms *</label>
         <input type="text" id="cmsMembreNom" placeholder="Nom complet..." required>
       </div>
 
       <div class="form-groupe">
         <label>Poste / Titre Officiel *</label>
-        <input type="text" id="cmsMembreTitre" placeholder="ex: ChargÃ© de Communication" required>
+        <input type="text" id="cmsMembreTitre" placeholder="ex: Chargé de Communication" required>
       </div>
 
       <div class="form-groupe">
@@ -573,6 +573,6 @@
   </div>
 </div>
 
-<script src="js/studio-admin.js?v=20261007_pro"></script>
+<script src="js/studio-admin.js?v=20261007_v3"></script>
 </body>
 </html>

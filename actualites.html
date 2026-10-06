@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,8 @@
 <title>Actualités & Activités — AEEMCI Sous-Comité de Koumassi</title>
 <meta name="description" content="Découvrez les 5 événements et activités majeurs du Sous-Comité AEEMCI de Koumassi : SECOFIS, SEFORES, Nuit de prière, Journée d'excellence et Iftar solidaire.">
 <link rel="icon" href="images/logo.png">
-<link rel="stylesheet" href="css/style.css?v=20261007_v2">
-<script src="js/base_donnees.js?v=20261007_v2" defer></script>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/base_donnees.js" defer></script>
 <meta name="google-site-verification" content="eBhRI8A4nX2XsSqSKXnH_ou9wjGBq4_Fa7ZyyNVceHM" />
 </head>
 <body>
@@ -132,7 +132,7 @@
     <div id="container-actualites" class="grille-actualites-cartes">
 
       <!-- 0. Nuit du Maouloud 2026 (Prochaine Activité Majeure) -->
-      <article class="carte-actualite-moderne">
+      <article class="carte-actualitÃ©-moderne">
         <div class="carte-actu-image">
           <span class="carte-actu-badge or">PROCHAIN ÉVÉNEMENT</span>
           <img src="images/maouloud.jpg" alt="Nuit du Mahouloud 2026" loading="lazy" onerror="this.src='images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">
@@ -150,7 +150,7 @@
       </article>
 
       <!-- 1. SECOFIS 2026 -->
-      <article class="carte-actualite-moderne">
+      <article class="carte-actualitÃ©-moderne">
         <div class="carte-actu-image">
           <span class="carte-actu-badge or">FORMATION</span>
           <img src="images/secofis.jpg" alt="SECOFIS 2026 — Formation" loading="lazy" onerror="this.src='images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">
@@ -168,7 +168,7 @@
       </article>
 
       <!-- 2. SEFORES & Rentrée Solennelle -->
-      <article class="carte-actualite-moderne">
+      <article class="carte-actualitÃ©-moderne">
         <div class="carte-actu-image">
           <span class="carte-actu-badge">ÉVÉNEMENT</span>
           <img src="images/rentree-solennelle.jpg" alt="SEFORES & Rentrée Solennelle" loading="lazy" onerror="this.src='images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">
@@ -186,7 +186,7 @@
       </article>
 
       <!-- 3. Nuit de Prière & Veillée Spirituelle -->
-      <article class="carte-actualite-moderne">
+      <article class="carte-actualitÃ©-moderne">
         <div class="carte-actu-image">
           <span class="carte-actu-badge">SPIRITUALITÉ</span>
           <img src="images/nuit-priere.jpg" alt="Nuit de Prière & Veillée Spirituelle" loading="lazy" onerror="this.src='images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">
@@ -204,7 +204,7 @@
       </article>
 
       <!-- 4. Journée de l'Excellence & de la Culture -->
-      <article class="carte-actualite-moderne">
+      <article class="carte-actualitÃ©-moderne">
         <div class="carte-actu-image">
           <span class="carte-actu-badge or">EXCELLENCE</span>
           <img src="images/journee-excellence.jpg" alt="Journée Culturelle & d'Excellence" loading="lazy" onerror="this.src='images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">
@@ -222,7 +222,7 @@
       </article>
 
       <!-- 5. Iftar Solidaire & Partage Fraternel -->
-      <article class="carte-actualite-moderne">
+      <article class="carte-actualitÃ©-moderne">
         <div class="carte-actu-image">
           <span class="carte-actu-badge">ACTION SOCIALE</span>
           <img src="images/solidarite-ramadan.jpg" alt="Solidarité Ramadan / Iftar" loading="lazy" onerror="this.src='images/logo.png'; this.style.objectFit='contain'; this.style.padding='20px';">
@@ -425,7 +425,7 @@ function chargerEvenementsStudio() {
   var listeCustom = JSON.parse(localStorage.getItem('aeemci_evenements_custom') || '[]');
   listeCustom.forEach(function(item) {
     var article = document.createElement('article');
-    article.className = 'carte-actualite-moderne';
+    article.className = 'carte-actualitÃ©-moderne';
     article.innerHTML = `
       <div class="carte-actu-image">
         <span class="carte-actu-badge or">${item.badge || 'ÉVÉNEMENT'}</span>
@@ -458,6 +458,6 @@ function fermerCouvertureMedia(e) {
 }
 </script>
 
-<script src="js/main.js?v=20261007_v2"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
