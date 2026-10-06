@@ -162,7 +162,42 @@ const CMS_DEFAUTS = {
       inscrits: 195
     }
   ],
-  galerie: [],
+  galerie: [
+    { id: 'def-1', url: 'images/maouloud.jpg', titre: 'Nuit du Mahouloud 2026', categorie: 'Événement Majeur' },
+    { id: 'def-2', url: 'images/secofis.jpg', titre: 'Séminaire SECOFIS', categorie: 'Formation' },
+    { id: 'def-3', url: 'images/rentree-solennelle.jpg', titre: 'Rentrée Solennelle', categorie: 'Rassemblement' },
+    { id: 'def-4', url: 'images/journee-excellence.jpg', titre: "Journée de l'Excellence", categorie: 'Mérite & Prix' },
+    { id: 'def-5', url: 'images/solidarite-ramadan.jpg', titre: 'Solidarité Ramadan', categorie: 'Social' },
+    { id: 'def-6', url: 'images/nuit-priere.jpg', titre: 'Veillée de Récitation', categorie: 'Spiritualité' },
+    { id: 'def-7', url: 'images/membres/sow-mohamed.jpg', titre: 'Sow Mohamed', categorie: 'Présidence' },
+    { id: 'def-8', url: 'images/membres/zeba-askandar.jpg', titre: 'Zeba Askandar', categorie: 'Vice-Présidence' },
+    { id: 'def-9', url: 'images/membres/diabate-fode.jpg', titre: 'Diabaté Fodé', categorie: 'Secrétariat Général' },
+    { id: 'def-10', url: 'images/membres/kokora-mohamed.jpg', titre: 'Kokora Mohamed', categorie: 'Bureau Exécutif' },
+    { id: 'def-11', url: 'images/membres/sangare-ousmane.jpg', titre: 'Sangare Ousmane', categorie: 'Bureau Exécutif' },
+    { id: 'def-12', url: 'images/membres/kouma-yaya.jpg', titre: 'Kouma Yaya', categorie: 'Bureau Exécutif' },
+    { id: 'def-13', url: 'images/membres/keita-abdoulaye.jpg', titre: 'Keita Abdoulaye', categorie: 'Militants' },
+    { id: 'def-14', url: 'images/membres/bamba-youssouf-bilal.jpg', titre: 'Bamba Youssouf Bilal', categorie: 'Militants' },
+    { id: 'def-15', url: 'images/membres/sidibe-anass.jpg', titre: 'Sidibe Anass', categorie: 'Militants' },
+    { id: 'def-16', url: 'images/membres/zampaligre-youssouf.jpg', titre: 'Zampaligre Youssouf', categorie: 'Militants' },
+    { id: 'def-17', url: 'images/membres/ouattara-abdoul-aziz.jpg', titre: 'Ouattara Abdoul Aziz', categorie: 'Militants' },
+    { id: 'def-18', url: 'images/membres/gombane-abdoul-dramane.jpg', titre: 'Gombane Abdoul Dramane', categorie: 'Militants' },
+    { id: 'def-19', url: 'images/membres/simpore-mohamed.jpg', titre: 'Simpore Mohamed', categorie: 'Militants' },
+    { id: 'def-20', url: 'images/membres/diarrassouba-vakaba-mohamed.jpg', titre: 'Diarrassouba Vakaba', categorie: 'Militants' },
+    { id: 'def-21', url: 'images/membres/sawadodo-muslim.jpg', titre: 'Sawadogo Muslim', categorie: 'Photothèque' },
+    { id: 'def-22', url: 'images/membres/traore-abdoul-kadr.jpg', titre: 'Traoré Abdoul Kadr', categorie: 'Photothèque' },
+    { id: 'def-23', url: 'images/membres/traore-mohamed-amine.jpg', titre: 'Traoré Mohamed Amine', categorie: 'Photothèque' },
+    { id: 'def-24', url: 'images/membres/gana-fatim.jpg', titre: 'Gana Fatim', categorie: 'Photothèque' },
+    { id: 'def-25', url: 'images/membres/sogne-foussena.jpg', titre: 'Sogné Foussena', categorie: 'Photothèque' },
+    { id: 'def-26', url: 'images/membres/traore-aicha.jpg', titre: 'Traoré Aïcha', categorie: 'Photothèque' },
+    { id: 'def-27', url: 'images/membres/dabre-nassira.jpg', titre: 'Dabré Nassira', categorie: 'Photothèque' },
+    { id: 'def-28', url: 'images/membres/diallo-mariam.jpg', titre: 'Diallo Mariam', categorie: 'Photothèque' },
+    { id: 'def-29', url: 'images/membres/konate-mariam.jpg', titre: 'Konaté Mariam', categorie: 'Photothèque' },
+    { id: 'def-30', url: 'images/membres/zeba-samira.jpg', titre: 'Zeba Samira', categorie: 'Photothèque' },
+    { id: 'def-31', url: 'images/membres/banse-kissa-barakissa.jpg', titre: 'Bansé Kissa Barakissa', categorie: 'Photothèque' },
+    { id: 'def-32', url: 'images/membres/kangoute-salimata.jpg', titre: 'Kangouté Salimata', categorie: 'Photothèque' },
+    { id: 'def-33', url: 'images/membres/kone-aliman.jpg', titre: 'Koné Aliman', categorie: 'Photothèque' },
+    { id: 'def-34', url: 'images/membres/coulibaly-kadidia.jpg', titre: 'Coulibaly Kadidia', categorie: 'Photothèque' }
+  ],
   contact: {
     adresse: "Koumassi Sicogi, Collège La Colombe",
     tel1: "+225 05 45 30 51 80",
@@ -815,43 +850,43 @@ async function traiterFichiersPhotos(files) {
 }
 
 function chargerGalerieCMS() {
-  const galerie = JSON.parse(localStorage.getItem('aeemci_cms_galerie')) || [];
+  let galerie = JSON.parse(localStorage.getItem('aeemci_cms_galerie'));
+  if (!galerie || galerie.length === 0) {
+    galerie = CMS_DEFAUTS.galerie;
+    localStorage.setItem('aeemci_cms_galerie', JSON.stringify(galerie));
+  }
   const grid = document.getElementById('gridGalerieCMS');
   if (!grid) return;
 
   grid.innerHTML = '';
 
-  if (galerie.length === 0) {
-    grid.innerHTML = `<p style="color: var(--texte-secondaire); grid-column: 1 / -1; padding: 10px;">Aucune photo personnalisée téléversée. Les photos d'archives sont affichées sur le site.</p>`;
-    return;
-  }
-
   galerie.forEach(item => {
     const box = document.createElement('div');
     box.style.cssText = "position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--bordure-carte); box-shadow: 0 4px 12px rgba(0,0,0,0.06); aspect-ratio: 1; background: #000;";
     box.innerHTML = `
-      <img src="${item.url}" alt="${item.titre || 'Photo'}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
-      <button class="bouton-table-action" onclick="supprimerPhotoGalerie('${item.id}')" style="position: absolute; top: 6px; right: 6px; background: rgba(239, 68, 68, 0.9); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; border: none; cursor: pointer;" title="Supprimer la photo">&times;</button>
+      <img src="${item.url}" alt="${item.titre || 'Photo'}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;" onerror="this.src='images/logo.png'">
+      <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); padding: 8px 10px; color: #fff; font-size: 0.78rem; font-weight: 700; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">
+        ${item.titre || 'Photo Galerie'}
+      </div>
+      <button class="bouton-table-action" onclick="supprimerPhotoGalerie('${item.id}')" style="position: absolute; top: 6px; right: 6px; background: rgba(239, 68, 68, 0.95); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.3);" title="Supprimer la photo">&times;</button>
     `;
     grid.appendChild(box);
   });
 }
 
 window.supprimerPhotoGalerie = function(id) {
-  if (confirm("Supprimer cette photo de la galerie ?")) {
-    let galerie = JSON.parse(localStorage.getItem('aeemci_cms_galerie')) || [];
-    const target = galerie.find(g => g.id == id);
-    galerie = galerie.filter(g => g.id != id);
+  if (confirm("Voulez-vous vraiment supprimer cette photo de la galerie ?")) {
+    let galerie = JSON.parse(localStorage.getItem('aeemci_cms_galerie')) || CMS_DEFAUTS.galerie;
+    galerie = galerie.filter(g => String(g.id) !== String(id));
     localStorage.setItem('aeemci_cms_galerie', JSON.stringify(galerie));
 
-    if (target) {
-      let custom = JSON.parse(localStorage.getItem('aeemci_galerie_custom') || '[]');
-      custom = custom.filter(c => (c.photo || c.url) !== target.url);
-      localStorage.setItem('aeemci_galerie_custom', JSON.stringify(custom));
-    }
+    let custom = JSON.parse(localStorage.getItem('aeemci_galerie_custom') || '[]');
+    custom = custom.filter(c => String(c.id) !== String(id));
+    localStorage.setItem('aeemci_galerie_custom', JSON.stringify(custom));
 
     chargerGalerieCMS();
     actualiserVueEnsembleKPI();
+    showToast("Photo supprimée de la galerie !");
   }
 };
 
