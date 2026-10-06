@@ -718,7 +718,12 @@ window.supprimerFormationCMS = function(id) {
 
 // 4. GALERIE & DRAG AND DROP
 window.declencherSelecteurPhotos = function() {
-  document.getElementById('inputUploadGalerie')?.click();
+  const input = document.getElementById('inputUploadGalerie');
+  if (input) {
+    input.click();
+  } else {
+    showToast("Erreur : Sélecteur de fichiers non trouvé.", "error");
+  }
 };
 
 window.gererSelectionPhotos = function(event) {
@@ -726,6 +731,7 @@ window.gererSelectionPhotos = function(event) {
   if (files && files.length > 0) {
     traiterFichiersPhotos(files);
   }
+  if (event.target) event.target.value = '';
 };
 
 function initialiserDragAndDropGalerie() {
@@ -737,11 +743,17 @@ function initialiserDragAndDropGalerie() {
   });
 
   ['dragenter', 'dragover'].forEach(eventName => {
-    dropZone.addEventListener(eventName, () => dropZone.style.borderColor = '#10B981', false);
+    dropZone.addEventListener(eventName, () => {
+      dropZone.style.borderColor = '#10B981';
+      dropZone.style.background = 'rgba(16, 185, 129, 0.1)';
+    }, false);
   });
 
   ['dragleave', 'drop'].forEach(eventName => {
-    dropZone.addEventListener(eventName, () => dropZone.style.borderColor = 'var(--or)', false);
+    dropZone.addEventListener(eventName, () => {
+      dropZone.style.borderColor = 'var(--or)';
+      dropZone.style.background = 'var(--vert-tendre)';
+    }, false);
   });
 
   dropZone.addEventListener('drop', (e) => {
@@ -757,8 +769,10 @@ async function traiterFichiersPhotos(files) {
   let custom = JSON.parse(localStorage.getItem('aeemci_galerie_custom') || '[]');
   let compt = 0;
 
+  showToast("⏳ Traitement et compression HD des photos...", "info");
+
   for (const file of files) {
-    if (file.type.startsWith('image/')) {
+    if (file.type && file.type.startsWith('image/')) {
       const url = await window.storageDb.uploadImage(file, 'galerie');
       if (url) {
         galerie.unshift({
@@ -777,6 +791,10 @@ async function traiterFichiersPhotos(files) {
     }
   }
 
+  // Sécurité quota local: garder au maximum 40 photos récentes
+  if (galerie.length > 40) galerie = galerie.slice(0, 40);
+  if (custom.length > 40) custom = custom.slice(0, 40);
+
   try {
     localStorage.setItem('aeemci_cms_galerie', JSON.stringify(galerie));
     localStorage.setItem('aeemci_galerie_custom', JSON.stringify(custom));
@@ -788,7 +806,12 @@ async function traiterFichiersPhotos(files) {
   }
   chargerGalerieCMS();
   actualiserVueEnsembleKPI();
-  showToast(`✅ ${compt} photo(s) ajoutée(s) avec succès !`);
+
+  if (compt > 0) {
+    showToast(`✅ ${compt} photo(s) ajoutée(s) avec succès !`);
+  } else {
+    showToast("⚠️ Aucun fichier image valide détecté.", "error");
+  }
 }
 
 function chargerGalerieCMS() {

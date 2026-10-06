@@ -304,11 +304,11 @@
 
         <input type="file" id="inputUploadGalerie" multiple accept="image/*" style="display: none;" onchange="gererSelectionPhotos(event)">
 
-        <div id="dropZoneGalerie" class="carte-tableau" style="padding: 48px; text-align: center; border: 2px dashed var(--or); background: var(--vert-tendre); transition: border-color 0.3s ease;">
+        <div id="dropZoneGalerie" class="carte-tableau" onclick="declencherSelecteurPhotos()" style="padding: 48px; text-align: center; border: 2px dashed var(--or); background: var(--vert-tendre); transition: all 0.3s ease; cursor: pointer;">
           <div style="font-size: 3.5rem; margin-bottom: 14px;">📸</div>
           <h3 style="font-size: 1.3rem; color: var(--vert-institutionnel); margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Glissez-déposez vos photos ici</h3>
-          <p style="color: var(--texte-secondaire); font-size: 0.92rem; margin-bottom: 22px;">Formats acceptés : JPG, PNG, WEBP (Compression HD automatique)</p>
-          <button type="button" class="bouton-action-pro" onclick="declencherSelecteurPhotos()">
+          <p style="color: var(--texte-secondaire); font-size: 0.92rem; margin-bottom: 22px;">Formats acceptés : JPG, PNG, WEBP (Ou cliquez n'importe où dans la zone)</p>
+          <button type="button" class="bouton-action-pro" onclick="event.stopPropagation(); declencherSelecteurPhotos();">
             <span>📁</span>
             <span>Sélectionner des Fichiers</span>
           </button>

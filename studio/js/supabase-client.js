@@ -96,7 +96,8 @@ window.studioAuth = {
 // Module de Gestion du Stockage (Images) via Supabase Storage
 window.storageDb = {
   uploadImage: async function(file, folder = 'uploads') {
-    if (supabaseClient) {
+    // Si Supabase est configuré avec un vrai serveur de prod (non-demo)
+    if (supabaseClient && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes('demo_key')) {
       try {
         const fileExt = file.name.split('.').pop();
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
@@ -114,11 +115,11 @@ window.storageDb = {
           if (urlData && urlData.publicUrl) return urlData.publicUrl;
         }
       } catch (e) {
-        console.warn("Supabase Storage non disponible, bascule sur la compression Canvas HD locale.");
+        console.warn("Supabase Storage non disponible, bascule immédiate sur Canvas HD local.");
       }
     }
 
-    // Fallback automatique Canvas HD local (Web-ready)
+    // Fallback instantané Canvas HD local (< 150ms, sans attente réseau)
     return new Promise((resolve) => {
       if (!file || !file.type || !file.type.startsWith('image/')) {
         resolve(null);
@@ -127,7 +128,7 @@ window.storageDb = {
       const reader = new FileReader();
       reader.onload = function(evt) {
         if (typeof window.compresserImageCanvas === 'function') {
-          window.compresserImageCanvas(evt.target.result, 1000, 0.8, function(compressedUrl) {
+          window.compresserImageCanvas(evt.target.result, 900, 0.75, function(compressedUrl) {
             resolve(compressedUrl);
           });
         } else {
