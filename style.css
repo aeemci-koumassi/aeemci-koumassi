@@ -3992,3 +3992,147 @@ a.contact-valeur:hover {
     font-size: 1.2rem !important;
   }
 }
+
+/* ==========================================================================
+   BANNIÃˆRE PWA (INSTALLATION APPLICATION MOBILE NATIVE)
+   ========================================================================== */
+.banniere-pwa-install {
+  position: fixed !important;
+  bottom: -140px;
+  left: 16px;
+  right: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, rgba(12, 56, 35, 0.95) 0%, rgba(6, 34, 21, 0.98) 100%) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.5) !important;
+  border-radius: 20px !important;
+  padding: 14px 18px !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15) inset !important;
+  z-index: 999999 !important;
+  transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease !important;
+  opacity: 0;
+}
+
+.banniere-pwa-install.visible {
+  bottom: 24px !important;
+  opacity: 1 !important;
+}
+
+.banniere-pwa-contenu {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.pwa-icone-wrap {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  padding: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: 1.5px solid var(--or, #D4AF37) !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.pwa-icone-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+}
+
+.pwa-textes {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+.pwa-titre {
+  font-size: 0.88rem !important;
+  color: #FFFFFF !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.pwa-desc {
+  font-size: 0.74rem !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  line-height: 1.35 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+}
+
+.pwa-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  flex-shrink: 0 !important;
+}
+
+.btn-pwa-installer {
+  background: linear-gradient(135deg, #F5D77F 0%, #D4AF37 100%) !important;
+  color: #062215 !important;
+  font-size: 0.82rem !important;
+  font-weight: 800 !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 8px 16px !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4) !important;
+  transition: transform 0.2s ease !important;
+  white-space: nowrap !important;
+}
+
+.btn-pwa-installer:active {
+  transform: scale(0.95) !important;
+}
+
+.btn-pwa-fermer {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  border: none !important;
+  font-size: 1.4rem !important;
+  cursor: pointer !important;
+  padding: 0 4px !important;
+  line-height: 1 !important;
+}
+
+.btn-pwa-fermer:hover {
+  color: #FFFFFF !important;
+}
+
+/* Bouton d'installation dans le menu lateral */
+.sidebar-bouton-installer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 12px 18px !important;
+  margin-top: 10px !important;
+  background: rgba(212, 175, 55, 0.12) !important;
+  color: var(--or-clair) !important;
+  border: 1.5px solid var(--or) !important;
+  border-radius: 12px !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+}
+
+.sidebar-bouton-installer:hover {
+  background: var(--or) !important;
+  color: #062215 !important;
+}

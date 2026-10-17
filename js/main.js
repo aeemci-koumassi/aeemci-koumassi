@@ -653,5 +653,127 @@ window.addEventListener('scroll', function() {
   }
 })();
 
+// 14. GESTIONNAIRE PWA (APPLICATION MOBILE INSTALLABLE)
+(function() {
+  // A. Enregistrement du Service Worker
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(reg) {
+          console.log('PWA Service Worker actif sur :', reg.scope);
+        })
+        .catch(function(err) {
+          console.warn('Erreur Service Worker PWA :', err);
+        });
+    });
+  }
 
+  // B. Gestion du prompt d'installation native
+  let deferredPrompt = null;
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
 
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    afficherBannierePwa();
+  });
+
+  function afficherBannierePwa() {
+    if (isStandalone) return;
+    if (sessionStorage.getItem('pwa_prompt_dismissed') === 'true') return;
+    if (document.getElementById('bannierePwaInstall')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'bannierePwaInstall';
+    banner.className = 'banniere-pwa-install';
+    banner.innerHTML = `
+      <div class="banniere-pwa-contenu">
+        <div class="pwa-icone-wrap">
+          <img src="images/icon-192.png" alt="App AEEMCI" width="38" height="38">
+        </div>
+        <div class="pwa-textes">
+          <strong class="pwa-titre">Application AEEMCI Koumassi</strong>
+          <span class="pwa-desc">Installez l'application sur votre Ã©cran d'accueil pour un accÃ¨s instantanÃ© hors-ligne.</span>
+        </div>
+        <div class="pwa-actions">
+          <button id="btnPwaDeclencher" class="btn-pwa-installer">Installer</button>
+          <button id="btnPwaFermer" class="btn-pwa-fermer" aria-label="Fermer">&times;</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(banner);
+    setTimeout(() => banner.classList.add('visible'), 1500);
+
+    const btnInstaller = document.getElementById('btnPwaDeclencher');
+    const btnFermer = document.getElementById('btnPwaFermer');
+
+    if (btnInstaller) {
+      btnInstaller.addEventListener('click', function() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function(choice) {
+            if (choice.outcome === 'accepted') {
+              banner.classList.remove('visible');
+              setTimeout(() => banner.remove(), 400);
+            }
+            deferredPrompt = null;
+          });
+        } else if (isIos) {
+          alert("Pour installer l'application sur iPhone :\n1. Appuyez sur le bouton Partager en bas de Safari (carrÃ© avec une flÃ¨che vers le haut)\n2. Choisissez 'Sur l'Ã©cran d'accueil'\n3. Appuyez sur 'Ajouter'");
+        }
+      });
+    }
+
+    if (btnFermer) {
+      btnFermer.addEventListener('click', function() {
+        banner.classList.remove('visible');
+        setTimeout(() => banner.remove(), 400);
+        sessionStorage.setItem('pwa_prompt_dismissed', 'true');
+      });
+    }
+  }
+
+  // Sur iOS : afficher discrÃ¨tement aprÃ¨s 4 secondes si non installÃ©
+  if (isIos && !isStandalone && !sessionStorage.getItem('pwa_prompt_dismissed')) {
+    window.addEventListener('load', function() {
+      setTimeout(afficherBannierePwa, 4000);
+    });
+  }
+
+  // C. Ajout du bouton d'installation dans la barre latÃ©rale (Sidebar)
+  document.addEventListener('DOMContentLoaded', function() {
+    const sidebarEngagement = document.querySelector('.sidebar-engagement-box');
+    if (sidebarEngagement && !isStandalone) {
+      const btnSidebar = document.createElement('button');
+      btnSidebar.className = 'sidebar-bouton-installer';
+      btnSidebar.innerHTML = `
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>Installer l'Application</span>
+      `;
+      btnSidebar.addEventListener('click', function() {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then(function(choice) {
+            if (choice.outcome === 'accepted') {
+              btnSidebar.style.display = 'none';
+            }
+            deferredPrompt = null;
+          });
+        } else if (isIos) {
+          alert("Pour installer l'application sur iPhone :\n1. Appuyez sur Partager en bas de Safari\n2. Choisissez 'Sur l'Ã©cran d'accueil'\n3. Appuyez sur 'Ajouter'");
+        } else {
+          alert("L'application peut Ãªtre installÃ©e via le menu de votre navigateur (trois points en haut Ã  droite > 'Ajouter Ã  l'Ã©cran d'accueil' ou 'Installer l'application').");
+        }
+      });
+      sidebarEngagement.appendChild(btnSidebar);
+    }
+  });
+
+  window.addEventListener('appinstalled', function() {
+    console.log('PWA AEEMCI Koumassi installÃ©e avec succÃ¨s !');
+    const banner = document.getElementById('bannierePwaInstall');
+    if (banner) banner.remove();
+  });
+})();
