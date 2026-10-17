@@ -1,14 +1,63 @@
 /* ==========================================================================
    SITE PUBLIC AEEMCI KOUMASSI — SCRIPT DE SYNCHRONISATION DYNAMIQUE (MAIN.JS)
+   Version: 20261017_pro (Optimisé Présentation Pro & Haute Performance)
    ========================================================================== */
+
+// 📅 TABLEAU OFFICIEL DES PROCHAINS ÉVÉNEMENTS (Facilement Modifiable)
+const EVENEMENTS_AEEMCI = [
+  {
+    id: 1,
+    titre: "Assises Communales de la Jeunesse & Rentrée Solennelle",
+    theme: "« Ensemble pour une identité islamique affirmée et une réussite scolaire rayonnante »",
+    date: "2026-11-15T08:30:00",
+    dateAffichee: "Dimanche 15 Novembre 2026 • Dès 08H30",
+    lieu: "Collège Moderne La Colombe, Koumassi Sicogi",
+    badge: "GRAND RENDEZ-VOUS",
+    affiche: "images/secofis.jpg",
+    lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
+  },
+  {
+    id: 2,
+    titre: "Lancement de la Masterclass Microsoft Word & Suite Bureautique",
+    theme: "« Mise en page professionnelle de rapports de stage, TDR et mémoires »",
+    date: "2026-11-22T09:00:00",
+    dateAffichee: "Dimanche 22 Novembre 2026 • Dès 09H00",
+    lieu: "Salle Informatique IST-ISG La Colombe (Koumassi)",
+    badge: "ACADÉMIE DU NUMÉRIQUE",
+    affiche: "images/rentree-solennelle.jpg",
+    lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
+  },
+  {
+    id: 3,
+    titre: "Nuit du Mahouloud & Veillée Spirituelle 2026",
+    theme: "« Le Sermon d'Adieu : enseignements et leçons de fraternité pour la jeunesse »",
+    date: "2026-12-05T20:00:00",
+    dateAffichee: "Samedi 05 Décembre 2026 • Dès 20H00",
+    lieu: "Grande Mosquée de Koumassi",
+    badge: "SPIRITUALITÉ & FOI",
+    affiche: "images/maouloud.jpg",
+    lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
+  },
+  {
+    id: 4,
+    titre: "Grand Concours d'Art Oratoire « Le Choc des Titans »",
+    theme: "« Joutes oratoires, éloquence et débat d'idées inter-établissements »",
+    date: "2026-12-20T14:00:00",
+    dateAffichee: "Dimanche 20 Décembre 2026 • Dès 14H00",
+    lieu: "Amphithéâtre Koumassi",
+    badge: "ART ORATOIRE",
+    affiche: "images/journee-excellence.jpg",
+    lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
+  }
+];
 
 document.addEventListener('DOMContentLoaded', function() {
   lancerSynchronisationGlobale();
   initialiserAnimationsScroll();
   initialiserCompteursChiffres();
   initialiserCompteAReboursAutomatique();
+  initialiserRaccourcisClavier();
 });
-
 
 // Écouteurs d'événements temps réel pour mise à jour instantanée sans rechargement de page
 window.addEventListener('storage', function() {
@@ -32,25 +81,57 @@ const CMS_CACHE = {
 };
 
 async function lancerSynchronisationGlobale() {
+  afficherSkeletons();
+
   if (!CMS_CACHE.isExpired()) {
-    console.log("Données CMS encore fraîches, synchronisation légère...");
-    // On synchronise quand même les stats qui peuvent changer souvent
     await synchroniserStatistiquesPublic();
     return;
   }
 
-  await synchroniserBureauPublic();
-  await synchroniserActualitesPublic();
-  await synchroniserFormationsPublic();
-  await synchroniserStatistiquesPublic();
-  await synchroniserGaleriePublic();
-  await synchroniserContactPublic();
+  try {
+    await Promise.all([
+      synchroniserBureauPublic(),
+      synchroniserActualitesPublic(),
+      synchroniserFormationsPublic(),
+      synchroniserStatistiquesPublic(),
+      synchroniserGaleriePublic(),
+      synchroniserContactPublic()
+    ]);
+  } catch (e) {
+    console.warn("Synchronisation globale terminée avec ajustements locaux:", e);
+  }
+
   CMS_CACHE.updateTimestamp();
+}
+
+// Affichage non destructif de squelettes uniquement pour les conteneurs dynamiques vides
+function afficherSkeletons() {
+  const containers = ['container-actualites', 'container-formations'];
+
+  containers.forEach(id => {
+    const container = document.getElementById(id);
+    if (container && container.children.length === 0) {
+      for (let i = 0; i < 3; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton-card';
+        skeleton.innerHTML = `
+          <div class="skeleton skeleton-img"></div>
+          <div class="skeleton skeleton-title"></div>
+          <div class="skeleton skeleton-text"></div>
+          <div class="skeleton skeleton-text" style="width: 80%;"></div>
+        `;
+        container.appendChild(skeleton);
+      }
+    }
+  });
 }
 
 // 1. Synchronisation de la Présidence & Mot du Président
 async function synchroniserBureauPublic() {
-  let bureau = await window.cmsRead.fetchSection('bureau');
+  let bureau = null;
+  if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
+    bureau = await window.cmsRead.fetchSection('bureau');
+  }
   if (!bureau) {
     const bureauRaw = localStorage.getItem('aeemci_cms_bureau');
     if (!bureauRaw) return;
@@ -59,7 +140,6 @@ async function synchroniserBureauPublic() {
   if (!bureau) return;
 
   try {
-
     const nomEls = document.querySelectorAll('#site-nom-president, #publicPresidentNom, .carte-president .nom-president');
     const titreEls = document.querySelectorAll('#site-titre-president, #publicPresidentTitre');
     const mandatEls = document.querySelectorAll('#site-mandat-president');
@@ -71,7 +151,6 @@ async function synchroniserBureauPublic() {
     if (bureau.presidentMandat) mandatEls.forEach(el => el.textContent = bureau.presidentMandat);
     if (bureau.presidentMot) motEls.forEach(el => el.textContent = bureau.presidentMot);
     if (bureau.presidentPhoto) photoEls.forEach(el => el.src = bureau.presidentPhoto);
-
   } catch (e) {
     console.warn("Mise à jour dynamique de la présidence ignorée.");
   }
@@ -79,7 +158,10 @@ async function synchroniserBureauPublic() {
 
 // 2. Synchronisation Dynamique des Événements & Actualités
 async function synchroniserActualitesPublic() {
-  let actualites = await window.cmsRead.fetchSection('actualites');
+  let actualites = null;
+  if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
+    actualites = await window.cmsRead.fetchSection('actualites');
+  }
   const cmsRaw = localStorage.getItem('aeemci_cms_actualites');
   const customRaw = localStorage.getItem('aeemci_evenements_custom');
 
@@ -107,26 +189,13 @@ async function synchroniserActualitesPublic() {
     }
   } catch(e){}
 
-  const prochainActu = actualites.find(a => (a.categorie && a.categorie.toUpperCase().includes('PROCHAIN')) || (a.badge && a.badge.toUpperCase().includes('PROCHAIN')));
-  if (prochainActu) {
-    const heroImg = document.getElementById('hero-actu-image');
-    const heroTitre = document.getElementById('hero-actu-titre');
-    const heroTheme = document.getElementById('hero-actu-theme');
-    const heroDetails = document.getElementById('hero-actu-details');
-
-    if (heroImg && prochainActu.image) heroImg.src = prochainActu.image;
-    if (heroTitre && prochainActu.titre) heroTitre.textContent = prochainActu.titre;
-    if (heroTheme && prochainActu.description) heroTheme.textContent = "Thème : « " + prochainActu.description + " »";
-    if (heroDetails) heroDetails.textContent = `📍 ${prochainActu.lieu || 'Koumassi'} • ${prochainActu.date || 'Prochainement'}`;
-  }
-
   const container = document.getElementById('container-actualites') || document.getElementById('publicNewsContainer') || document.querySelector('.grille-actualites-cartes');
 
   if (container && actualites.length > 0) {
     container.innerHTML = '';
     actualites.forEach(actu => {
       const article = document.createElement('article');
-      article.className = 'carte-actualitÃ©-moderne';
+      article.className = 'carte-actualite-moderne';
       article.innerHTML = `
         <div class="carte-actu-image">
           <span class="carte-actu-badge or">${actu.categorie || 'ÉVÉNEMENT'}</span>
@@ -145,7 +214,10 @@ async function synchroniserActualitesPublic() {
 
 // 3. Synchronisation Dynamique des Modules de Formation
 async function synchroniserFormationsPublic() {
-  let formations = await window.cmsRead.fetchSection('formations');
+  let formations = null;
+  if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
+    formations = await window.cmsRead.fetchSection('formations');
+  }
   const formationsRaw = localStorage.getItem('aeemci_cms_formations');
   if (!formations) {
     try { if (formationsRaw) formations = JSON.parse(formationsRaw); } catch(e){}
@@ -154,7 +226,6 @@ async function synchroniserFormationsPublic() {
 
   try {
     const container = document.getElementById('container-formations') || document.getElementById('publicFormationsContainer') || document.querySelector('.grille-formations');
-
 
     if (container && formations && formations.length > 0) {
       container.innerHTML = '';
@@ -169,7 +240,7 @@ async function synchroniserFormationsPublic() {
             <p style="font-size: 0.9rem; color: var(--texte-doux); line-height: 1.6; margin-bottom: 16px;">${f.description}</p>
           </div>
           <div>
-            <a href="${f.lien || 'https://wa.me/2250545305180'}" target="_blank" class="bouton-action-contour" style="width: 100%; justify-content: center; font-weight: 700;">
+            <a href="${f.lien || 'https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm'}" target="_blank" rel="noopener" class="bouton-action-contour" style="width: 100%; justify-content: center; font-weight: 700;">
               Réserver ma place sur WhatsApp →
             </a>
           </div>
@@ -184,7 +255,10 @@ async function synchroniserFormationsPublic() {
 
 // 4. Synchronisation des Compteurs Statistiques
 async function synchroniserStatistiquesPublic() {
-  let militants = await window.cmsRead.fetchMilitants();
+  let militants = null;
+  if (window.cmsRead && typeof window.cmsRead.fetchMilitants === 'function') {
+    militants = await window.cmsRead.fetchMilitants();
+  }
   if (!militants) {
     const militantsRaw = localStorage.getItem('aeemci_militants_db');
     try { if (militantsRaw) militants = JSON.parse(militantsRaw); } catch(e){}
@@ -193,10 +267,10 @@ async function synchroniserStatistiquesPublic() {
 
   try {
     const totalValides = militants.filter(m => m.statut === 'valide').length || militants.length;
-
-    const statMilitants = document.getElementById('publicStatMilitants') || document.querySelector('.carte-chiffre-cle:nth-child(1) .chiffre-cle');
+    const statMilitants = document.getElementById('publicStatMilitants') || document.querySelector('.carte-chiffre-cle:nth-child(2) .nombre-chiffre-cle');
     if (statMilitants && totalValides > 0) {
-      statMilitants.textContent = totalValides + '+';
+      statMilitants.setAttribute('data-compteur', totalValides);
+      statMilitants.textContent = '+' + totalValides;
     }
   } catch (e) {
     console.warn("Mise à jour des statistiques ignorée.");
@@ -205,7 +279,10 @@ async function synchroniserStatistiquesPublic() {
 
 // 5. Synchronisation des Photos de la Galerie Uploadées depuis le Studio
 async function synchroniserGaleriePublic() {
-  let listCMS = await window.cmsRead.fetchSection('galerie');
+  let listCMS = null;
+  if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
+    listCMS = await window.cmsRead.fetchSection('galerie');
+  }
   const cmsRaw = localStorage.getItem('aeemci_cms_galerie');
   const customRaw = localStorage.getItem('aeemci_galerie_custom');
 
@@ -236,10 +313,12 @@ async function synchroniserGaleriePublic() {
       const item = document.createElement('div');
       item.className = 'carte-galerie-item carte-galerie-dynamique-studio';
       item.innerHTML = `
-        <img src="${src}" alt="${photo.titre || 'Photo AEEMCI Koumassi'}" loading="lazy" onerror="this.src='images/logo.png';">
-        <div class="carte-galerie-overlay">
-          <span class="carte-galerie-cat">Nouveau • Activité Koumassi</span>
-          <h3 class="carte-galerie-titre">${photo.titre || 'Activité Koumassi'}</h3>
+        <div class="carte-galerie-image-box">
+          <img src="${src}" alt="${photo.titre || 'Photo AEEMCI Koumassi'}" loading="lazy" onerror="this.src='images/logo.png';">
+          <div class="carte-galerie-survol">
+            <span class="badge-galerie-tag">Activité Koumassi</span>
+            <h3 class="carte-galerie-titre">${photo.titre || 'Activité Koumassi'}</h3>
+          </div>
         </div>
       `;
       container.insertBefore(item, container.firstChild);
@@ -249,7 +328,10 @@ async function synchroniserGaleriePublic() {
 
 // 6. Synchronisation des Coordonnées Officielles & Footer
 async function synchroniserContactPublic() {
-  let contact = await window.cmsRead.fetchSection('contact');
+  let contact = null;
+  if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
+    contact = await window.cmsRead.fetchSection('contact');
+  }
   const contactRaw = localStorage.getItem('aeemci_cms_contact');
   if (!contact) {
     try { if (contactRaw) contact = JSON.parse(contactRaw); } catch(e){}
@@ -257,7 +339,6 @@ async function synchroniserContactPublic() {
   if (!contact) return;
 
   try {
-
     const adresseEls = document.querySelectorAll('#site-contact-adresse, #publicFooterAdresse, .contact-adresse-txt');
     const tel1Els = document.querySelectorAll('#site-contact-phone, #publicFooterTel, .contact-tel-txt');
     const emailEls = document.querySelectorAll('#site-contact-email, #publicFooterEmail, .contact-email-txt');
@@ -276,10 +357,10 @@ async function synchroniserContactPublic() {
   }
 }
 
-// 7. Initialisation des Animations de Révélation au Défilement (Premium Polish)
+// 7. Initialisation des Animations de Révélation au Défilement
 function initialiserAnimationsScroll() {
   const observerOptions = {
-    threshold: 0.15 // Déclenche quand 15% de l'élément est visible
+    threshold: 0.12
   };
 
   const observer = new IntersectionObserver((entries) => {
@@ -291,7 +372,7 @@ function initialiserAnimationsScroll() {
     });
   }, observerOptions);
 
-  document.querySelectorAll('section, .carte-pilier-moderne, .etape-carte').forEach(el => {
+  document.querySelectorAll('section, .carte-pilier-moderne, .etape-carte, .carte-chiffre-cle').forEach(el => {
     el.classList.add('reveal');
     observer.observe(el);
   });
@@ -335,95 +416,213 @@ function animerCompteur(el) {
   }, pasTemps);
 }
 
-// 9. Gestion Automatique du Compte à Rebours & Masquage Automatique au Jour J / Échéance
+// 9. GESTION DYNAMIQUE DU COMPTE À REBOURS & PROCHAINS ÉVÉNEMENTS (Présentation Pro)
 function initialiserCompteAReboursAutomatique() {
-  const sectionWidget = document.getElementById('section-widget-Ã©vÃ©nement');
-  if (!sectionWidget) return;
+  const container = document.getElementById('section-widget-evenement');
+  if (!container) return;
 
-  function obtenirDateCible() {
-    // 1. Essayer de lire la date configurée dans le CMS Config
-    const configRaw = localStorage.getItem('aeemci_cms_config');
-    if (configRaw) {
-      try {
-        const config = JSON.parse(configRaw);
-        if (config.maouloudDate) {
-          const d = new Date(config.maouloudDate);
-          if (!isNaN(d.getTime())) return d.getTime();
+  // 1. Rassembler les événements du code et ceux configurés dans le CMS
+  let evenementsDisponibles = [...EVENEMENTS_AEEMCI];
+
+  const customRaw = localStorage.getItem('aeemci_evenements_custom');
+  if (customRaw) {
+    try {
+      const customList = JSON.parse(customRaw);
+      customList.forEach(c => {
+        if (c.date && !isNaN(new Date(c.date).getTime())) {
+          evenementsDisponibles.unshift({
+            id: c.id || Date.now(),
+            titre: c.titre || 'Événement AEEMCI',
+            theme: c.desc || c.description || '',
+            date: c.date,
+            dateAffichee: c.date,
+            lieu: c.lieu || 'Koumassi',
+            badge: c.badge || 'PROCHAIN ÉVÉNEMENT',
+            affiche: c.image || 'images/secofis.jpg',
+            lien: c.lien || 'https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm'
+          });
         }
-      } catch(e) {}
-    }
-
-    // 2. Sinon lire la date du prochain événement en cours
-    const actusRaw = localStorage.getItem('aeemci_cms_actualites');
-    if (actusRaw) {
-      try {
-        const actus = JSON.parse(actusRaw);
-        const prochain = actus.find(a => (a.categorie && a.categorie.toUpperCase().includes('PROCHAIN')) || (a.badge && a.badge.toUpperCase().includes('PROCHAIN')));
-        if (prochain && prochain.date) {
-          const parsed = Date.parse(prochain.date);
-          if (!isNaN(parsed)) return parsed;
-        }
-      } catch(e) {}
-    }
-
-    // 3. Date par défaut : Lancement Officiel Soutien Scolaire BEPC & BAC 2026 (01 Septembre 2026 08H00)
-    return new Date('2026-09-01T08:00:00').getTime();
+      });
+    } catch(e) {}
   }
 
-  function mettreAJourChronometre() {
-    const targetTime = obtenirDateCible();
-    const now = Date.now();
-    const diff = targetTime - now;
+  // 2. Filtrer STRICTEMENT les événements futurs (les événements passés sont masqués automatiquement)
+  const maintenant = Date.now();
+  const evenementsFuturs = evenementsDisponibles
+    .filter(ev => new Date(ev.date).getTime() > maintenant)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-    // ⚠️ Si la date est arrivée (Jour J) ou déjà passée (diff <= 0) -> Masquage automatique immédiat du widget !
-    if (diff <= 0) {
-      sectionWidget.style.display = 'none';
+  // 3. Cas A : Aucun événement futur -> Affichage d'une bannière d'information et calendrier WhatsApp élégante
+  if (evenementsFuturs.length === 0) {
+    container.innerHTML = `
+      <div class="conteneur">
+        <div class="banniere-evenement-compteur" style="grid-template-columns: 80px 1fr auto; gap: 20px;">
+          <div style="font-size: 2.8rem; text-align: center;">📅</div>
+          <div>
+            <span class="badge-tag or" style="margin-bottom: 6px; display: inline-block;">Mandat 2025–2026</span>
+            <h3 style="font-size: 1.35rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px;">Prochains Événements &amp; Calendrier Associatif</h3>
+            <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0;">
+              Les prochaines dates de formations et rencontres de la rentrée solennelle sont en cours de programmation. Rejoignez notre communauté WhatsApp pour recevoir les annonces officielles en temps réel.
+            </p>
+          </div>
+          <div>
+            <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000; padding: 12px 24px; font-weight: 800; font-size: 0.88rem; white-space: nowrap;">
+              Rejoindre la Communauté WhatsApp →
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  // 4. Cas B : Un événement futur existe -> Affichage dynamique avec compte à rebours précis
+  const prochain = evenementsFuturs[0];
+  const targetTime = new Date(prochain.date).getTime();
+
+  container.innerHTML = `
+    <div class="conteneur">
+      <div class="banniere-evenement-compteur">
+        <!-- Vignette Affiche -->
+        <div style="position: relative; cursor: pointer;" onclick="ouvrirAfficheModal('${prochain.affiche}')">
+          <img id="hero-actu-image" loading="lazy" src="${prochain.affiche}" alt="${prochain.titre}" style="width: 85px; height: 115px; object-fit: cover; border-radius: 10px; border: 2px solid var(--or); box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease;">
+          <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.75); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px;">🔍 Zoom</span>
+        </div>
+
+        <!-- Informations Événement -->
+        <div>
+          <span class="badge-tag or" style="margin-bottom: 8px;">${prochain.badge}</span>
+          <h3 id="hero-actu-titre" style="font-size: 1.45rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px; line-height: 1.3;">${prochain.titre}</h3>
+          <div id="hero-actu-theme" style="font-size: 0.92rem; color: var(--or-clair); font-weight: 700; margin-bottom: 6px;">
+            Thème : ${prochain.theme}
+          </div>
+          <p id="hero-actu-details" style="color: rgba(255,255,255,0.88); font-size: 0.88rem; margin: 0;">
+            📍 ${prochain.lieu} • 📅 ${prochain.dateAffichee}
+          </p>
+        </div>
+
+        <!-- Compte à rebours & CTA Inscription -->
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+          <div class="compte-rebours-box">
+            <div class="chronometre-unite">
+              <div class="chronometre-valeur" id="compteurJours">00</div>
+              <div class="chronometre-label">Jours</div>
+            </div>
+            <div class="chronometre-unite">
+              <div class="chronometre-valeur" id="compteurHeures">00</div>
+              <div class="chronometre-label">Heures</div>
+            </div>
+            <div class="chronometre-unite">
+              <div class="chronometre-valeur" id="compteurMinutes">00</div>
+              <div class="chronometre-label">Min</div>
+            </div>
+            <div class="chronometre-unite">
+              <div class="chronometre-valeur" id="compteurSecondes">00</div>
+              <div class="chronometre-label">Sec</div>
+            </div>
+          </div>
+
+          <a href="${prochain.lien}" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem; font-weight: 800;">
+            S'inscrire sur WhatsApp →
+          </a>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Mettre à jour les chiffres du compte à rebours chaque seconde
+  function rafraichirChrono() {
+    const reste = targetTime - Date.now();
+    if (reste <= 0) {
+      // Si l'heure est échue, relancer la fonction pour passer au prochain événement futur ou au fallback
+      initialiserCompteAReboursAutomatique();
       return;
     }
 
-    // L'événement est à venir -> Le widget reste affiché et le compte à rebours tourne en direct
-    sectionWidget.style.display = 'block';
+    const totalSec = Math.floor(reste / 1000);
+    const d = Math.floor(totalSec / 86400);
+    const h = Math.floor((totalSec % 86400) / 3600);
+    const m = Math.floor((totalSec % 3600) / 60);
+    const s = Math.floor(totalSec % 60);
 
-    const totalSeconds = Math.floor(diff / 1000);
-    const days = Math.floor(totalSeconds / 86400);
-    const hours = Math.floor((totalSeconds % 86400) / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = Math.floor(totalSeconds % 60);
+    const elJ = document.getElementById('compteurJours');
+    const elH = document.getElementById('compteurHeures');
+    const elM = document.getElementById('compteurMinutes');
+    const elS = document.getElementById('compteurSecondes');
 
-    const elJours = document.getElementById('compteurJours');
-    const elHeures = document.getElementById('compteurHeures');
-    const elMin = document.getElementById('compteurMinutes');
-    const elSec = document.getElementById('compteurSecondes');
-
-    if (elJours) elJours.textContent = String(days).padStart(2, '0');
-    if (elHeures) elHeures.textContent = String(hours).padStart(2, '0');
-    if (elMin) elMin.textContent = String(minutes).padStart(2, '0');
-    if (elSec) elSec.textContent = String(seconds).padStart(2, '0');
+    if (elJ) elJ.textContent = String(d).padStart(2, '0');
+    if (elH) elH.textContent = String(h).padStart(2, '0');
+    if (elM) elM.textContent = String(m).padStart(2, '0');
+    if (elS) elS.textContent = String(s).padStart(2, '0');
   }
 
-  mettreAJourChronometre();
-  setInterval(mettreAJourChronometre, 1000);
+  rafraichirChrono();
+  setInterval(rafraichirChrono, 1000);
 }
 
-// 10. Accès Discret Administrateur (Raccourci Secret Ctrl + Shift + A & Triple Clic Copyright)
-document.addEventListener('keydown', function(e) {
-  if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
-    e.preventDefault();
-    window.location.href = 'studio/index.html';
+// 10. MODAL PRÉSENTATION OFFICIELLE & MODE PRÉSENTATION PRO
+function ouvrirPresentationModal() {
+  const modal = document.getElementById('modalPresentationOfficielle');
+  if (modal) {
+    modal.classList.add('actif');
+    document.body.style.overflow = 'hidden';
   }
-});
+}
 
-let nbClicsFooter = 0;
-let timerClicsFooter = null;
-document.addEventListener('click', function(e) {
-  if (e.target && (e.target.closest('.bas-pied-site') || e.target.closest('footer'))) {
-    nbClicsFooter++;
-    clearTimeout(timerClicsFooter);
-    if (nbClicsFooter >= 4) {
-      nbClicsFooter = 0;
-      window.location.href = 'studio/index.html';
-    } else {
-      timerClicsFooter = setTimeout(() => { nbClicsFooter = 0; }, 1200);
-    }
+function fermerPresentationModal() {
+  const modal = document.getElementById('modalPresentationOfficielle');
+  if (modal) {
+    modal.classList.remove('actif');
+    document.body.style.overflow = '';
   }
-});
+}
+
+function imprimerDossierPresentation() {
+  window.print();
+}
+
+window.ouvrirPresentationModal = ouvrirPresentationModal;
+window.fermerPresentationModal = fermerPresentationModal;
+window.imprimerDossierPresentation = imprimerDossierPresentation;
+
+// 11. RACCOURCIS CLAVIER & ACCÈS DISCRET
+function initialiserRaccourcisClavier() {
+  document.addEventListener('keydown', function(e) {
+    // Ne pas intercepter si l'utilisateur saisit dans un champ de formulaire
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+
+    // Touche P : Ouvrir le Dossier de Présentation Pro
+    if (e.key === 'P' || e.key === 'p') {
+      ouvrirPresentationModal();
+    }
+
+    // Touche Échap : Fermer les modales
+    if (e.key === 'Escape') {
+      fermerPresentationModal();
+      if (typeof fermerAfficheModal === 'function') fermerAfficheModal();
+      if (typeof fermerSidebar === 'function') fermerSidebar();
+    }
+
+    // Ctrl + Shift + A : Accès Studio Créateur
+    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      e.preventDefault();
+      window.location.href = 'studio/index.html';
+    }
+  });
+
+  // Triple clic discret sur le pied de page pour ouvrir le Studio
+  let nbClicsFooter = 0;
+  let timerClicsFooter = null;
+  document.addEventListener('click', function(e) {
+    if (e.target && (e.target.closest('.bas-pied-site') || e.target.closest('footer'))) {
+      nbClicsFooter++;
+      clearTimeout(timerClicsFooter);
+      if (nbClicsFooter >= 4) {
+        nbClicsFooter = 0;
+        window.location.href = 'studio/index.html';
+      } else {
+        timerClicsFooter = setTimeout(() => { nbClicsFooter = 0; }, 1200);
+      }
+    }
+  });
+}

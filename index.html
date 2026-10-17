@@ -56,8 +56,8 @@
 </script>
 
 <link rel="icon" href="images/logo.png">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/base_donnees.js" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20261017_pro">
+<script src="js/base_donnees.js?v=20261017_pro" defer></script>
 </head>
 <body>
 
@@ -156,7 +156,8 @@
       <a href="actualites.html">Actualités</a>
       <a href="galerie.html">Galerie</a>
       <a href="contact.html">Contact</a>
-      <a href="contact.html#adhesion" class="bouton-cta-primaire">Rejoindre</a>
+      <button type="button" class="bouton-presentation-nav" onclick="ouvrirPresentationModal()" title="Consulter la Plaquette Officielle du Mandat 2025-2026">📄 Présentation Pro</button>
+      <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire">Rejoindre</a>
     </nav>
   </div>
 </header>
@@ -184,7 +185,10 @@
           <span>Découvrir nos activités</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-         <a href="contact.html#adhesion" class="bouton-cta-secondaire">Devenir membre</a>
+        <button type="button" class="bouton-presentation-nav" onclick="ouvrirPresentationModal()" style="padding: 12px 22px; font-size: 0.95rem; border-width: 2px;">
+          📄 Plaquette Officielle 2026
+        </button>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-secondaire">Devenir membre sur WhatsApp</a>
       </div>
     </div>
 
@@ -194,6 +198,24 @@
         <div class="hero-medaillon-nom">AEEMCI Koumassi</div>
         <div class="hero-medaillon-devise">« Il n'y a de divinité qu'Allah et Mouhammad est Son Messager »</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BANDEAU PARTENAIRES & ÉCOSYSTÈME INSTITUTIONNEL (PRÉSENTATION PRO) ===== -->
+<section class="bandeau-partenaires">
+  <div class="conteneur bandeau-partenaires-container">
+    <div class="bandeau-partenaires-titre">
+      <span>🏛️ Écosystème &amp; Partenaires Koumassi :</span>
+    </div>
+    <div class="bandeau-partenaires-liste">
+      <span class="partenaire-badge">🎓 Collège Moderne La Colombe</span>
+      <span class="partenaire-badge">🏫 Lycée Moderne de Koumassi</span>
+      <span class="partenaire-badge">🏛️ IST-ISG La Colombe</span>
+      <span class="partenaire-badge">🎓 Lycée Municipal de Koumassi</span>
+      <span class="partenaire-badge">🏢 Univ. Félix Houphouët-Boigny</span>
+      <span class="partenaire-badge">🕌 COSIM Koumassi</span>
+      <span class="partenaire-badge">🌟 AEEMCI Bénévole National</span>
     </div>
   </div>
 </section>
@@ -257,25 +279,25 @@
   </div>
 </section>
 
-<!-- ===== WIDGET PROCHAIN ÉVÉNEMENT & COMPTE À REBOURS AUTOMATIQUE ===== -->
-<section id="section-widget-Ã©vÃ©nement" style="padding: 40px 0 0 0; background: var(--fond-clair);">
+<!-- ===== WIDGET PROCHAIN ÉVÉNEMENT & COMPTE À REBOURS DYNAMIQUE (PRÉSENTATION PRO) ===== -->
+<section id="section-widget-evenement" style="padding: 40px 0 0 0; background: var(--fond-clair);">
   <div class="conteneur">
-    <div class="banniere-Ã©vÃ©nement-compteur">
+    <div class="banniere-evenement-compteur">
       <!-- Vignette Affiche Officielle -->
-      <div style="position: relative; cursor: pointer;" onclick="ouvrirAfficheModal(document.getElementById('hero-actu-image').src)">
+      <div style="position: relative; cursor: pointer;" onclick="ouvrirAfficheModal('images/secofis.jpg')">
         <img id="hero-actu-image" loading="lazy" src="images/secofis.jpg" alt="Affiche Prochain Événement" style="width: 85px; height: 115px; object-fit: cover; border-radius: 10px; border: 2px solid var(--or); box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease;">
-        <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.7); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px;">🔍 Zoom</span>
+        <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.75); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px;">🔍 Zoom</span>
       </div>
 
       <!-- Informations Événement -->
       <div>
-        <span class="badge-tag or" style="margin-bottom: 8px;">Prochain Grand Rendez-vous</span>
-        <h3 id="hero-actu-titre" style="font-size: 1.5rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px;">Programme de Soutien Scolaire BEPC &amp; BAC 2026</h3>
+        <span class="badge-tag or" style="margin-bottom: 8px;">GRAND RENDEZ-VOUS</span>
+        <h3 id="hero-actu-titre" style="font-size: 1.45rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px; line-height: 1.3;">Assises Communales de la Jeunesse &amp; Rentrée Solennelle</h3>
         <div id="hero-actu-theme" style="font-size: 0.92rem; color: var(--or-clair); font-weight: 700; margin-bottom: 6px;">
-          Thème : « Excellence académique et révisions intensives gratuites »
+          Thème : « Ensemble pour une identité islamique affirmée et une réussite scolaire rayonnante »
         </div>
-        <p id="hero-actu-details" style="color: rgba(255,255,255,0.85); font-size: 0.88rem; margin: 0;">
-          📍 Siège AEEMCI Koumassi • Lancement officiel le 01 Septembre 2026 à 08H00
+        <p id="hero-actu-details" style="color: rgba(255,255,255,0.88); font-size: 0.88rem; margin: 0;">
+          📍 Collège Moderne La Colombe, Koumassi Sicogi • 📅 Dimanche 15 Novembre 2026 • Dès 08H30
         </p>
       </div>
 
@@ -300,8 +322,8 @@
           </div>
         </div>
 
-        <a href="https://wa.me/2250545305180?text=Assalamu%20alaykum,%20je%20souhaite%20m'inscrire%20au%20programme%20de%20Soutien%20Scolaire%20BEPC%20%26%20BAC" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem;">
-          S'inscrire gratuitement sur WhatsApp →
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem; font-weight: 800;">
+          S'inscrire sur WhatsApp →
         </a>
       </div>
     </div>
@@ -369,6 +391,93 @@
           Plus d'un demi-siècle de leadership (Fondée en 1975, agréée en 1979).
         </p>
         <div class="carte-chiffre-glow"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION FORMATIONS NUMÉRIQUES & CONCOURS CHOC DES TITANS (ACADÉMIE DU NUMÉRIQUE) ===== -->
+<section class="section-piliers" style="background: #FFFFFF;">
+  <div class="conteneur">
+    <div class="entete-section-moderne">
+      <span class="badge-tag or">Formations &amp; Compétences 2026</span>
+      <h2>Académie du Numérique &amp; Art Oratoire</h2>
+      <p>Des programmes 100% gratuits conçus pour développer vos compétences informatiques pratiques et votre maîtrise de la prise de parole en public.</p>
+    </div>
+
+    <div class="grille-cartes-piliers" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      
+      <!-- 1. Masterclass Word -->
+      <div class="carte-pilier-moderne">
+        <div class="pilier-icone">📘</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span class="badge-tag" style="font-size: 0.72rem;">100% GRATUIT</span>
+          <span class="badge-tag or" style="font-size: 0.72rem;">BUREAUTIQUE</span>
+        </div>
+        <h3 style="font-size: 1.25rem;">Masterclass Microsoft Word</h3>
+        <p style="margin-bottom: 16px;">Mise en page professionnelle de documents administratifs, rapports de stage, Termes De Référence (TDR) et mémoires académiques.</p>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-contour" style="display: inline-block; width: 100%; text-align: center; border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px; font-weight: 700;">Réserver ma place sur WhatsApp →</a>
+      </div>
+
+      <!-- 2. Formation Excel -->
+      <div class="carte-pilier-moderne">
+        <div class="pilier-icone">📊</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span class="badge-tag" style="font-size: 0.72rem;">100% GRATUIT</span>
+          <span class="badge-tag or" style="font-size: 0.72rem;">TABLEURS &amp; GESTION</span>
+        </div>
+        <h3 style="font-size: 1.25rem;">Formation Microsoft Excel</h3>
+        <p style="margin-bottom: 16px;">Formules fondamentales, gestion de bases de données, graphiques et tableaux croisés dynamiques pour la gestion et les études.</p>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-contour" style="display: inline-block; width: 100%; text-align: center; border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px; font-weight: 700;">Réserver ma place sur WhatsApp →</a>
+      </div>
+
+      <!-- 3. Prompt Engineering / IA -->
+      <div class="carte-pilier-moderne">
+        <div class="pilier-icone">🤖</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span class="badge-tag or" style="font-size: 0.72rem;">INNOVATION IA</span>
+          <span class="badge-tag" style="font-size: 0.72rem;">PROMPT ENGINEERING</span>
+        </div>
+        <h3 style="font-size: 1.25rem;">Prompt Engineering &amp; IA</h3>
+        <p style="margin-bottom: 16px;">Initiation pratique à l'utilisation responsable et efficace des outils d'Intelligence Artificielle (ChatGPT, Gemini) pour stimuler vos travaux.</p>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-contour" style="display: inline-block; width: 100%; text-align: center; border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px; font-weight: 700;">Réserver ma place sur WhatsApp →</a>
+      </div>
+
+      <!-- 4. PowerPoint -->
+      <div class="carte-pilier-moderne">
+        <div class="pilier-icone">🖥️</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span class="badge-tag" style="font-size: 0.72rem;">100% GRATUIT</span>
+          <span class="badge-tag or" style="font-size: 0.72rem;">DESIGN &amp; SLIDES</span>
+        </div>
+        <h3 style="font-size: 1.25rem;">PowerPoint &amp; Présentations</h3>
+        <p style="margin-bottom: 16px;">Conception de supports visuels percutants pour réussir vos exposés scolaires, soutenances et conférences associatives.</p>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-contour" style="display: inline-block; width: 100%; text-align: center; border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px; font-weight: 700;">Réserver ma place sur WhatsApp →</a>
+      </div>
+
+      <!-- 5. Montage d'affiches & vidéos -->
+      <div class="carte-pilier-moderne">
+        <div class="pilier-icone">🎨</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span class="badge-tag or" style="font-size: 0.72rem;">INFOGRAPHIE</span>
+          <span class="badge-tag" style="font-size: 0.72rem;">MONTAGE VIDÉO</span>
+        </div>
+        <h3 style="font-size: 1.25rem;">Montage d'Affiches &amp; Vidéos</h3>
+        <p style="margin-bottom: 16px;">Création de visuels attractifs (Canva/Photoshop) et montage de récapitulatifs vidéo pour dynamiser vos projets et réseaux.</p>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-contour" style="display: inline-block; width: 100%; text-align: center; border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px; font-weight: 700;">Réserver ma place sur WhatsApp →</a>
+      </div>
+
+      <!-- 6. Concours Choc des Titans -->
+      <div class="carte-pilier-moderne" style="border: 2px solid var(--or); background: var(--vert-tendre);">
+        <div class="pilier-icone" style="background: var(--or-gradient); color: var(--vert-sombre);">🎙️</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+          <span class="badge-tag or" style="font-size: 0.72rem;">GRAND CONCOURS</span>
+          <span class="badge-tag" style="font-size: 0.72rem;">ÉLOQUENCE</span>
+        </div>
+        <h3 style="font-size: 1.25rem; color: var(--vert-emeraude);">Concours « Choc des Titans »</h3>
+        <p style="margin-bottom: 16px;">Grand tournoi d'art oratoire, de joute oratoire et de délibération d'idées entre les différentes sections scolaires de Koumassi.</p>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="display: inline-block; width: 100%; text-align: center; font-size: 0.88rem; padding: 10px; background: var(--or-gradient); color: #000000; font-weight: 800;">S'inscrire au Concours via WhatsApp →</a>
       </div>
 
     </div>
@@ -759,7 +868,7 @@
     <h2>Rejoignez le Sous-Comité AEEMCI de Koumassi</h2>
     <p>Que vous soyez élève, étudiant ou sympathisant, participez activement à nos formations, activités et projets solidaires.</p>
     <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-      <a href="contact.html#adhesion" class="bouton-cta-primaire">Adhérer maintenant sur WhatsApp →</a>
+      <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire">Adhérer maintenant sur WhatsApp →</a>
       <a href="contact.html" class="bouton-cta-secondaire" style="background: transparent; border-color: #FFFFFF; color: #FFFFFF;">Nous contacter</a>
     </div>
   </div>
@@ -817,8 +926,6 @@
           <li><span style="color: var(--or-clair); font-weight: 700;">⏰ Réunions :</span> <span id="site-contact-horaires" class="publicFooterHoraires">Chaque Samedi (IST-ISG La Colombe)</span></li>
         </ul>
       </div>
-
-      
 
     </div>
 
@@ -890,6 +997,113 @@ function fermerAfficheModal() {
   </div>
 </div>
 
-<script src="js/main.js"></script>
+<!-- MODALE DOSSIER DE PRÉSENTATION OFFICIELLE (PRÉSENTATION PRO 2026) -->
+<div id="modalPresentationOfficielle" class="modal-presentation" onclick="fermerPresentationModal()">
+  <div class="dossier-presentation-card" onclick="event.stopPropagation()">
+    <!-- En-tête Dossier -->
+    <div class="dossier-header">
+      <div class="dossier-header-top">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <img src="images/logo.png" alt="Logo AEEMCI" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--or);">
+          <div>
+            <span class="badge-tag or" style="font-size: 0.72rem; letter-spacing: 1px;">DOCUMENT OFFICIEL • MANDAT 2025–2026</span>
+            <h2 style="font-size: 1.4rem; color: #FFFFFF; font-family: var(--font-titre); margin: 4px 0 0 0;">Dossier de Présentation Officielle</h2>
+          </div>
+        </div>
+        <button class="dossier-fermer-btn" onclick="fermerPresentationModal()" title="Fermer la présentation">&times;</button>
+      </div>
+      <div style="font-size: 0.92rem; color: rgba(255,255,255,0.88); line-height: 1.5;">
+        Sous-Comité AEEMCI de Koumassi (Abidjan) — « Pour une identité islamique ! » • « Ensemble nous sommes plus forts »
+      </div>
+    </div>
+
+    <!-- Corps du Dossier -->
+    <div class="dossier-corps">
+      <!-- 1. Identité & Vocation -->
+      <div class="dossier-section-bloc">
+        <h3 class="dossier-section-titre"><span>🏛️</span> 1. Identité &amp; Vocation Institutionnelle</h3>
+        <p style="font-size: 0.93rem; line-height: 1.65; color: var(--texte-principal); margin-bottom: 12px;">
+          L'<strong>AEEMCI (Association des Élèves et Étudiants Musulmans de Côte d'Ivoire)</strong> est l'organisation pionnière de la jeunesse musulmane ivoirienne, reconnue d'utilité publique par l'État (Arrêté N° 79 du 12 Avril 1979). Le <strong>Sous-Comité de Koumassi</strong> assure l'encadrement pédagogique, moral et spirituel des élèves des collèges, lycées et grandes écoles de la commune.
+        </p>
+      </div>
+
+      <!-- 2. Chiffres Clés de Performance -->
+      <div class="dossier-section-bloc">
+        <h3 class="dossier-section-titre"><span>📊</span> 2. Chiffres Clés &amp; Impact Communal</h3>
+        <div class="dossier-grille-stats">
+          <div class="dossier-stat-item">
+            <div class="dossier-stat-nombre">+20</div>
+            <div class="dossier-stat-label">Sections Scolaires Actives</div>
+          </div>
+          <div class="dossier-stat-item">
+            <div class="dossier-stat-nombre">+500</div>
+            <div class="dossier-stat-label">Élèves &amp; Étudiants Encadrés / An</div>
+          </div>
+          <div class="dossier-stat-item">
+            <div class="dossier-stat-nombre">95%</div>
+            <div class="dossier-stat-label">Taux de Réussite BEPC &amp; BAC</div>
+          </div>
+          <div class="dossier-stat-item">
+            <div class="dossier-stat-nombre">+50 Ans</div>
+            <div class="dossier-stat-label">D'Histoire &amp; Leadership (1975–2026)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Programmes Majeurs & Académie du Numérique -->
+      <div class="dossier-section-bloc">
+        <h3 class="dossier-section-titre"><span>🚀</span> 3. Académie du Numérique &amp; Programmes d'Excellence</h3>
+        <ul style="font-size: 0.92rem; line-height: 1.7; color: var(--texte-principal); padding-left: 20px;">
+          <li><strong>Masterclass Microsoft Word &amp; Suite Bureautique :</strong> Mise en page pro, TDR, rapports de stage et mémoires.</li>
+          <li><strong>Formation Microsoft Excel :</strong> Gestion de données, calculs avancés et tableaux croisés dynamiques.</li>
+          <li><strong>Prompt Engineering &amp; Intelligence Artificielle :</strong> Maîtrise des IA génératives appliquées aux études et à la productivité.</li>
+          <li><strong>PowerPoint &amp; Art Visuel :</strong> Conception de slides captivants pour soutenances et présentations publiques.</li>
+          <li><strong>Infographie &amp; Montage Vidéo :</strong> Conception d'affiches (Canva/Photoshop) et capsules vidéo.</li>
+          <li><strong>Concours d'Art Oratoire « Le Choc des Titans » :</strong> Joutes oratoires et tournoi d'éloquence inter-établissements.</li>
+        </ul>
+      </div>
+
+      <!-- 4. Bureau Exécutif 2025-2026 -->
+      <div class="dossier-section-bloc">
+        <h3 class="dossier-section-titre"><span>👥</span> 4. Gouvernance &amp; Bureau Exécutif</h3>
+        <p style="font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); margin-bottom: 8px;">
+          <strong>Président du Sous-Comité :</strong> Sow Mohamed<br>
+          <strong>Vice-Présidence :</strong> Zeba Askandar (1er VP), Sangare Ousmane (2e VP), Konate Mariam (VP)<br>
+          <strong>Secrétariat Général :</strong> Diabate Fode (SG), Kouma Yaya (SG-A), Dabre Nassira (SG-A)<br>
+          <strong>Trésorerie Générale :</strong> Sogne Foussena (TG), Gana Fatim (TG-A), Traore Aïcha (Membre)<br>
+          <strong>Délégations Spécialisées :</strong> Culture (Kokora Mohamed), Sociale (Kangoute Salimata), DOM (Simpore Mohamed).
+        </p>
+      </div>
+
+      <!-- 5. Siège & Contacts Officiels -->
+      <div class="dossier-section-bloc">
+        <h3 class="dossier-section-titre"><span>📍</span> 5. Siège &amp; Coordonnées Officielles</h3>
+        <p style="font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); margin: 0;">
+          <strong>Lieu des Rencontres :</strong> IST-ISG La Colombe / Collège Moderne La Colombe, Koumassi Sicogi (Chaque Samedi à 15H00)<br>
+          <strong>Téléphones Permanence :</strong> +225 05 45 30 51 80 / +225 07 57 47 73 72<br>
+          <strong>Email Officiel :</strong> aeemci.koumassi@gmail.com<br>
+          <strong>Portail Web :</strong> https://aeemci-koumassi.github.io/aeemci-koumassi/
+        </p>
+      </div>
+    </div>
+
+    <!-- Actions du Dossier -->
+    <div class="dossier-actions-barre">
+      <div style="font-size: 0.82rem; color: var(--texte-doux); font-weight: 600;">
+        💡 Astuce : Vous pouvez projeter ce document en réunion ou l'enregistrer en PDF.
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <button type="button" class="bouton-cta-contour" onclick="imprimerDossierPresentation()" style="border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px 18px; font-weight: 700; cursor: pointer;">
+          🖨️ Imprimer / PDF
+        </button>
+        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="font-size: 0.88rem; padding: 10px 20px; font-weight: 700;">
+          Rejoindre sur WhatsApp →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js?v=20261017_pro"></script>
 </body>
 </html>

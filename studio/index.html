@@ -3,75 +3,75 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio AEEMCI â€” Creator & Administrative Dashboard (Koumassi)</title>
-  <link rel="stylesheet" href="studio.css?v=20261007_v3">
+  <title>Studio AEEMCI — Creator &amp; Administrative Dashboard (Koumassi)</title>
+  <link rel="stylesheet" href="studio.css?v=20261017_pro">
   <link rel="icon" href="../images/logo.png" type="image/png">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/supabase-client.js?v=20261007_v3"></script>
-  <script src="js/auth-guard.js?v=20261007_v3"></script>
+  <script src="js/supabase-client.js?v=20261017_pro"></script>
+  <script src="js/auth-guard.js?v=20261017_pro"></script>
 </head>
 <body>
 <div id="toast-container"></div>
 
 <div class="studio-container">
 
-  <!-- ==================== SIDEBAR LATÃ‰RALE YOUTUBE STUDIO STYLE ==================== -->
+  <!-- ==================== SIDEBAR LATÉRALE YOUTUBE STUDIO STYLE ==================== -->
   <aside class="studio-sidebar" id="studioSidebar">
     <div class="sidebar-header">
       <img src="../images/logo.png" alt="Logo AEEMCI Koumassi" onerror="this.src='../logo.png'">
       <div class="sidebar-titre-box">
         <h2>STUDIO AEEMCI</h2>
-        <span>Creator Hub â€¢ Koumassi</span>
+        <span>Creator Hub • Koumassi</span>
       </div>
     </div>
 
     <nav class="sidebar-nav">
       <a class="nav-item actif" onclick="changerOngletStudio('tab-vue-ensemble', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">ðŸ“Š</span>
+          <span class="nav-icone">📊</span>
           <span>Vue d'Ensemble</span>
         </div>
       </a>
 
       <a class="nav-item" onclick="changerOngletStudio('tab-militants', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">ðŸ“‹</span>
+          <span class="nav-icone">📋</span>
           <span>Registre Militants</span>
         </div>
         <span class="nav-badge" id="sidebarBadgeAttente">0</span>
       </a>
 
-      <a class="nav-item" onclick="changerOngletStudio('tab-Ã©vÃ©nements', this)">
+      <a class="nav-item" onclick="changerOngletStudio('tab-evenements', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">ðŸŽ¬</span>
+          <span class="nav-icone">🎬</span>
           <span>Contenu &amp; Actualités</span>
         </div>
       </a>
 
       <a class="nav-item" onclick="changerOngletStudio('tab-formations', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">ðŸŽ“</span>
+          <span class="nav-icone">🎓</span>
           <span>Formations &amp; Cours</span>
         </div>
       </a>
 
       <a class="nav-item" onclick="changerOngletStudio('tab-galerie', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">ðŸ“¸</span>
+          <span class="nav-icone">📸</span>
           <span>Médiathèque Asset</span>
         </div>
       </a>
 
       <a class="nav-item" onclick="changerOngletStudio('tab-config', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">ðŸŽ¨</span>
+          <span class="nav-icone">🎨</span>
           <span>Personnalisation Site</span>
         </div>
       </a>
 
       <a class="nav-item" onclick="changerOngletStudio('tab-parametres', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">âš™ï¸</span>
+          <span class="nav-icone">⚙️</span>
           <span>Bureau &amp; Rôles</span>
         </div>
       </a>
@@ -85,18 +85,20 @@
           <span id="topUserRole">Président Exécutif</span>
         </div>
       </div>
-      <button class="btn-logout" onclick="window.studioAuth.logout()" title="Déconnexion du Studio">ðŸšª</button>
+      <button class="bouton-deconnexion" onclick="deconnecterStudio()" title="Déconnexion">
+        <span>🚪</span>
+      </button>
     </div>
   </aside>
 
   <!-- ==================== CONTENU PRINCIPAL ==================== -->
   <main class="studio-main">
     
-    <!-- TOPBAR SUPÃ‰RIEURE YOUTUBE STUDIO STYLE -->
+    <!-- TOPBAR SUPÉRIEURE YOUTUBE STUDIO STYLE -->
     <header class="studio-topbar">
       <div class="topbar-recherche">
-        <span>ðŸ”</span>
-        <input type="text" id="studioSearchGlobal" placeholder="Rechercher dans le Studio (Militants, Ã‰vénements...)..." onkeyup="rechercherStudioGlobal(this.value)">
+        <span>🔍</span>
+        <input type="text" id="studioSearchGlobal" placeholder="Rechercher dans le Studio (Militants, Événements...)..." onkeyup="rechercherStudioGlobal(this.value)">
       </div>
 
       <div class="topbar-actions">
@@ -105,23 +107,23 @@
           <span>Synchro Live (Canvas HD)</span>
         </div>
 
-        <!-- DROPDOWN + CRÃ‰ER YOUTUBE STUDIO STYLE -->
+        <!-- DROPDOWN + CRÉER YOUTUBE STUDIO STYLE -->
         <div class="dropdown-creer-box">
           <button class="bouton-creer-yt" onclick="toggleMenuCreer(event)">
-            <span>âž•</span>
-            <span>CRÃ‰ER</span>
-            <span style="font-size: 0.75rem; margin-left: 2px;">â–¼</span>
+            <span>➕</span>
+            <span>CRÉER</span>
+            <span style="font-size: 0.75rem; margin-left: 2px;">▼</span>
           </button>
           <div class="menu-creer-dropdown" id="menuCreerDropdown">
-            <a onclick="ouvrirModalAjoutEvenement(); toggleMenuCreer();">ðŸŽ¬ Publier un Ã‰vénement</a>
-            <a onclick="changerOngletStudio('tab-galerie'); toggleMenuCreer();">ðŸ“¸ Téléverser des Photos (Médiathèque)</a>
-            <a onclick="changerOngletStudio('tab-formations'); toggleMenuCreer();">ðŸŽ“ Ajouter un Module de Formation</a>
-            <a onclick="ouvrirModalMembreBureau(); toggleMenuCreer();">ðŸ‘¤ Membre du Bureau</a>
+            <a onclick="ouvrirModalAjoutEvenement(); toggleMenuCreer();">🎬 Publier un Événement</a>
+            <a onclick="changerOngletStudio('tab-galerie'); toggleMenuCreer();">📸 Téléverser des Photos (Médiathèque)</a>
+            <a onclick="changerOngletStudio('tab-formations'); toggleMenuCreer();">🎓 Ajouter un Module de Formation</a>
+            <a onclick="ouvrirModalMembreBureau(); toggleMenuCreer();">👤 Membre du Bureau</a>
           </div>
         </div>
 
         <a href="../index.html" target="_blank" class="bouton-site-public" title="Voir le site web en direct">
-          <span>ðŸ‘ï¸</span>
+          <span>👁️</span>
           <span>Voir le Site</span>
         </a>
       </div>
@@ -132,13 +134,13 @@
       <!-- ==================== TAB 1 : TABLEAU DE BORD (ANALYTICS & KPI) ==================== -->
       <section id="tab-vue-ensemble" class="onglet-contenu actif">
         
-        <!-- CARTE BANNIÃˆRE APERÃ‡U DE LA CHAÃŽNE / SOUS-COMITÃ‰ -->
+        <!-- CARTE BANNIÈRE APERÇU DU SOUS-COMITÉ -->
         <div class="creator-overview-card">
           <div class="creator-header">
             <img src="../images/logo.png" alt="Logo AEEMCI" onerror="this.src='../logo.png'" class="creator-avatar">
             <div>
-              <h2 class="creator-title">Sous-Comité AEEMCI Koumassi <span class="badge-verifie">âœ” Officiel</span></h2>
-              <p class="creator-subtitle">Tableau de bord créateur &amp; d'administration du Sous-Comité â€¢ Mandat 2025â€“2026</p>
+              <h2 class="creator-title">Sous-Comité AEEMCI Koumassi <span class="badge-verifie">✔ Officiel</span></h2>
+              <p class="creator-subtitle">Tableau de bord créateur &amp; d'administration du Sous-Comité • Mandat 2025–2026</p>
             </div>
           </div>
           <div class="creator-metrics">
@@ -166,25 +168,25 @@
               <div class="kpi-valeur" id="kpiOverviewTotal">500</div>
               <span class="kpi-tendance"> Validés &amp; Actifs</span>
             </div>
-            <div class="kpi-icone-box">ðŸ‘¥</div>
+            <div class="kpi-icone-box">👥</div>
           </div>
 
           <div class="carte-kpi or">
             <div class="kpi-infos">
               <h3>Demandes en Attente</h3>
               <div class="kpi-valeur" id="kpiOverviewAttente">3</div>
-              <span class="kpi-tendance" style="color: var(--or-sombre);">âš¡ Ã€ valider</span>
+              <span class="kpi-tendance" style="color: var(--or-sombre);">⚡ À valider</span>
             </div>
-            <div class="kpi-icone-box">â³</div>
+            <div class="kpi-icone-box">⏳</div>
           </div>
 
           <div class="carte-kpi">
             <div class="kpi-infos">
-              <h3>Ã‰vénements Publiés</h3>
+              <h3>Événements Publiés</h3>
               <div class="kpi-valeur" id="kpiOverviewEvents">6</div>
               <span class="kpi-tendance"> Synchro Temps Réel</span>
             </div>
-            <div class="kpi-icone-box">ðŸŽ¬</div>
+            <div class="kpi-icone-box">🎬</div>
           </div>
 
           <div class="carte-kpi or">
@@ -193,17 +195,17 @@
               <div class="kpi-valeur" id="kpiOverviewPhotos">0</div>
               <span class="kpi-tendance" style="color: var(--or-sombre);"> Canvas HD</span>
             </div>
-            <div class="kpi-icone-box">ðŸ“¸</div>
+            <div class="kpi-icone-box">📸</div>
           </div>
         </div>
 
-        <!-- RACCOURCIS RAPIDES & APERÃ‡U REGISTRE -->
+        <!-- RACCOURCIS RAPIDES & APERÇU REGISTRE -->
         <div class="carte-tableau">
           <div class="tableau-header">
             <div class="tableau-titre">
               <h3>Dernières Demandes d'Adhésion Militants</h3>
             </div>
-            <button class="bouton-action-contour" onclick="changerOngletStudio('tab-militants')">Voir le Registre Complet âž”</button>
+            <button class="bouton-action-contour" onclick="changerOngletStudio('tab-militants')">Voir le Registre Complet ➔</button>
           </div>
           <div class="table-responsive">
             <table class="studio-table">
@@ -211,7 +213,7 @@
                 <tr>
                   <th>Nom &amp; Prénoms</th>
                   <th>Quartier (Koumassi)</th>
-                  <th>Ã‰tablissement</th>
+                  <th>Établissement</th>
                   <th>WhatsApp</th>
                   <th>Statut</th>
                   <th>Actions</th>
@@ -233,7 +235,7 @@
             <p>Gestion et validation des adhésions d'élèves et étudiants à Koumassi.</p>
           </div>
           <button class="bouton-action-pro" onclick="exporterMilitantsExcel()">
-            <span>ðŸ“¥</span>
+            <span>📥</span>
             <span>Exporter le Registre (CSV/Excel)</span>
           </button>
         </div>
@@ -244,7 +246,7 @@
               <h3>Liste Intégrale des Adhésions</h3>
             </div>
             <div class="tableau-recherche">
-              <input type="text" id="rechercheMilitantInput" placeholder="ðŸ” Rechercher nom, quartier, école..." onkeyup="filtrerMilitantsTable(this.value)">
+              <input type="text" id="rechercheMilitantInput" placeholder="🔍 Rechercher nom, quartier, école..." onkeyup="filtrerMilitantsTable(this.value)">
             </div>
           </div>
           <div class="table-responsive">
@@ -253,7 +255,7 @@
                 <tr>
                   <th>Nom &amp; Prénoms</th>
                   <th>Quartier</th>
-                  <th>Ã‰tablissement / Université</th>
+                  <th>Établissement / Université</th>
                   <th>WhatsApp</th>
                   <th>Statut</th>
                   <th>Actions</th>
@@ -267,21 +269,21 @@
         </div>
       </section>
 
-      <!-- ==================== TAB 3 : Ã‰VÃ‰NEMENTS & ACTUALITÃ‰S ==================== -->
-      <section id="tab-Ã©vÃ©nements" class="onglet-contenu">
+      <!-- ==================== TAB 3 : ÉVÉNEMENTS & ACTUALITÉS ==================== -->
+      <section id="tab-evenements" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
-            <h1>Gestion des Ã‰vénements &amp; Actualités</h1>
+            <h1>Gestion des Événements &amp; Actualités</h1>
             <p>Publiez et modifiez les conférences, Mahouloud, SECOFIS et révisions.</p>
           </div>
           <button class="bouton-action-pro" onclick="ouvrirModalAjoutEvenement()">
-            <span>âž•</span>
-            <span>Publier un Ã‰vénement</span>
+            <span>➕</span>
+            <span>Publier un Événement</span>
           </button>
         </div>
 
         <div class="carte-tableau" style="padding: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">Ã‰vénements &amp; Publications à l'Affiche</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">Événements &amp; Publications à l'Affiche</h3>
           <div id="containerActualitesCMS" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
             <!-- Généré dynamiquement en JS -->
           </div>
@@ -298,7 +300,7 @@
         </div>
 
         <div class="carte-tableau" style="padding: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">âž• Ajouter un Nouveau Module de Formation</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">➕ Ajouter un Nouveau Module de Formation</h3>
           <form id="formAjoutFormationCMS" onsubmit="enregistrerFormationCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
               <label>Intitulé du Module *</label>
@@ -322,14 +324,14 @@
         </div>
 
         <div class="carte-tableau" style="padding: 28px; margin-top: 24px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸŽ“ Modules de Formation Actifs</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">🎓 Modules de Formation Actifs</h3>
           <div id="containerFormationsCMS" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
             <!-- Généré dynamiquement en JS -->
           </div>
         </div>
       </section>
 
-      <!-- ==================== TAB 5 : GALERIE MÃ‰DIA ==================== -->
+      <!-- ==================== TAB 5 : GALERIE MÉDIA ==================== -->
       <section id="tab-galerie" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
@@ -341,11 +343,11 @@
         <input type="file" id="inputUploadGalerie" multiple accept="image/*" style="display: none;" onchange="gererSelectionPhotos(event)">
 
         <div id="dropZoneGalerie" class="carte-tableau" onclick="declencherSelecteurPhotos()" style="padding: 48px; text-align: center; border: 2px dashed var(--or); background: var(--vert-tendre); transition: all 0.3s ease; cursor: pointer;">
-          <div style="font-size: 3.5rem; margin-bottom: 14px;">ðŸ“¸</div>
+          <div style="font-size: 3.5rem; margin-bottom: 14px;">📸</div>
           <h3 style="font-size: 1.3rem; color: var(--vert-institutionnel); margin-bottom: 8px; font-family: 'Plus Jakarta Sans', sans-serif;">Glissez-déposez vos photos ici</h3>
           <p style="color: var(--texte-secondaire); font-size: 0.92rem; margin-bottom: 22px;">Formats acceptés : JPG, PNG, WEBP (Ou cliquez n'importe où dans la zone)</p>
           <button type="button" class="bouton-action-pro" onclick="event.stopPropagation(); declencherSelecteurPhotos();">
-            <span>ðŸ“</span>
+            <span>📁</span>
             <span>Sélectionner des Fichiers</span>
           </button>
         </div>
@@ -358,7 +360,7 @@
         </div>
       </section>
 
-      <!-- ==================== TAB 6 : CONFIGURATION GENERAL ==================== -->
+      <!-- ==================== TAB 6 : CONFIGURATION GÉNÉRALE ==================== -->
       <section id="tab-config" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
@@ -368,7 +370,7 @@
         </div>
 
         <div class="carte-tableau" style="padding: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">âš™ï¸ Paramètres Généraux du Site</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">⚙️ Paramètres Généraux du Site</h3>
           <form onsubmit="enregistrerConfigCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
               <label>Titre Principal du Site *</label>
@@ -392,7 +394,7 @@
         </div>
       </section>
 
-      <!-- ==================== TAB 7 : BUREAU & PARAMÃˆTRES ==================== -->
+      <!-- ==================== TAB 7 : BUREAU & PARAMÈTRES ==================== -->
       <section id="tab-parametres" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
@@ -402,7 +404,7 @@
         </div>
 
         <div class="carte-tableau" style="padding: 28px; margin-bottom: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸ‘¤ Profil du Président &amp; Mot d'Orientation</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">👤 Profil du Président &amp; Mot d'Orientation</h3>
           <form onsubmit="enregistrerBureauCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
               <label>Nom &amp; Prénoms du Président *</label>
@@ -416,7 +418,7 @@
 
             <div class="form-groupe">
               <label>Mandat Officiel *</label>
-              <input type="text" id="cmsPresidentMandat" placeholder="Mandat 2025 â€“ 2026" required>
+              <input type="text" id="cmsPresidentMandat" placeholder="Mandat 2025 – 2026" required>
             </div>
 
             <div class="form-groupe">
@@ -438,7 +440,7 @@
         <div id="containerBureauCMS"></div>
 
         <div class="carte-tableau" style="padding: 28px; margin-top: 28px;">
-          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">ðŸ“ Coordonnées du Siège &amp; WhatsApp</h3>
+          <h3 style="margin-bottom: 20px; color: var(--vert-institutionnel); font-family: 'Plus Jakarta Sans', sans-serif;">📍 Coordonnées du Siège &amp; WhatsApp</h3>
           <form onsubmit="enregistrerContactCMS(event)" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
             <div class="form-groupe">
               <label>Adresse du Siège *</label>
@@ -485,32 +487,32 @@
 <div class="modal-overlay" id="modalAjoutEvenement">
   <div class="modal-conteneur">
     <div class="modal-header">
-      <h3 id="modalEvenementTitreHeader">âž• Publier un Nouvel Ã‰vénement</h3>
+      <h3 id="modalEvenementTitreHeader">➕ Publier un Nouvel Événement</h3>
       <button class="modal-fermer" onclick="fermerModalAjoutEvenement()">&times;</button>
     </div>
     <form class="modal-body" id="formAjoutActuCMS" onsubmit="ajouterActualiteCMS(event)">
       <input type="hidden" id="cmsActuId">
 
       <div class="form-groupe">
-        <label>Titre de l'Ã‰vénement *</label>
+        <label>Titre de l'Événement *</label>
         <input type="text" id="cmsActuTitre" placeholder="ex: Nuit du Mahouloud 2026" required>
       </div>
 
       <div class="form-groupe">
         <label>Catégorie / Badge *</label>
         <select id="cmsActuCategorie">
-          <option value="PROCHAIN Ã‰VÃ‰NEMENT">PROCHAIN Ã‰VÃ‰NEMENT</option>
+          <option value="PROCHAIN ÉVÉNEMENT">PROCHAIN ÉVÉNEMENT</option>
           <option value="FORMATION">FORMATION</option>
-          <option value="Ã‰VÃ‰NEMENT">Ã‰VÃ‰NEMENT</option>
-          <option value="SPIRITUALITÃ‰">SPIRITUALITÃ‰</option>
+          <option value="ÉVÉNEMENT">ÉVÉNEMENT</option>
+          <option value="SPIRITUALITÉ">SPIRITUALITÉ</option>
           <option value="EXCELLENCE">EXCELLENCE</option>
           <option value="ACTION SOCIALE">ACTION SOCIALE</option>
         </select>
       </div>
 
       <div class="form-groupe">
-        <label>Date &amp; Heure de l'Ã‰vénement</label>
-        <input type="text" id="cmsActuDate" placeholder="ex: Nuit du 25 au 26 AoÃ»t 2026 dès 20H">
+        <label>Date &amp; Heure de l'Événement</label>
+        <input type="text" id="cmsActuDate" placeholder="ex: Nuit du 25 au 26 Août 2026 dès 20H">
       </div>
 
       <div class="form-groupe">
@@ -524,7 +526,7 @@
       </div>
 
       <div class="form-groupe" style="grid-column: 1 / -1;">
-        <label>Photo / Affiche de l'Ã‰vénement (Canvas HD Auto)</label>
+        <label>Photo / Affiche de l'Événement (Canvas HD Auto)</label>
         <input type="file" id="cmsActuImageFile" accept="image/*">
       </div>
 
@@ -539,7 +541,7 @@
 <div class="modal-overlay" id="modalMembreBureau">
   <div class="modal-conteneur">
     <div class="modal-header">
-      <h3 id="modalMembreTitre">âž• Ajouter un Membre au Bureau</h3>
+      <h3 id="modalMembreTitre">➕ Ajouter un Membre au Bureau</h3>
       <button class="modal-fermer" onclick="fermerModalMembreBureau()">&times;</button>
     </div>
     <form class="modal-body" onsubmit="enregistrerMembreBureau(event)">
@@ -573,6 +575,7 @@
   </div>
 </div>
 
-<script src="js/studio-admin.js?v=20261007_v3"></script>
+<script src="js/studio.js?v=20261017_pro"></script>
+<script src="js/studio-admin.js?v=20261017_pro"></script>
 </body>
 </html>

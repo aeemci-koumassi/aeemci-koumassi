@@ -20,7 +20,7 @@
   --fond-carte     : #FFFFFF;
   --texte-sombre   : #0F172A;
   --texte-doux     : #475569;
-  --texte-muter    : #64748B;
+  --texte-muter    : #64748B; 
   --bordure-douce  : #E2E8F0;
   
   --font-titre     : 'Plus Jakarta Sans', sans-serif;
@@ -342,17 +342,24 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 32px;
-  height: 24px;
+  width: 36px;
+  height: 28px;
   background: transparent;
   border: none;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 100000 !important;
+  position: relative;
+  pointer-events: auto !important;
+  padding: 2px;
+}
+
+.menu-burger * {
+  pointer-events: none !important;
 }
 
 .menu-burger span {
   width: 100%;
-  height: 3px;
+  height: 3.5px;
   background: var(--vert-emeraude);
   border-radius: 3px;
   transition: var(--transition);
@@ -382,7 +389,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-moderne {
   position: relative;
-
   padding: 100px 0 90px;
   background: linear-gradient(135deg, #062215 0%, #0C3823 55%, #03140A 100%) !important;
   color: #FFFFFF !important;
@@ -498,7 +504,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-medaillon-cadre {
   position: relative;
   width: 100%;
-  max-width: 360px;
+  max-width: 360px; 
   background: rgba(255, 255, 255, 0.07) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
@@ -971,6 +977,117 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
+   NOS ACTIVITÉS & MODULES DE FORMATION (DESIGN PRO 2026)
+   ========================================================================== */
+.grille-modules-formation {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.carte-module-pro {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 36px 28px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px rgba(12, 56, 35, 0.05);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.carte-module-pro::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--vert-emeraude), var(--or));
+  transition: height 0.3s ease;
+}
+
+.carte-module-pro:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(12, 56, 35, 0.12);
+  border-color: rgba(212, 175, 55, 0.4);
+}
+
+.carte-module-pro:hover::before {
+  height: 6px;
+}
+
+.icone-module-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--vert-tendre);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  border: 1px solid rgba(12, 56, 35, 0.1);
+  box-shadow: 0 6px 16px rgba(12, 56, 35, 0.06);
+}
+
+.emoji-module {
+  font-size: 2rem;
+}
+
+.badge-module-tag {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 5px 14px;
+  border-radius: 50px;
+  background: rgba(212, 175, 55, 0.12);
+  color: var(--or-sombre);
+  font-family: var(--font-titre);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 14px;
+}
+
+.titre-module {
+  font-family: var(--font-titre);
+  font-size: 1.28rem;
+  font-weight: 800;
+  color: var(--vert-emeraude);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.description-module {
+  font-size: 0.95rem;
+  color: var(--texte-doux);
+  line-height: 1.65;
+  margin-bottom: 22px;
+  flex-grow: 1;
+}
+
+.liste-points-module {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px dashed rgba(226, 232, 240, 0.9);
+  padding-top: 18px;
+}
+
+.liste-points-module li {
+  font-size: 0.88rem;
+  color: var(--vert-emeraude);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ==========================================================================
    BANNIÈRE ÉVÉNEMENT & COMPTE À REBOURS
    ========================================================================== */
 .banniere-evenement-compteur {
@@ -978,8 +1095,8 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--rayon-carte, 16px) !important;
   padding: 36px 32px !important;
   color: #FFFFFF !important;
-  display: flex !important;
-  flex-wrap: wrap !important;
+  display: grid !important;
+  grid-template-columns: 90px 1.4fr 0.9fr !important;
   align-items: center !important;
   justify-content: space-between !important;
   gap: 24px !important;
@@ -1033,67 +1150,148 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   CHIFFRES CLÉS & CARTE D'IMPACT (4 COLONNES PARFAITES EN 1 LIGNE SUR PC)
+   CHIFFRES CLÉS & CARTE D'IMPACT (DESIGN LUXUEUX HAUT DE GAMME PRO)
    ========================================================================== */
+.section-chiffres-cles {
+  padding: 95px 0 !important;
+  background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.section-chiffres-cles::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -120px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 900px !important;
+  height: 450px !important;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(212, 175, 55, 0.08) 45%, transparent 70%) !important;
+  pointer-events: none !important;
+}
+
 .grille-chiffres-cles {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
-  gap: 20px !important;
-  margin-top: 36px !important;
+  gap: 24px !important;
+  margin-top: 48px !important;
+  position: relative !important;
+  z-index: 2 !important;
 }
 
 @media (max-width: 1024px) {
   .grille-chiffres-cles {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 18px !important;
+    gap: 20px !important;
   }
 }
 
 @media (max-width: 600px) {
   .grille-chiffres-cles {
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 18px !important;
   }
 }
 
 .carte-chiffre-cle {
   background: #FFFFFF !important;
-  border-radius: var(--rayon-carte, 16px) !important;
-  padding: 28px 20px !important;
+  border-radius: 20px !important;
+  padding: 32px 24px 28px !important;
   text-align: center !important;
-  border: 1px solid var(--bordure-douce, rgba(0,0,0,0.08)) !important;
-  box-shadow: 0 8px 24px rgba(12, 56, 35, 0.05) !important;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease !important;
+  border: 1px solid rgba(12, 56, 35, 0.08) !important;
+  box-shadow: 0 10px 30px -5px rgba(12, 56, 35, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.8) inset !important;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   position: relative !important;
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
+  align-items: center !important;
   justify-content: flex-start !important;
 }
 
+/* Ligne supérieure dorée/émeraude sur chaque carte */
+.carte-chiffre-cle::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #10B981 0%, #0C3823 50%, #D4AF37 100%) !important;
+  transition: opacity 0.3s ease !important;
+}
+
 .carte-chiffre-cle:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 0 16px 36px rgba(12, 56, 35, 0.12) !important;
-  border-color: rgba(212, 175, 55, 0.5) !important;
+  transform: translateY(-10px) !important;
+  box-shadow: 0 20px 40px -10px rgba(12, 56, 35, 0.18), 0 0 0 2px rgba(212, 175, 55, 0.4) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+}
+
+.chiffre-icone-wrapper {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 16px !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(212, 175, 55, 0.15) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 16px !important;
+  transition: transform 0.3s ease, background 0.3s ease !important;
+}
+
+.carte-chiffre-cle:hover .chiffre-icone-wrapper {
+  transform: scale(1.12) rotate(4deg) !important;
+  background: linear-gradient(135deg, #0C3823 0%, #10B981 100%) !important;
+}
+
+.chiffre-icone {
+  font-size: 1.6rem !important;
+  line-height: 1 !important;
 }
 
 .nombre-chiffre-cle {
-  font-family: var(--font-titre, sans-serif) !important;
-  font-size: clamp(2rem, 3.2vw, 2.7rem) !important;
-  font-weight: 800 !important;
-  color: var(--vert-emeraude, #0C3823) !important;
+  font-family: var(--font-titre, 'Montserrat', sans-serif) !important;
+  font-size: clamp(2.2rem, 3.5vw, 3rem) !important;
+  font-weight: 900 !important;
   line-height: 1.1 !important;
   margin-bottom: 8px !important;
-  background: linear-gradient(135deg, var(--vert-emeraude, #0C3823) 0%, #062215 100%) !important;
+  background: linear-gradient(135deg, #0C3823 0%, #10B981 60%, #B89628 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
+  letter-spacing: -0.5px !important;
+}
+
+.titre-chiffre-cle {
+  font-size: 1.12rem !important;
+  font-weight: 700 !important;
+  color: var(--vert-emeraude, #0C3823) !important;
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
 }
 
 .label-chiffre-cle {
   font-size: 0.88rem !important;
   font-weight: 500 !important;
-  color: var(--texte-doux, #4A5568) !important;
-  line-height: 1.45 !important;
+  color: #4A5568 !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+.carte-chiffre-glow {
+  position: absolute !important;
+  bottom: -40px !important;
+  right: -40px !important;
+  width: 100px !important;
+  height: 100px !important;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%) !important;
+  pointer-events: none !important;
+  transition: transform 0.4s ease !important;
+}
+
+.carte-chiffre-cle:hover .carte-chiffre-glow {
+  transform: scale(1.8) !important;
 }
 
 /* ---------- Section CTA Adhésion / Dons ---------- */
@@ -1132,55 +1330,110 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 36px;
 }
 
-/* ---------- Pied de page / Footer ---------- */
+/* ---------- Pied de page / Footer (2026 EXECUTIVE LUXURY) ---------- */
 .pied-site {
-  background: #061A10;
-  color: rgba(255, 255, 255, 0.75);
-  padding: 70px 0 30px;
-  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  background: linear-gradient(180deg, #062215 0%, #03140A 100%) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  padding: 80px 0 35px !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.35) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.pied-site::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8), transparent);
 }
 
 .grille-pied {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
-  gap: 48px;
-  padding-bottom: 48px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid !important;
+  grid-template-columns: 1.4fr 1fr 1.2fr 1.1fr !important;
+  gap: 40px !important;
+  padding-bottom: 50px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 .pied-colonne h4 {
-  color: var(--or-clair);
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 20px;
+  color: var(--or-clair) !important;
+  font-family: var(--font-titre) !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  margin-bottom: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.pied-colonne h4::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--or);
+  border-radius: 2px;
 }
 
 .pied-colonne ul {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
 }
 
 .pied-colonne ul a {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-size: 0.94rem !important;
+  transition: var(--transition) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 
 .pied-colonne ul a:hover {
-  color: var(--or);
-  padding-left: 4px;
+  color: var(--or-clair) !important;
+  transform: translateX(5px) !important;
+}
+
+.bouton-admin-pied {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 12px 22px !important;
+  background: rgba(212, 175, 55, 0.12) !important;
+  color: var(--or-clair) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 50px !important;
+  font-family: var(--font-titre) !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  transition: var(--transition) !important;
+  margin-top: 14px !important;
+}
+
+.bouton-admin-pied:hover {
+  background: linear-gradient(135deg, #FDE68A 0%, #D4AF37 100%) !important;
+  color: #062215 !important;
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35) !important;
+  transform: translateY(-3px) !important;
 }
 
 .bas-pied-site {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 28px;
-  font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.5);
-  flex-wrap: wrap;
-  gap: 16px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-top: 30px !important;
+  font-size: 0.86rem !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
 }
 
 /* ---------- Responsive Styles ---------- */
@@ -1249,10 +1502,9 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 2000;
+  z-index: 100001 !important;
   opacity: 0;
   visibility: hidden;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1271,7 +1523,7 @@ h1, h2, h3, h4, h5, h6 {
   width: min(320px, 85vw);
   background: #0F0F0F;
   color: #F1F5F9;
-  z-index: 2001;
+  z-index: 100002 !important;
   transform: translateX(-100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -1866,8 +2118,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .banniere-evenement-compteur {
-    flex-direction: column;
-    text-align: center;
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    justify-items: center !important;
   }
 
   .compte-rebours-box {
@@ -1880,8 +2133,19 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 16px !important;
   }
 
+  .entete-site {
+    padding: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+  }
+
   .barre-navigation {
-    padding: 12px 16px !important;
+    padding: 10px 16px !important;
+    border-radius: 0 0 16px 16px !important;
+    width: 100% !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
   }
 
   .sigle-aeemci {
@@ -1906,7 +2170,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .hero-moderne {
-    padding: 24px 0 20px 0 !important;
+    padding: 95px 0 40px 0 !important;
   }
 
   .slogan-majestueux {
@@ -1932,8 +2196,8 @@ h1, h2, h3, h4, h5, h6 {
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
-    max-width: 320px !important;
-    margin: 20px auto 0 auto !important;
+    max-width: 340px !important;
+    margin: 24px auto 0 auto !important;
     gap: 12px !important;
   }
 
@@ -2016,7 +2280,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   /* Organigramme du Bureau sur mobile */
-  .grille-bureau {
+  .grille-membres-bureau {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
     gap: 12px !important;
   }
@@ -2060,8 +2324,19 @@ h1, h2, h3, h4, h5, h6 {
   /* Footers */
   .grille-pied {
     grid-template-columns: 1fr !important;
-    gap: 24px !important;
+    gap: 36px !important;
     text-align: center !important;
+  }
+  .grille-pied > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .pied-colonne ul {
+    align-items: center !important;
+  }
+  .pied-site .logo-marque {
+    justify-content: center !important;
   }
 
   .bas-pied-site {
@@ -2083,5 +2358,365 @@ h1, h2, h3, h4, h5, h6 {
 
   .carte-pilier-moderne h3 {
     font-size: 1.1rem !important;
+  }
+}
+/* Correction bug bouton burger page accueil */
+
+.menu-burger {
+  position: relative;
+  z-index: 4001 !important;
+  cursor: pointer;
+}
+
+.sidebar-overlay:not(.active) {
+  display: none !important;
+  pointer-events: none !important;
+}
+.menu-burger {
+  position: relative !important;
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+}
+/* ==========================================================================
+   ULTRA-PRO 2026 GALERIE & MÉDIATHÈQUE STYLES
+   ========================================================================== */
+.grille-galerie-filtree {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.carte-galerie-item {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background: #000000;
+  box-shadow: 0 10px 30px rgba(12, 56, 35, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  aspect-ratio: 4/3;
+}
+
+.carte-galerie-item:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(12, 56, 35, 0.2), 0 0 0 2px rgba(212, 175, 55, 0.5);
+}
+
+.carte-galerie-image-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carte-galerie-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
+  opacity: 0.92;
+}
+
+.carte-galerie-item:hover img {
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+.carte-galerie-survol {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 34, 21, 0.92) 0%, rgba(6, 34, 21, 0.4) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.badge-galerie-tag {
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 50%, #FEF08A 100%);
+  color: #062215;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.carte-galerie-titre {
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* ==========================================================================
+   OPTIMISATIONS PRÉSENTATION PRO 2026 (EXECUTIVE SUITE)
+   ========================================================================== */
+
+/* 1. Skeletons de chargement fluide */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e2e8f0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+  color: transparent !important;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skeleton-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.skeleton-text { height: 1rem; margin-bottom: 0.5rem; width: 100%; border-radius: 4px; }
+.skeleton-title { height: 1.5rem; margin-bottom: 1rem; width: 65%; border-radius: 4px; }
+.skeleton-img { width: 100%; height: 180px; border-radius: 12px; margin-bottom: 15px; }
+
+/* 2. Ratios d'aspect sécurisés pour zéro déformation */
+.avatar-rond {
+  aspect-ratio: 1 / 1;
+}
+.carte-actu-image {
+  aspect-ratio: 16 / 9;
+}
+
+/* 3. Bandeau Partenaires & Écosystème Institutionnel */
+.bandeau-partenaires {
+  background: #FFFFFF;
+  border-bottom: 1px solid rgba(12, 56, 35, 0.08);
+  border-top: 1px solid rgba(212, 175, 55, 0.25);
+  padding: 16px 0;
+  position: relative;
+  overflow: hidden;
+}
+.bandeau-partenaires-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.bandeau-partenaires-titre {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--vert-emeraude);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bandeau-partenaires-liste {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.partenaire-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(12, 56, 35, 0.04);
+  border: 1px solid rgba(12, 56, 35, 0.12);
+  border-radius: 50px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--vert-sombre);
+  transition: all 0.3s ease;
+}
+.partenaire-badge:hover {
+  background: var(--vert-tendre);
+  border-color: var(--or);
+  transform: translateY(-2px);
+  color: var(--vert-emeraude);
+}
+
+/* 4. Bouton Mode Présentation Pro dans la Navbar */
+.bouton-presentation-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1.5px solid var(--or);
+  color: var(--vert-emeraude);
+  font-weight: 700;
+  font-size: 0.86rem;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.bouton-presentation-nav:hover {
+  background: var(--or-gradient);
+  color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
+/* 5. Modal Dossier de Présentation Officiel */
+.modal-presentation {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 34, 21, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 5000;
+  overflow-y: auto;
+  padding: 40px 20px;
+}
+.modal-presentation.actif {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInModal 0.3s ease;
+}
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.dossier-presentation-card {
+  background: #FFFFFF;
+  border-radius: 24px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+  border: 2px solid var(--or);
+  overflow: hidden;
+  position: relative;
+}
+.dossier-header {
+  background: linear-gradient(135deg, var(--vert-emeraude) 0%, #062215 100%);
+  color: #FFFFFF;
+  padding: 30px 32px;
+  position: relative;
+  border-bottom: 4px solid var(--or);
+}
+.dossier-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.dossier-fermer-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #FFFFFF;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.dossier-fermer-btn:hover {
+  background: #E53E3E;
+  border-color: #E53E3E;
+  transform: rotate(90deg);
+}
+.dossier-corps {
+  padding: 32px;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+.dossier-section-bloc {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #E2E8F0;
+}
+.dossier-section-bloc:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.dossier-section-titre {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.2rem;
+  color: var(--vert-emeraude);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.dossier-grille-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+.dossier-stat-item {
+  background: var(--vert-tendre);
+  border: 1px solid rgba(12, 56, 35, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.dossier-stat-nombre {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--vert-emeraude);
+  font-family: var(--font-titre);
+}
+.dossier-stat-label {
+  font-size: 0.8rem;
+  color: var(--texte-doux);
+  font-weight: 600;
+}
+.dossier-actions-barre {
+  background: #F8FAFC;
+  padding: 18px 32px;
+  border-top: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* 6. Impression Officielle (Mode Présentation PDF / Print) */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #modalPresentationOfficielle, #modalPresentationOfficielle * {
+    visibility: visible;
+  }
+  #modalPresentationOfficielle {
+    position: absolute;
+    inset: 0;
+    background: #FFFFFF !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .dossier-presentation-card {
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .dossier-corps {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .dossier-actions-barre, .dossier-fermer-btn {
+    display: none !important;
   }
 }

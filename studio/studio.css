@@ -792,7 +792,7 @@ body {
   color: var(--texte-principal);
 }
 
-/* BOUTON + CRÃ‰ER YOUTUBE STUDIO STYLE */
+/* BOUTON + CRÉER YOUTUBE STUDIO STYLE */
 .dropdown-creer-box {
   position: relative;
 }
@@ -853,7 +853,7 @@ body {
   color: var(--vert-institutionnel);
 }
 
-/* CARTE DE PRÃ‰SENTATION DU SOUS-COMITÃ‰ / CRÃ‰ATEUR (YOUTUBE CREATOR OVERVIEW) */
+/* CARTE DE PRÉSENTATION DU SOUS-COMITÉ / CRÉATEUR (YOUTUBE CREATOR OVERVIEW) */
 .creator-overview-card {
   background: linear-gradient(135deg, var(--vert-sombre) 0%, var(--vert-fond) 100%);
   border-radius: 20px;
