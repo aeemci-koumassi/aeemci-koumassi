@@ -2722,3 +2722,130 @@ h1, h2, h3, h4, h5, h6 {
     page-break-inside: avoid;
   }
 }
+/* ==========================================================================
+   7. EMBELLISSEMENTS DÉCORATIFS & IDENTITÉ VISUELLE ISLAMIQUE MODERNE
+   ========================================================================== */
+
+/* A. Barre de Défilement Décorative Dorée (Interactive Scroll Indicator) */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3.5px;
+  width: 0%;
+  background: linear-gradient(90deg, #10B981 0%, #D4AF37 50%, #F59E0B 100%);
+  z-index: 999999;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+  transition: width 0.08s ease-out;
+  pointer-events: none;
+}
+
+/* B. Calligraphie Basmala Dorée */
+.hero-basmala-calligraphie {
+  font-family: var(--font-arabe, 'Amiri', serif);
+  font-size: 1.65rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #F5D77F 0%, #D4AF37 50%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5));
+  font-weight: 700;
+  display: inline-block;
+}
+
+/* C. Motif Géométrique Islamique (Girih SVG) */
+.hero-motif-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23D4AF37' fill-opacity='0.035'%3E%3Cpolygon points='40,0 48,24 74,12 62,38 80,40 62,42 74,68 48,56 40,80 32,56 6,68 18,42 0,40 18,38 6,12 32,24'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* D. Séparateur de Forme Décoratif Biseauté avec Liseré Doré (Shape Divider) */
+.hero-shape-divider {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.hero-shape-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 44px;
+}
+
+/* E. Animation de Flottement Doux sur le Médaillon */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.hero-medaillon-cadre {
+  animation: floatSlow 6s ease-in-out infinite !important;
+}
+.hero-medaillon-cadre:hover {
+  animation-play-state: paused !important;
+}
+
+/* F. Témoignages Style Éditorial avec Guillemets Dorées Géantes */
+.carte-temoignage {
+  position: relative;
+  overflow: hidden;
+}
+.carte-temoignage::after {
+  content: "“";
+  position: absolute;
+  top: 4px;
+  right: 18px;
+  font-size: 6.5rem;
+  font-family: Georgia, serif;
+  line-height: 1;
+  color: var(--or);
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* G. Double Anneau Doré Prestige pour le Bureau Exécutif */
+.avatar-rond {
+  width: 90px !important;
+  height: 90px !important;
+  border-radius: 50% !important;
+  margin: 0 auto 16px !important;
+  padding: 3px !important;
+  background: linear-gradient(135deg, var(--vert-clair) 0%, var(--or) 50%, #B89230 100%) !important;
+  box-shadow: 0 8px 20px rgba(12, 56, 35, 0.14) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.35s ease, box-shadow 0.35s ease !important;
+  border: none !important;
+}
+.avatar-rond img {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  border: 2px solid #FFFFFF !important;
+}
+.carte-membre-bureau:hover .avatar-rond {
+  transform: scale(1.08) rotate(3deg) !important;
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4) !important;
+}
+
+/* H. Effet Lueur Dorée Dynamique au Survol des Cartes Piliers & Modules */
+.carte-pilier-moderne:hover, .carte-module-pro:hover {
+  border-color: rgba(212, 175, 55, 0.5) !important;
+  box-shadow: 0 16px 36px -6px rgba(12, 56, 35, 0.14), 0 0 0 1px rgba(212, 175, 55, 0.25) !important;
+}

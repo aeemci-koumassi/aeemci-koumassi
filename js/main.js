@@ -601,3 +601,14 @@ function initialiserRaccourcisClavier() {
   });
 }
 
+// 12. BARRE DÉCORATIVE DE DÉFILEMENT (GOLDEN SCROLL INDICATOR)
+window.addEventListener('scroll', function() {
+  const bar = document.getElementById('scrollProgressBar');
+  if (bar) {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+    bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+  }
+}, { passive: true });
+
+
