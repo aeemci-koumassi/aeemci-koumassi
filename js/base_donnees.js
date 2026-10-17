@@ -53,6 +53,23 @@ function enregistrerAdhesionFormulaire(event) {
   liste.unshift(adherent);
   localStorage.setItem('aeemci_adherents', JSON.stringify(liste));
 
+  // Synchronisation instantanée avec la base du Studio
+  try {
+    let militants = JSON.parse(localStorage.getItem('aeemci_militants_db') || '[]');
+    militants.unshift({
+      id: Date.now(),
+      nom: nom,
+      quartier: quartier || 'Koumassi',
+      ecole: statut || 'Non renseigné',
+      telephone: telephone,
+      statut: 'attente',
+      date: new Date().toISOString().slice(0, 10)
+    });
+    localStorage.setItem('aeemci_militants_db', JSON.stringify(militants));
+  } catch (err) {
+    console.error("Erreur sync Studio militants:", err);
+  }
+
   alert(`Félicitations ${nom} !\n\nVotre demande d'adhésion (ID: ${adherent.id}) a été enregistrée avec succès dans la base de données du Sous-Comité AEEMCI de Koumassi.\n\nVous allez maintenant être automatiquement redirigé(e) vers le groupe WhatsApp officiel.`);
   window.open(LIEN_GROUPE_WHATSAPP, "_blank");
 
@@ -70,7 +87,7 @@ function enregistrerSportFormulaire(event) {
   const nom = form.querySelector('input[name="nom"]')?.value || "";
   const telephone = form.querySelector('input[name="telephone"]')?.value || "";
   const quartier = form.querySelector('input[name="quartier"]')?.value || "";
-  const discipline = form.querySelector('select[name="discipline"]')?.value || "Maracana / Football";
+  const discipline = form.querySelector('select[name="discipline"]')?.value || "Maracana / Football Masculin";
 
   if (!nom || !telephone) {
     alert("Veuillez saisir votre nom et votre numéro de téléphone / WhatsApp.");
@@ -81,8 +98,9 @@ function enregistrerSportFormulaire(event) {
     id: "SPT-" + Date.now().toString().slice(-6),
     nom: nom,
     telephone: telephone,
-    quartier: quartier,
+    quartier: quartier || "Koumassi",
     discipline: discipline,
+    statut: "attente",
     date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
   };
 
@@ -109,7 +127,7 @@ function enregistrerSortieFormulaire(event) {
   const nom = form.querySelector('input[name="nom"]')?.value || "";
   const telephone = form.querySelector('input[name="telephone"]')?.value || "";
   const quartier = form.querySelector('input[name="quartier"]')?.value || "";
-  const nbPlaces = form.querySelector('select[name="places"]')?.value || "1 personne";
+  const nbPlaces = form.querySelector('select[name="places"]')?.value || "1 Place (Moi uniquement)";
 
   if (!nom || !telephone) {
     alert("Veuillez saisir votre nom et votre numéro de téléphone / WhatsApp.");
@@ -120,8 +138,9 @@ function enregistrerSortieFormulaire(event) {
     id: "SRT-" + Date.now().toString().slice(-6),
     nom: nom,
     telephone: telephone,
-    quartier: quartier,
+    quartier: quartier || "Koumassi",
     nbPlaces: nbPlaces,
+    statut: "attente",
     date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
   };
 
@@ -134,6 +153,82 @@ function enregistrerSortieFormulaire(event) {
 
   let modal = document.getElementById('modalFormulaireSortie');
   if (modal) modal.classList.remove('ouvert');
+  form.reset();
+  actualiserCompteursBadges();
+}
+
+// ==========================================
+// 4. BASE DE DONNÉES FORMATIONS & COMPÉTENCES
+// ==========================================
+function enregistrerFormationFormulaire(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const nom = form.querySelector('input[name="nom"]')?.value || "";
+  const telephone = form.querySelector('input[name="telephone"]')?.value || "";
+  const quartier = form.querySelector('input[name="quartier"]')?.value || "";
+  const statutPro = form.querySelector('input[name="statut"]')?.value || form.querySelector('input[name="etablissement"]')?.value || "Élève / Étudiant";
+  const formation = form.querySelector('select[name="formation"]')?.value || "Académie Numérique : Prompt Engineering & IA";
+
+  if (!nom || !telephone) {
+    alert("Veuillez saisir votre nom et votre numéro de téléphone / WhatsApp.");
+    return;
+  }
+
+  const inscritFormation = {
+    id: "FRM-" + Date.now().toString().slice(-6),
+    nom: nom,
+    formation: formation,
+    statutPro: statutPro,
+    quartier: quartier || "Koumassi",
+    telephone: telephone,
+    statut: "attente",
+    date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  };
+
+  let listeFormations = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations') || '[]');
+  listeFormations.unshift(inscritFormation);
+  localStorage.setItem('aeemci_inscriptions_formations', JSON.stringify(listeFormations));
+
+  alert(`🎓 Inscription Formation Enregistrée !\n\nFélicitations ${nom}. Votre candidature au programme « ${formation} » a été enregistrée dans la Base de Données FORMATIONS du Sous-Comité de Koumassi.\n\nRejoignez le groupe WhatsApp pour le planning des cours.`);
+  window.open(LIEN_GROUPE_WHATSAPP, "_blank");
+
+  let modal = document.getElementById('modalFormulaireFormation');
+  if (modal) modal.classList.remove('ouvert');
+  form.reset();
+  actualiserCompteursBadges();
+}
+
+// ==========================================
+// 5. BASE DE DONNÉES MESSAGES & CONTACTS REÇUS
+// ==========================================
+function enregistrerContactFormulaire(event) {
+  event.preventDefault();
+
+  const form = event.target;
+  const nom = form.querySelector('input[name="nom"]')?.value || form.querySelectorAll('input')[0]?.value || "";
+  const contact = form.querySelector('input[name="contact"]')?.value || form.querySelectorAll('input')[1]?.value || "";
+  const message = form.querySelector('textarea[name="message"]')?.value || form.querySelector('textarea')?.value || "";
+
+  if (!nom || !contact || !message) {
+    alert("Veuillez renseigner votre nom, vos coordonnées (téléphone ou email) et votre message.");
+    return;
+  }
+
+  const messageContact = {
+    id: "MSG-" + Date.now().toString().slice(-6),
+    nom: nom,
+    contact: contact,
+    message: message,
+    statut: "non_lu",
+    date: new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+  };
+
+  let listeMessages = JSON.parse(localStorage.getItem('aeemci_messages_contact') || '[]');
+  listeMessages.unshift(messageContact);
+  localStorage.setItem('aeemci_messages_contact', JSON.stringify(listeMessages));
+
+  alert(`📬 Message Reçu avec Succès !\n\nMerci ${nom}. Votre message a bien été transmis et enregistré dans la Base de Données MESSAGES du Bureau Exécutif de Koumassi.\n\nNotre équipe vous répondra très rapidement.`);
   form.reset();
   actualiserCompteursBadges();
 }
@@ -235,6 +330,74 @@ function ouvrirModalInscriptionSortie() {
   modal.classList.add('ouvert');
 }
 
+function ouvrirModalInscriptionFormation(moduleDefaut = '') {
+  let modal = document.getElementById('modalFormulaireFormation');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'modalFormulaireFormation';
+    modal.className = 'modal-media-overlay';
+    document.body.appendChild(modal);
+  }
+
+  const optionsModules = [
+    "Académie Numérique : Prompt Engineering & IA",
+    "Académie Numérique : PowerPoint & Présentations",
+    "Académie Numérique : Bureautique Word & Excel",
+    "Académie Numérique : Montage d'Affiches & Vidéos",
+    "Concours Éloquence « Choc des Titans »",
+    "Module 1 : Tajwid & Sciences Coraniques",
+    "Module 2 : Art Oratoire & Prise de Parole",
+    "Module 3 : Soutien Scolaire BEPC & BAC",
+    "Module 4 : Leadership & Gestion de Projet",
+    "Autre Formation / Activité"
+  ];
+
+  let optionsHtml = optionsModules.map(opt => {
+    let selected = (moduleDefaut && (opt.includes(moduleDefaut) || moduleDefaut.includes(opt))) ? 'selected' : '';
+    return `<option value="${opt}" ${selected}>${opt}</option>`;
+  }).join('');
+
+  modal.innerHTML = `
+    <div class="modal-media-boite" style="max-width: 540px; width: 92%; background: #FFFFFF;">
+      <div class="modal-media-entete">
+        <span class="badge-couverture-medias" style="background: var(--vert-institutionnel, #0c3823); color: #FFF;">Base de Données Formations</span>
+        <h2 class="modal-media-titre">🎓 Inscription Formation &amp; Compétences</h2>
+        <button class="modal-media-fermer" onclick="document.getElementById('modalFormulaireFormation').classList.remove('ouvert')">&times;</button>
+      </div>
+      <div class="modal-media-corps" style="padding: 20px;">
+        <form onsubmit="enregistrerFormationFormulaire(event)" style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Nom &amp; Prénom *</label>
+            <input type="text" name="nom" required placeholder="Ex: Bakayoko Mariam" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Programme / Module Choisi *</label>
+            <select name="formation" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+              ${optionsHtml}
+            </select>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Statut / École</label>
+              <input type="text" name="statut" placeholder="Ex: UFHB, Lycée" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+            </div>
+            <div>
+              <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Quartier (Koumassi)</label>
+              <input type="text" name="quartier" placeholder="Ex: Prodomo, Sicogi" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+            </div>
+          </div>
+          <div>
+            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">Numéro WhatsApp *</label>
+            <input type="tel" name="telephone" required placeholder="Ex: +225 0545305180" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+          </div>
+          <button type="submit" class="bouton-cta-primaire" style="margin-top: 10px; padding: 12px; border: none;">⚡ Confirmer ma Candidature Formation →</button>
+        </form>
+      </div>
+    </div>
+  `;
+  modal.classList.add('ouvert');
+}
+
 // ==========================================
 // 5. EXPORTATION DES BASES DE DONNÉES EN CSV
 // ==========================================
@@ -269,6 +432,28 @@ function exporterSortiesCSV() {
   let csv = "ID Sortie;Nom et Prenom;Telephone WhatsApp;Quartier;Nombre de Places;Date Inscription\n";
   liste.forEach(r => { csv += `"${r.id}";"${r.nom}";"${r.telephone}";"${r.quartier}";"${r.nbPlaces}";"${r.date}"\n`; });
   telechargerFichierCSV(csv, `AEEMCI_Koumassi_Base_SORTIES_${new Date().toISOString().slice(0,10)}.csv`);
+}
+
+function exporterFormationsCSV() {
+  let liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations') || '[]');
+  if (liste.length === 0) {
+    alert("Aucune inscription enregistrée dans la Base de Données FORMATIONS.");
+    return;
+  }
+  let csv = "ID Formation;Nom et Prenom;Module Formation;Statut;Quartier;Telephone WhatsApp;Date Inscription\n";
+  liste.forEach(r => { csv += `"${r.id}";"${r.nom}";"${r.formation}";"${r.statutPro || ''}";"${r.quartier || ''}";"${r.telephone}";"${r.date}"\n`; });
+  telechargerFichierCSV(csv, `AEEMCI_Koumassi_Base_FORMATIONS_${new Date().toISOString().slice(0,10)}.csv`);
+}
+
+function exporterMessagesCSV() {
+  let liste = JSON.parse(localStorage.getItem('aeemci_messages_contact') || '[]');
+  if (liste.length === 0) {
+    alert("Aucun message enregistré dans la Base de Données MESSAGES.");
+    return;
+  }
+  let csv = "ID Message;Nom Expediteur;Contact Email-Tel;Message;Statut;Date Reception\n";
+  liste.forEach(r => { csv += `"${r.id}";"${r.nom}";"${r.contact}";"${(r.message || '').replace(/"/g, '""')}";"${r.statut}";"${r.date}"\n`; });
+  telechargerFichierCSV(csv, `AEEMCI_Koumassi_Base_MESSAGES_${new Date().toISOString().slice(0,10)}.csv`);
 }
 
 function telechargerFichierCSV(contenu, nomFichier) {
@@ -419,10 +604,14 @@ function actualiserCompteursBadges() {
   let liste = JSON.parse(localStorage.getItem('aeemci_adherents') || '[]');
   let listeSport = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport') || '[]');
   let listeSorties = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties') || '[]');
+  let listeFormations = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations') || '[]');
+  let listeMessages = JSON.parse(localStorage.getItem('aeemci_messages_contact') || '[]');
 
   document.querySelectorAll('.compteur-adherents-badge').forEach(b => b.textContent = liste.length);
   document.querySelectorAll('.compteur-sport-badge').forEach(b => b.textContent = listeSport.length);
   document.querySelectorAll('.compteur-sorties-badge').forEach(b => b.textContent = listeSorties.length);
+  document.querySelectorAll('.compteur-formations-badge').forEach(b => b.textContent = listeFormations.length);
+  document.querySelectorAll('.compteur-messages-badge').forEach(b => b.textContent = listeMessages.length);
 }
 
 // ==========================================

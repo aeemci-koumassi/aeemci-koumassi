@@ -176,17 +176,17 @@
         <form action="#" method="POST" onsubmit="enregistrerContactFormulaire(event)" style="display: flex; flex-direction: column; gap: 16px;">
           <div>
             <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Nom &amp; Prénom *</label>
-            <input type="text" required placeholder="Ex: Sow Mohamed" class="pro-input">
+            <input type="text" name="nom" required placeholder="Ex: Sow Mohamed" class="pro-input">
           </div>
 
           <div>
             <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Email ou Téléphone *</label>
-            <input type="text" required placeholder="Ex: contact@gmail.com ou 0545305180" class="pro-input">
+            <input type="text" name="contact" required placeholder="Ex: contact@gmail.com ou 0545305180" class="pro-input">
           </div>
 
           <div>
             <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Message *</label>
-            <textarea required rows="4" placeholder="Votre message..." class="pro-input" style="resize: vertical;"></textarea>
+            <textarea name="message" required rows="4" placeholder="Votre message..." class="pro-input" style="resize: vertical;"></textarea>
           </div>
 
           <button type="submit" class="bouton-cta-secondaire" style="width: 100%; border: none;">Envoyer le message</button>

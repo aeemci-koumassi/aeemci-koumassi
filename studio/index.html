@@ -35,8 +35,8 @@
 
       <a class="nav-item" onclick="changerOngletStudio('tab-militants', this)">
         <div class="nav-item-gauche">
-          <span class="nav-icone">📋</span>
-          <span>Registre Militants</span>
+          <span class="nav-icone">🗄️</span>
+          <span>Bases de Données</span>
         </div>
         <span class="nav-badge" id="sidebarBadgeAttente">0</span>
       </a>
@@ -199,13 +199,52 @@
           </div>
         </div>
 
+        <!-- MINI-GRILLE SYNCHRO MULTI-BASES DE DONNÉES -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px;">
+          <div class="carte-tableau" style="padding: 16px 20px; margin-bottom: 0; cursor: pointer; border-left: 4px solid var(--vert-emeraude); transition: var(--transition);" onclick="changerOngletStudio('tab-militants'); changerSousOngletBases('subtab-sport')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">⚽ Pôle Sport</span>
+              <span style="font-size: 1.2rem;">🏃</span>
+            </div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: var(--vert-institutionnel); margin-top: 4px;" id="kpiOverviewSport">0</div>
+            <span style="font-size: 0.76rem; color: var(--texte-secondaire);">Inscrits Tournois &amp; Fitness</span>
+          </div>
+
+          <div class="carte-tableau" style="padding: 16px 20px; margin-bottom: 0; cursor: pointer; border-left: 4px solid var(--or); transition: var(--transition);" onclick="changerOngletStudio('tab-militants'); changerSousOngletBases('subtab-sorties')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">🌿 Sorties Détente</span>
+              <span style="font-size: 1.2rem;">🎒</span>
+            </div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: var(--or-sombre); margin-top: 4px;" id="kpiOverviewSorties">0</div>
+            <span style="font-size: 0.76rem; color: var(--texte-secondaire);">Réservations Pique-niques</span>
+          </div>
+
+          <div class="carte-tableau" style="padding: 16px 20px; margin-bottom: 0; cursor: pointer; border-left: 4px solid #3B82F6; transition: var(--transition);" onclick="changerOngletStudio('tab-militants'); changerSousOngletBases('subtab-formations')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">🎓 Formations &amp; IA</span>
+              <span style="font-size: 1.2rem;">💡</span>
+            </div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #1D4ED8; margin-top: 4px;" id="kpiOverviewFormations">0</div>
+            <span style="font-size: 0.76rem; color: var(--texte-secondaire);">Académie &amp; Choc Titans</span>
+          </div>
+
+          <div class="carte-tableau" style="padding: 16px 20px; margin-bottom: 0; cursor: pointer; border-left: 4px solid #EC4899; transition: var(--transition);" onclick="changerOngletStudio('tab-militants'); changerSousOngletBases('subtab-messages')">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">📬 Messages Reçus</span>
+              <span style="font-size: 1.2rem;">✉️</span>
+            </div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #BE185D; margin-top: 4px;" id="kpiOverviewMessages">0</div>
+            <span style="font-size: 0.76rem; color: var(--texte-secondaire);">Demandes de Contact</span>
+          </div>
+        </div>
+
         <!-- RACCOURCIS RAPIDES & APERÇU REGISTRE -->
         <div class="carte-tableau">
           <div class="tableau-header">
             <div class="tableau-titre">
               <h3>Dernières Demandes d'Adhésion Militants</h3>
             </div>
-            <button class="bouton-action-contour" onclick="changerOngletStudio('tab-militants')">Voir le Registre Complet ➔</button>
+            <button class="bouton-action-contour" onclick="changerOngletStudio('tab-militants')">Voir Toutes les Bases de Données ➔</button>
           </div>
           <div class="table-responsive">
             <table class="studio-table">
@@ -227,46 +266,217 @@
         </div>
       </section>
 
-      <!-- ==================== TAB 2 : REGISTRE DE MILITANTS ==================== -->
+      <!-- ==================== TAB 2 : BASES DE DONNÉES & INSCRIPTIONS ==================== -->
       <section id="tab-militants" class="onglet-contenu">
         <div class="section-header-dashboard">
           <div>
-            <h1>Registre Général des Militants</h1>
-            <p>Gestion et validation des adhésions d'élèves et étudiants à Koumassi.</p>
+            <h1>Centre Multi-Bases de Données &amp; Inscriptions</h1>
+            <p>Visualisation, gestion, validation et export de tous les formulaires d'inscription du site en temps réel.</p>
           </div>
-          <button class="bouton-action-pro" onclick="exporterMilitantsExcel()">
-            <span>📥</span>
-            <span>Exporter le Registre (CSV/Excel)</span>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="bouton-action-pro" id="btnExportSousBase" onclick="exporterBaseActiveExcel()">
+              <span>📥</span>
+              <span id="labelExportSousBase">Exporter cette Base (CSV/Excel)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- BARRE DE SÉLECTION DES 5 BASES D'INSCRIPTION -->
+        <div class="sous-onglets-bar">
+          <button class="sous-onglet-btn actif" id="btnSubMilitants" onclick="changerSousOngletBases('subtab-militants', this)">
+            <span>👥</span>
+            <span>1. Adhésions Militants</span>
+            <span class="badge-compteur" id="badgeSubMilitants">0</span>
+          </button>
+
+          <button class="sous-onglet-btn" id="btnSubSport" onclick="changerSousOngletBases('subtab-sport', this)">
+            <span>⚽</span>
+            <span>2. Inscriptions Sport</span>
+            <span class="badge-compteur" id="badgeSubSport">0</span>
+          </button>
+
+          <button class="sous-onglet-btn" id="btnSubSorties" onclick="changerSousOngletBases('subtab-sorties', this)">
+            <span>🌿</span>
+            <span>3. Sorties &amp; Détente</span>
+            <span class="badge-compteur" id="badgeSubSorties">0</span>
+          </button>
+
+          <button class="sous-onglet-btn" id="btnSubFormations" onclick="changerSousOngletBases('subtab-formations', this)">
+            <span>🎓</span>
+            <span>4. Formations &amp; Concours</span>
+            <span class="badge-compteur" id="badgeSubFormations">0</span>
+          </button>
+
+          <button class="sous-onglet-btn" id="btnSubMessages" onclick="changerSousOngletBases('subtab-messages', this)">
+            <span>📬</span>
+            <span>5. Messages Reçus</span>
+            <span class="badge-compteur" id="badgeSubMessages">0</span>
           </button>
         </div>
 
-        <div class="carte-tableau">
-          <div class="tableau-header">
-            <div class="tableau-titre">
-              <h3>Liste Intégrale des Adhésions</h3>
+        <!-- SOUS-ONGLET 1 : ADHÉSIONS MILITANTS -->
+        <div id="subtab-militants" class="sous-onglet-contenu actif">
+          <div class="carte-tableau">
+            <div class="tableau-header">
+              <div class="tableau-titre">
+                <h3>👥 Base Générale : Registre des Adhésions Militants</h3>
+              </div>
+              <div class="tableau-recherche">
+                <input type="text" id="rechercheMilitantInput" placeholder="🔍 Rechercher nom, quartier, école..." onkeyup="filtrerMilitantsTable(this.value)">
+              </div>
             </div>
-            <div class="tableau-recherche">
-              <input type="text" id="rechercheMilitantInput" placeholder="🔍 Rechercher nom, quartier, école..." onkeyup="filtrerMilitantsTable(this.value)">
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>Nom &amp; Prénoms</th>
+                    <th>Quartier</th>
+                    <th>Établissement / Université</th>
+                    <th>WhatsApp</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyMilitantsComplet">
+                  <!-- Rempli dynamiquement en JS -->
+                </tbody>
+              </table>
             </div>
-          </div>
-          <div class="table-responsive">
-            <table class="studio-table">
-              <thead>
-                <tr>
-                  <th>Nom &amp; Prénoms</th>
-                  <th>Quartier</th>
-                  <th>Établissement / Université</th>
-                  <th>WhatsApp</th>
-                  <th>Statut</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="tbodyMilitantsComplet">
-                <!-- Rempli dynamiquement en JS -->
-              </tbody>
-            </table>
           </div>
         </div>
+
+        <!-- SOUS-ONGLET 2 : INSCRIPTIONS SPORT -->
+        <div id="subtab-sport" class="sous-onglet-contenu">
+          <div class="carte-tableau">
+            <div class="tableau-header">
+              <div class="tableau-titre">
+                <h3>⚽ Base Spéciale : Pôle Sport Inter-Sous-Comités</h3>
+              </div>
+              <div class="tableau-recherche">
+                <input type="text" id="rechercheSportInput" placeholder="🔍 Rechercher nom, discipline, quartier..." onkeyup="filtrerSportTable(this.value)">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom &amp; Prénoms</th>
+                    <th>Discipline Sportive</th>
+                    <th>Quartier</th>
+                    <th>WhatsApp</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyInscriptionsSport">
+                  <!-- Rempli dynamiquement en JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOUS-ONGLET 3 : SORTIES & DÉTENTE -->
+        <div id="subtab-sorties" class="sous-onglet-contenu">
+          <div class="carte-tableau">
+            <div class="tableau-header">
+              <div class="tableau-titre">
+                <h3>🌿 Base Spéciale : Sorties de Détente &amp; Pique-niques</h3>
+              </div>
+              <div class="tableau-recherche">
+                <input type="text" id="rechercheSortiesInput" placeholder="🔍 Rechercher nom, quartier, places..." onkeyup="filtrerSortiesTable(this.value)">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom &amp; Prénoms</th>
+                    <th>Places Réservées</th>
+                    <th>Quartier</th>
+                    <th>WhatsApp</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyInscriptionsSorties">
+                  <!-- Rempli dynamiquement en JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOUS-ONGLET 4 : FORMATIONS & CONCOURS -->
+        <div id="subtab-formations" class="sous-onglet-contenu">
+          <div class="carte-tableau">
+            <div class="tableau-header">
+              <div class="tableau-titre">
+                <h3>🎓 Base Spéciale : Formations, Académie &amp; Concours Titans</h3>
+              </div>
+              <div class="tableau-recherche">
+                <input type="text" id="rechercheFormationsInput" placeholder="🔍 Rechercher formation, nom, école..." onkeyup="filtrerFormationsInscriptionsTable(this.value)">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom &amp; Prénoms</th>
+                    <th>Programme / Atelier Choisi</th>
+                    <th>Statut / École</th>
+                    <th>Quartier</th>
+                    <th>WhatsApp</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyInscriptionsFormations">
+                  <!-- Rempli dynamiquement en JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOUS-ONGLET 5 : MESSAGES & CONTACTS REÇUS -->
+        <div id="subtab-messages" class="sous-onglet-contenu">
+          <div class="carte-tableau">
+            <div class="tableau-header">
+              <div class="tableau-titre">
+                <h3>📬 Base Spéciale : Messages &amp; Contacts Reçus</h3>
+              </div>
+              <div class="tableau-recherche">
+                <input type="text" id="rechercheMessagesInput" placeholder="🔍 Rechercher expéditeur, email, message..." onkeyup="filtrerMessagesContactTable(this.value)">
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="studio-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Expéditeur</th>
+                    <th>Email / Téléphone</th>
+                    <th>Aperçu du Message</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyMessagesContact">
+                  <!-- Rempli dynamiquement en JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- ==================== TAB 3 : ÉVÉNEMENTS & ACTUALITÉS ==================== -->
@@ -572,6 +782,38 @@
         <button type="submit" class="bouton-action-pro">Enregistrer le Membre</button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- MODALE DE LECTURE DE MESSAGE -->
+<div class="modal-overlay" id="modalLireMessage">
+  <div class="modal-conteneur" style="max-width: 580px;">
+    <div class="modal-header">
+      <h3 id="modalMessageTitre">📬 Détails du Message</h3>
+      <button class="modal-fermer" onclick="fermerModalMessage()">&times;</button>
+    </div>
+    <div class="modal-body" style="padding: 24px;">
+      <div style="margin-bottom: 14px;">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">Expéditeur :</span>
+        <h4 id="detailMessageExpediteur" style="font-size: 1.15rem; color: var(--vert-institutionnel); margin-top: 4px;">-</h4>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">Coordonnées :</span>
+        <p id="detailMessageContact" style="font-size: 0.95rem; font-weight: 600; color: var(--vert-accent); margin-top: 4px;">-</p>
+      </div>
+      <div style="margin-bottom: 14px;">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">Date de Réception :</span>
+        <p id="detailMessageDate" style="font-size: 0.88rem; color: var(--texte-secondaire); margin-top: 4px;">-</p>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <span style="font-size: 0.8rem; font-weight: 700; color: var(--texte-secondaire); text-transform: uppercase;">Message :</span>
+        <div id="detailMessageContenu" style="background: #F8FAFC; border: 1px solid var(--bordure-carte); border-radius: 10px; padding: 14px; font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); white-space: pre-wrap; margin-top: 6px;"></div>
+      </div>
+      <div style="display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;">
+        <button type="button" class="bouton-action-contour" onclick="fermerModalMessage()">Fermer</button>
+        <a id="btnRepondreWhatsappMessage" href="#" target="_blank" class="bouton-whatsapp" style="padding: 10px 16px; border-radius: 10px;">💬 Répondre via WhatsApp</a>
+      </div>
+    </div>
   </div>
 </div>
 

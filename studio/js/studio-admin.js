@@ -235,6 +235,10 @@ document.addEventListener('DOMContentLoaded', async function() {
   chargerFormationsCMS();
   chargerGalerieCMS();
   await chargerMilitantsCMS();
+  chargerSportCMS();
+  chargerSortiesCMS();
+  chargerFormationsInscriptionsCMS();
+  chargerMessagesContactCMS();
   chargerContactForm();
   initialiserDragAndDropGalerie();
   actualiserVueEnsembleKPI();
@@ -254,6 +258,10 @@ function initialiserDonneesCMS() {
 
 function actualiserVueEnsembleKPI() {
   const militants = JSON.parse(localStorage.getItem('aeemci_militants_db')) || [];
+  const sports = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport')) || [];
+  const sorties = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties')) || [];
+  const formationsInscrits = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations')) || [];
+  const messages = JSON.parse(localStorage.getItem('aeemci_messages_contact')) || [];
   const actualites = JSON.parse(localStorage.getItem('aeemci_cms_actualites')) || CMS_DEFAUTS.actualites;
   const galerie = JSON.parse(localStorage.getItem('aeemci_cms_galerie')) || [];
 
@@ -263,13 +271,39 @@ function actualiserVueEnsembleKPI() {
   const kpiPhotos = document.getElementById('kpiOverviewPhotos');
   const badgeSide = document.getElementById('sidebarBadgeAttente');
 
+  // KPIs des sous-bases
+  const kpiSport = document.getElementById('kpiOverviewSport');
+  const kpiSorties = document.getElementById('kpiOverviewSorties');
+  const kpiFormations = document.getElementById('kpiOverviewFormations');
+  const kpiMessages = document.getElementById('kpiOverviewMessages');
+
+  // Badges des sous-onglets
+  const badgeSubMilitants = document.getElementById('badgeSubMilitants');
+  const badgeSubSport = document.getElementById('badgeSubSport');
+  const badgeSubSorties = document.getElementById('badgeSubSorties');
+  const badgeSubFormations = document.getElementById('badgeSubFormations');
+  const badgeSubMessages = document.getElementById('badgeSubMessages');
+
   const nbAttentes = militants.filter(m => m.statut === 'attente').length;
+  const nbMessagesNonLus = messages.filter(m => m.statut === 'non_lu').length;
+  const totalAttentes = nbAttentes + nbMessagesNonLus;
 
   if (kpiTotal) kpiTotal.textContent = militants.filter(m => m.statut === 'valide').length || militants.length || 500;
   if (kpiAttente) kpiAttente.textContent = nbAttentes;
-  if (badgeSide) badgeSide.textContent = nbAttentes;
+  if (badgeSide) badgeSide.textContent = totalAttentes;
   if (kpiEvents) kpiEvents.textContent = actualites.length;
   if (kpiPhotos) kpiPhotos.textContent = galerie.length || 24;
+
+  if (kpiSport) kpiSport.textContent = sports.length;
+  if (kpiSorties) kpiSorties.textContent = sorties.length;
+  if (kpiFormations) kpiFormations.textContent = formationsInscrits.length;
+  if (kpiMessages) kpiMessages.textContent = messages.length;
+
+  if (badgeSubMilitants) badgeSubMilitants.textContent = militants.length;
+  if (badgeSubSport) badgeSubSport.textContent = sports.length;
+  if (badgeSubSorties) badgeSubSorties.textContent = sorties.length;
+  if (badgeSubFormations) badgeSubFormations.textContent = formationsInscrits.length;
+  if (badgeSubMessages) badgeSubMessages.textContent = messages.length;
 }
 
 function chargerConfigForms() {
@@ -875,6 +909,32 @@ async function chargerMilitantsCMS() {
     localStorage.setItem('aeemci_militants_db', JSON.stringify(militants));
   }
 
+  // Synchronisation avec aeemci_adherents (formulaires du site public)
+  try {
+    const adherentsPublic = JSON.parse(localStorage.getItem('aeemci_adherents')) || [];
+    let misAJour = false;
+    adherentsPublic.forEach(adh => {
+      const existe = militants.some(m => (m.nom && m.nom.toLowerCase() === (adh.nom || '').toLowerCase()) || (m.telephone && adh.telephone && m.telephone === adh.telephone));
+      if (!existe) {
+        militants.unshift({
+          id: adh.id || Date.now() + Math.floor(Math.random() * 1000),
+          nom: adh.nom,
+          quartier: adh.quartier || 'Koumassi',
+          ecole: adh.statut || 'Adhérent Public',
+          telephone: adh.telephone,
+          statut: 'attente',
+          date: adh.date ? adh.date.slice(0, 10) : new Date().toISOString().slice(0, 10)
+        });
+        misAJour = true;
+      }
+    });
+    if (misAJour) {
+      localStorage.setItem('aeemci_militants_db', JSON.stringify(militants));
+    }
+  } catch (err) {
+    console.error("Erreur sync adherents:", err);
+  }
+
   afficherMilitantsHTML(militants);
   actualiserVueEnsembleKPI();
 }
@@ -898,9 +958,9 @@ function afficherMilitantsHTML(militants) {
         </td>
         <td><span class="badge-statut ${bClass}">${bText}</span></td>
         <td>
-          <button class="bouton-table-action" onclick="validerMilitantCMS(${m.id})" title="Valider">✅</button>
-          <button class="bouton-table-action" onclick="refuserMilitantCMS(${m.id})" title="Rejeter">🔴</button>
-          <button class="bouton-table-action" onclick="supprimerMilitantCMS(${m.id})" title="Supprimer">🗑️</button>
+          <button class="bouton-table-action" onclick="validerMilitantCMS('${m.id}')" title="Valider">✅</button>
+          <button class="bouton-table-action" onclick="refuserMilitantCMS('${m.id}')" title="Rejeter">🔴</button>
+          <button class="bouton-table-action" onclick="supprimerMilitantCMS('${m.id}')" title="Supprimer">🗑️</button>
         </td>
       </tr>
     `;
@@ -931,7 +991,7 @@ window.filtrerMilitantsTable = function(query) {
 
 window.validerMilitantCMS = async function(id) {
   let list = JSON.parse(localStorage.getItem('aeemci_militants_db')) || [];
-  const item = list.find(m => m.id === id);
+  const item = list.find(m => String(m.id) === String(id));
   if (item) item.statut = 'valide';
   localStorage.setItem('aeemci_militants_db', JSON.stringify(list));
   await chargerMilitantsCMS();
@@ -940,7 +1000,7 @@ window.validerMilitantCMS = async function(id) {
 
 window.refuserMilitantCMS = async function(id) {
   let list = JSON.parse(localStorage.getItem('aeemci_militants_db')) || [];
-  const item = list.find(m => m.id === id);
+  const item = list.find(m => String(m.id) === String(id));
   if (item) item.statut = 'rejete';
   localStorage.setItem('aeemci_militants_db', JSON.stringify(list));
   await chargerMilitantsCMS();
@@ -950,26 +1010,546 @@ window.refuserMilitantCMS = async function(id) {
 window.supprimerMilitantCMS = async function(id) {
   if (confirm("Supprimer cette adhésion du registre ?")) {
     let list = JSON.parse(localStorage.getItem('aeemci_militants_db')) || [];
-    list = list.filter(m => m.id !== id);
+    list = list.filter(m => String(m.id) !== String(id));
     localStorage.setItem('aeemci_militants_db', JSON.stringify(list));
     await chargerMilitantsCMS();
     showToast("Militant supprimé du registre.");
   }
 };
 
-window.exporterMilitantsExcel = function() {
-  const militants = JSON.parse(localStorage.getItem('aeemci_militants_db')) || [];
-  let csv = "Nom;Quartier;Etablissement;Telephone;Statut\n";
-  militants.forEach(m => {
-    csv += `"${m.nom}";"${m.quartier}";"${m.ecole}";"${m.telephone}";"${m.statut}"\n`;
-  });
-
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+// Helper de téléchargement CSV avec encodage UTF-8 BOM
+function telechargerCSVStudio(csv, filename) {
+  const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
   const link = document.createElement("a");
   link.href = URL.createObjectURL(blob);
-  link.download = `Registre_Militants_AEEMCI_Koumassi_${Date.now()}.csv`;
+  link.download = filename;
+  document.body.appendChild(link);
   link.click();
-  showToast("📥 Registre exporté avec succès !");
+  document.body.removeChild(link);
+}
+
+// GESTION DES SOUS-ONGLETS MULTI-BASES DE DONNÉES
+let sousOngletBasesActif = 'subtab-militants';
+
+window.changerSousOngletBases = function(sousOngletId, element) {
+  sousOngletBasesActif = sousOngletId;
+
+  const onglets = document.querySelectorAll('.sous-onglet-contenu');
+  onglets.forEach(o => o.classList.remove('actif'));
+
+  const btns = document.querySelectorAll('.sous-onglet-btn');
+  btns.forEach(b => b.classList.remove('actif'));
+
+  const cible = document.getElementById(sousOngletId);
+  if (cible) cible.classList.add('actif');
+
+  if (element) {
+    element.classList.add('actif');
+  } else {
+    const mapping = {
+      'subtab-militants': 'btnSubMilitants',
+      'subtab-sport': 'btnSubSport',
+      'subtab-sorties': 'btnSubSorties',
+      'subtab-formations': 'btnSubFormations',
+      'subtab-messages': 'btnSubMessages'
+    };
+    const b = document.getElementById(mapping[sousOngletId]);
+    if (b) b.classList.add('actif');
+  }
+
+  const labelBtn = document.getElementById('labelExportSousBase');
+  if (labelBtn) {
+    const labels = {
+      'subtab-militants': "Exporter les Militants (CSV/Excel)",
+      'subtab-sport': "Exporter la Base Sport (CSV/Excel)",
+      'subtab-sorties': "Exporter la Base Sorties (CSV/Excel)",
+      'subtab-formations': "Exporter la Base Formations (CSV/Excel)",
+      'subtab-messages': "Exporter les Messages Reçus (CSV/Excel)"
+    };
+    labelBtn.textContent = labels[sousOngletId] || "Exporter cette Base (CSV/Excel)";
+  }
+};
+
+window.exporterBaseActiveExcel = function() {
+  if (sousOngletBasesActif === 'subtab-sport') {
+    exporterSportExcel();
+  } else if (sousOngletBasesActif === 'subtab-sorties') {
+    exporterSortiesExcel();
+  } else if (sousOngletBasesActif === 'subtab-formations') {
+    exporterFormationsExcel();
+  } else if (sousOngletBasesActif === 'subtab-messages') {
+    exporterMessagesExcel();
+  } else {
+    exporterMilitantsExcel();
+  }
+};
+
+window.exporterMilitantsExcel = function() {
+  const militants = JSON.parse(localStorage.getItem('aeemci_militants_db')) || [];
+  let csv = "Nom;Quartier;Etablissement;Telephone;Statut;Date\n";
+  militants.forEach(m => {
+    csv += `"${m.nom}";"${m.quartier || 'Koumassi'}";"${m.ecole || ''}";"${m.telephone}";"${m.statut}";"${m.date || ''}"\n`;
+  });
+  telechargerCSVStudio(csv, `AEEMCI_Koumassi_Militants_${Date.now()}.csv`);
+  showToast("📥 Base Militants exportée avec succès !");
+};
+
+// ==========================================
+// A. GESTION BASE SPORT (aeemci_inscriptions_sport)
+// ==========================================
+function chargerSportCMS() {
+  let liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport'));
+  if (!liste || liste.length === 0) {
+    liste = [
+      { id: "SPT-10291", nom: "Bakayoko Souleymane", discipline: "Maracana / Football Masculin", quartier: "Koumassi Prodomo", telephone: "0545305180", statut: "valide", date: "15/10/2026, 14:20" },
+      { id: "SPT-10292", nom: "Kouamé Aya Reine", discipline: "Sport Féminin & Fitness", quartier: "Koumassi Remblais", telephone: "0757477372", statut: "valide", date: "16/10/2026, 10:15" },
+      { id: "SPT-10293", nom: "Sylla Mamadou", discipline: "Organisation Logistique Sport", quartier: "Koumassi Sicogi", telephone: "0102030405", statut: "attente", date: "17/10/2026, 17:30" }
+    ];
+    localStorage.setItem('aeemci_inscriptions_sport', JSON.stringify(liste));
+  }
+  afficherSportHTML(liste);
+}
+
+function afficherSportHTML(data) {
+  const tbody = document.getElementById('tbodyInscriptionsSport');
+  if (!tbody) return;
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--texte-secondaire); padding: 30px;">Aucune inscription dans la Base Sport.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(item => {
+    let bClass = item.statut === 'valide' ? 'valide' : (item.statut === 'rejete' ? 'rejete' : 'attente');
+    let bText = item.statut === 'valide' ? 'Validé' : (item.statut === 'rejete' ? 'Rejeté' : 'En attente');
+    return `
+      <tr>
+        <td><strong style="color: var(--vert-institutionnel);">${item.id || 'SPT'}</strong></td>
+        <td><strong>${item.nom}</strong></td>
+        <td><span class="badge-tag-discipline">${item.discipline || 'Sport'}</span></td>
+        <td>${item.quartier || 'Koumassi'}</td>
+        <td>
+          <a href="https://wa.me/225${item.telephone}?text=Assalamu%20alaykum%20${encodeURIComponent(item.nom)},%20concernant%20votre%20inscription%20au%20P%C3%B4le%20Sport%20AEEMCI%20Koumassi%20(${encodeURIComponent(item.discipline || '')})%20:" target="_blank" class="bouton-whatsapp">
+            💬 ${item.telephone}
+          </a>
+        </td>
+        <td><span class="badge-statut ${bClass}">${bText}</span></td>
+        <td style="font-size: 0.82rem; color: var(--texte-secondaire);">${item.date || '-'}</td>
+        <td>
+          <button class="bouton-table-action" onclick="validerSportCMS('${item.id}')" title="Valider">✅</button>
+          <button class="bouton-table-action" onclick="refuserSportCMS('${item.id}')" title="Rejeter">🔴</button>
+          <button class="bouton-table-action" onclick="supprimerSportCMS('${item.id}')" title="Supprimer">🗑️</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+window.filtrerSportTable = function(query) {
+  const data = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport')) || [];
+  const q = query.toLowerCase().trim();
+  if (!q) { afficherSportHTML(data); return; }
+  const filtres = data.filter(item =>
+    (item.nom && item.nom.toLowerCase().includes(q)) ||
+    (item.discipline && item.discipline.toLowerCase().includes(q)) ||
+    (item.quartier && item.quartier.toLowerCase().includes(q)) ||
+    (item.telephone && item.telephone.includes(q)) ||
+    (item.id && item.id.toLowerCase().includes(q))
+  );
+  afficherSportHTML(filtres);
+};
+
+window.validerSportCMS = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) item.statut = 'valide';
+  localStorage.setItem('aeemci_inscriptions_sport', JSON.stringify(list));
+  chargerSportCMS();
+  actualiserVueEnsembleKPI();
+  showToast("Inscription Sport validée avec succès !");
+};
+
+window.refuserSportCMS = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) item.statut = 'rejete';
+  localStorage.setItem('aeemci_inscriptions_sport', JSON.stringify(list));
+  chargerSportCMS();
+  actualiserVueEnsembleKPI();
+  showToast("Inscription Sport refusée.", "info");
+};
+
+window.supprimerSportCMS = function(id) {
+  if (confirm("Supprimer cette inscription de la Base Sport ?")) {
+    let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport')) || [];
+    list = list.filter(m => String(m.id) !== String(id));
+    localStorage.setItem('aeemci_inscriptions_sport', JSON.stringify(list));
+    chargerSportCMS();
+    actualiserVueEnsembleKPI();
+    showToast("Inscription supprimée de la Base Sport.");
+  }
+};
+
+window.exporterSportExcel = function() {
+  const liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_sport')) || [];
+  let csv = "ID Sport;Nom et Prenom;Discipline;Quartier;Telephone WhatsApp;Statut;Date Inscription\n";
+  liste.forEach(r => {
+    csv += `"${r.id}";"${r.nom}";"${r.discipline}";"${r.quartier || 'Koumassi'}";"${r.telephone}";"${r.statut || 'valide'}";"${r.date}"\n`;
+  });
+  telechargerCSVStudio(csv, `AEEMCI_Koumassi_Base_SPORT_${Date.now()}.csv`);
+  showToast("📥 Base Sport exportée avec succès !");
+};
+
+// ==========================================
+// B. GESTION BASE SORTIES (aeemci_inscriptions_sorties)
+// ==========================================
+function chargerSortiesCMS() {
+  let liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties'));
+  if (!liste || liste.length === 0) {
+    liste = [
+      { id: "SRT-20381", nom: "Touré Mariam", nbPlaces: "2 Places (+ 1 invité)", quartier: "Koumassi Remblais", telephone: "0757477372", statut: "valide", date: "14/10/2026, 11:30" },
+      { id: "SRT-20382", nom: "Bamba Lassina", nbPlaces: "1 Place (Moi uniquement)", quartier: "Koumassi Sopim", telephone: "0545305180", statut: "valide", date: "15/10/2026, 16:45" },
+      { id: "SRT-20383", nom: "Koné Fatoumata", nbPlaces: "Groupe / Famille (4+ places)", quartier: "Koumassi Camp Commando", telephone: "0708091011", statut: "attente", date: "17/10/2026, 18:00" }
+    ];
+    localStorage.setItem('aeemci_inscriptions_sorties', JSON.stringify(liste));
+  }
+  afficherSortiesHTML(liste);
+}
+
+function afficherSortiesHTML(data) {
+  const tbody = document.getElementById('tbodyInscriptionsSorties');
+  if (!tbody) return;
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--texte-secondaire); padding: 30px;">Aucune réservation dans la Base Sorties.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(item => {
+    let bClass = item.statut === 'valide' ? 'valide' : (item.statut === 'rejete' ? 'rejete' : 'attente');
+    let bText = item.statut === 'valide' ? 'Validé' : (item.statut === 'rejete' ? 'Rejeté' : 'En attente');
+    return `
+      <tr>
+        <td><strong style="color: var(--or-sombre);">${item.id || 'SRT'}</strong></td>
+        <td><strong>${item.nom}</strong></td>
+        <td><span class="badge-tag-discipline" style="background: rgba(212, 175, 55, 0.15); color: #854D0E; border-color: rgba(212, 175, 55, 0.3);">${item.nbPlaces || '1 Place'}</span></td>
+        <td>${item.quartier || 'Koumassi'}</td>
+        <td>
+          <a href="https://wa.me/225${item.telephone}?text=Assalamu%20alaykum%20${encodeURIComponent(item.nom)},%20concernant%20votre%20r%C3%A9servation%20pour%20la%20Sortie%20de%20d%C3%A9tente%20AEEMCI%20Koumassi%20(${encodeURIComponent(item.nbPlaces || '')})%20:" target="_blank" class="bouton-whatsapp">
+            💬 ${item.telephone}
+          </a>
+        </td>
+        <td><span class="badge-statut ${bClass}">${bText}</span></td>
+        <td style="font-size: 0.82rem; color: var(--texte-secondaire);">${item.date || '-'}</td>
+        <td>
+          <button class="bouton-table-action" onclick="validerSortiesCMS('${item.id}')" title="Valider">✅</button>
+          <button class="bouton-table-action" onclick="refuserSortiesCMS('${item.id}')" title="Rejeter">🔴</button>
+          <button class="bouton-table-action" onclick="supprimerSortiesCMS('${item.id}')" title="Supprimer">🗑️</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+window.filtrerSortiesTable = function(query) {
+  const data = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties')) || [];
+  const q = query.toLowerCase().trim();
+  if (!q) { afficherSortiesHTML(data); return; }
+  const filtres = data.filter(item =>
+    (item.nom && item.nom.toLowerCase().includes(q)) ||
+    (item.nbPlaces && item.nbPlaces.toLowerCase().includes(q)) ||
+    (item.quartier && item.quartier.toLowerCase().includes(q)) ||
+    (item.telephone && item.telephone.includes(q)) ||
+    (item.id && item.id.toLowerCase().includes(q))
+  );
+  afficherSortiesHTML(filtres);
+};
+
+window.validerSortiesCMS = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) item.statut = 'valide';
+  localStorage.setItem('aeemci_inscriptions_sorties', JSON.stringify(list));
+  chargerSortiesCMS();
+  actualiserVueEnsembleKPI();
+  showToast("Réservation Sortie validée avec succès !");
+};
+
+window.refuserSortiesCMS = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) item.statut = 'rejete';
+  localStorage.setItem('aeemci_inscriptions_sorties', JSON.stringify(list));
+  chargerSortiesCMS();
+  actualiserVueEnsembleKPI();
+  showToast("Réservation Sortie refusée.", "info");
+};
+
+window.supprimerSortiesCMS = function(id) {
+  if (confirm("Supprimer cette réservation de la Base Sorties ?")) {
+    let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties')) || [];
+    list = list.filter(m => String(m.id) !== String(id));
+    localStorage.setItem('aeemci_inscriptions_sorties', JSON.stringify(list));
+    chargerSortiesCMS();
+    actualiserVueEnsembleKPI();
+    showToast("Réservation supprimée de la Base Sorties.");
+  }
+};
+
+window.exporterSortiesExcel = function() {
+  const liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_sorties')) || [];
+  let csv = "ID Sortie;Nom et Prenom;Nombre Places;Quartier;Telephone WhatsApp;Statut;Date Inscription\n";
+  liste.forEach(r => {
+    csv += `"${r.id}";"${r.nom}";"${r.nbPlaces}";"${r.quartier || 'Koumassi'}";"${r.telephone}";"${r.statut || 'valide'}";"${r.date}"\n`;
+  });
+  telechargerCSVStudio(csv, `AEEMCI_Koumassi_Base_SORTIES_${Date.now()}.csv`);
+  showToast("📥 Base Sorties exportée avec succès !");
+};
+
+// ==========================================
+// C. GESTION BASE FORMATIONS & CONCOURS (aeemci_inscriptions_formations)
+// ==========================================
+function chargerFormationsInscriptionsCMS() {
+  let liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations'));
+  if (!liste || liste.length === 0) {
+    liste = [
+      { id: "FRM-30491", nom: "Traoré Aminata", formation: "Académie Numérique : Prompt Engineering & IA", statutPro: "Étudiante UFHB", quartier: "Koumassi Sicogi", telephone: "0545305180", statut: "valide", date: "15/10/2026, 09:40" },
+      { id: "FRM-30492", nom: "Diomandé Youssouf", formation: "Concours Éloquence « Choc des Titans »", statutPro: "Élève Terminale A", quartier: "Koumassi Prodomo", telephone: "0757477372", statut: "valide", date: "16/10/2026, 14:10" },
+      { id: "FRM-30493", nom: "Kaboré Inza", formation: "Académie Numérique : PowerPoint & Présentations", statutPro: "Étudiant ISTC", quartier: "Koumassi Remblais", telephone: "0102030405", statut: "attente", date: "17/10/2026, 11:25" }
+    ];
+    localStorage.setItem('aeemci_inscriptions_formations', JSON.stringify(liste));
+  }
+  afficherFormationsInscriptionsHTML(liste);
+}
+
+function afficherFormationsInscriptionsHTML(data) {
+  const tbody = document.getElementById('tbodyInscriptionsFormations');
+  if (!tbody) return;
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--texte-secondaire); padding: 30px;">Aucune candidature dans la Base Formations.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(item => {
+    let bClass = item.statut === 'valide' ? 'valide' : (item.statut === 'rejete' ? 'rejete' : 'attente');
+    let bText = item.statut === 'valide' ? 'Validé' : (item.statut === 'rejete' ? 'Rejeté' : 'En attente');
+    return `
+      <tr>
+        <td><strong style="color: #1D4ED8;">${item.id || 'FRM'}</strong></td>
+        <td><strong>${item.nom}</strong></td>
+        <td><span class="badge-tag-formation">${item.formation || 'Formation'}</span></td>
+        <td>${item.statutPro || 'Étudiant'}</td>
+        <td>${item.quartier || 'Koumassi'}</td>
+        <td>
+          <a href="https://wa.me/225${item.telephone}?text=Assalamu%20alaykum%20${encodeURIComponent(item.nom)},%20concernant%20votre%20candidature%20au%20programme%20AEEMCI%20Koumassi%20(${encodeURIComponent(item.formation || '')})%20:" target="_blank" class="bouton-whatsapp">
+            💬 ${item.telephone}
+          </a>
+        </td>
+        <td><span class="badge-statut ${bClass}">${bText}</span></td>
+        <td style="font-size: 0.82rem; color: var(--texte-secondaire);">${item.date || '-'}</td>
+        <td>
+          <button class="bouton-table-action" onclick="validerFormationInscritCMS('${item.id}')" title="Valider">✅</button>
+          <button class="bouton-table-action" onclick="refuserFormationInscritCMS('${item.id}')" title="Rejeter">🔴</button>
+          <button class="bouton-table-action" onclick="supprimerFormationInscritCMS('${item.id}')" title="Supprimer">🗑️</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+window.filtrerFormationsInscriptionsTable = function(query) {
+  const data = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations')) || [];
+  const q = query.toLowerCase().trim();
+  if (!q) { afficherFormationsInscriptionsHTML(data); return; }
+  const filtres = data.filter(item =>
+    (item.nom && item.nom.toLowerCase().includes(q)) ||
+    (item.formation && item.formation.toLowerCase().includes(q)) ||
+    (item.statutPro && item.statutPro.toLowerCase().includes(q)) ||
+    (item.quartier && item.quartier.toLowerCase().includes(q)) ||
+    (item.telephone && item.telephone.includes(q)) ||
+    (item.id && item.id.toLowerCase().includes(q))
+  );
+  afficherFormationsInscriptionsHTML(filtres);
+};
+
+window.validerFormationInscritCMS = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) item.statut = 'valide';
+  localStorage.setItem('aeemci_inscriptions_formations', JSON.stringify(list));
+  chargerFormationsInscriptionsCMS();
+  actualiserVueEnsembleKPI();
+  showToast("Candidature Formation validée avec succès !");
+};
+
+window.refuserFormationInscritCMS = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) item.statut = 'rejete';
+  localStorage.setItem('aeemci_inscriptions_formations', JSON.stringify(list));
+  chargerFormationsInscriptionsCMS();
+  actualiserVueEnsembleKPI();
+  showToast("Candidature Formation refusée.", "info");
+};
+
+window.supprimerFormationInscritCMS = function(id) {
+  if (confirm("Supprimer cette candidature de la Base Formations ?")) {
+    let list = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations')) || [];
+    list = list.filter(m => String(m.id) !== String(id));
+    localStorage.setItem('aeemci_inscriptions_formations', JSON.stringify(list));
+    chargerFormationsInscriptionsCMS();
+    actualiserVueEnsembleKPI();
+    showToast("Candidature supprimée de la Base Formations.");
+  }
+};
+
+window.exporterFormationsExcel = function() {
+  const liste = JSON.parse(localStorage.getItem('aeemci_inscriptions_formations')) || [];
+  let csv = "ID Formation;Nom et Prenom;Programme Formation;Profil Statut;Quartier;Telephone WhatsApp;Statut;Date Inscription\n";
+  liste.forEach(r => {
+    csv += `"${r.id}";"${r.nom}";"${r.formation}";"${r.statutPro || ''}";"${r.quartier || 'Koumassi'}";"${r.telephone}";"${r.statut || 'valide'}";"${r.date}"\n`;
+  });
+  telechargerCSVStudio(csv, `AEEMCI_Koumassi_Base_FORMATIONS_${Date.now()}.csv`);
+  showToast("📥 Base Formations exportée avec succès !");
+};
+
+// ==========================================
+// D. GESTION BASE MESSAGES & CONTACTS (aeemci_messages_contact)
+// ==========================================
+function chargerMessagesContactCMS() {
+  let liste = JSON.parse(localStorage.getItem('aeemci_messages_contact'));
+  if (!liste || liste.length === 0) {
+    liste = [
+      { id: "MSG-40581", nom: "Drissa Ouattara", contact: "0504030201", message: "Assalamu alaykum. Je souhaite inscrire mon petit frère aux cours de soutien pour la préparation du BEPC. Quelles sont les pièces à fournir ?", statut: "non_lu", date: "17/10/2026, 18:40" },
+      { id: "MSG-40582", nom: "Aïcha Sanogo", contact: "aicha.sanogo@gmail.com", message: "Bonjour au Sous-Comité. Je voudrais savoir si les ateliers en art oratoire sont ouverts aux non-élèves de Koumassi ?", statut: "lu", date: "16/10/2026, 15:20" }
+    ];
+    localStorage.setItem('aeemci_messages_contact', JSON.stringify(liste));
+  }
+  afficherMessagesContactHTML(liste);
+}
+
+function afficherMessagesContactHTML(data) {
+  const tbody = document.getElementById('tbodyMessagesContact');
+  if (!tbody) return;
+
+  if (!data || data.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--texte-secondaire); padding: 30px;">Aucun message reçu pour l'instant.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(item => {
+    let bClass = item.statut === 'lu' ? 'lu' : 'non_lu';
+    let bText = item.statut === 'lu' ? 'Lu' : 'Non Lu';
+    let apercu = item.message ? (item.message.length > 55 ? item.message.slice(0, 55) + '...' : item.message) : '';
+
+    return `
+      <tr style="${item.statut === 'non_lu' ? 'background: rgba(254, 226, 226, 0.25);' : ''}">
+        <td><strong style="color: #BE185D;">${item.id || 'MSG'}</strong></td>
+        <td><strong>${item.nom}</strong></td>
+        <td>
+          <span style="font-weight: 600; color: var(--vert-accent);">${item.contact}</span>
+        </td>
+        <td>
+          <span style="cursor: pointer; color: var(--texte-principal); text-decoration: underline;" onclick="ouvrirModalMessage('${item.id}')" title="Cliquez pour lire en entier">
+            ${apercu}
+          </span>
+        </td>
+        <td><span class="badge-message-statut ${bClass}">${bText}</span></td>
+        <td style="font-size: 0.82rem; color: var(--texte-secondaire);">${item.date || '-'}</td>
+        <td>
+          <button class="bouton-table-action" onclick="ouvrirModalMessage('${item.id}')" title="Lire le Message">👁️</button>
+          <button class="bouton-table-action" onclick="basculerStatutMessage('${item.id}')" title="Marquer lu/non-lu">✉️</button>
+          <button class="bouton-table-action" onclick="supprimerMessageCMS('${item.id}')" title="Supprimer">🗑️</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+window.filtrerMessagesContactTable = function(query) {
+  const data = JSON.parse(localStorage.getItem('aeemci_messages_contact')) || [];
+  const q = query.toLowerCase().trim();
+  if (!q) { afficherMessagesContactHTML(data); return; }
+  const filtres = data.filter(item =>
+    (item.nom && item.nom.toLowerCase().includes(q)) ||
+    (item.contact && item.contact.toLowerCase().includes(q)) ||
+    (item.message && item.message.toLowerCase().includes(q)) ||
+    (item.id && item.id.toLowerCase().includes(q))
+  );
+  afficherMessagesContactHTML(filtres);
+};
+
+window.ouvrirModalMessage = function(id) {
+  const list = JSON.parse(localStorage.getItem('aeemci_messages_contact')) || [];
+  const msg = list.find(m => String(m.id) === String(id));
+  if (!msg) return;
+
+  // Marquer automatiquement comme lu
+  if (msg.statut === 'non_lu') {
+    msg.statut = 'lu';
+    localStorage.setItem('aeemci_messages_contact', JSON.stringify(list));
+    chargerMessagesContactCMS();
+    actualiserVueEnsembleKPI();
+  }
+
+  document.getElementById('detailMessageExpediteur').textContent = msg.nom;
+  document.getElementById('detailMessageContact').textContent = msg.contact;
+  document.getElementById('detailMessageDate').textContent = msg.date || '-';
+  document.getElementById('detailMessageContenu').textContent = msg.message;
+
+  const btnWhatsapp = document.getElementById('btnRepondreWhatsappMessage');
+  if (btnWhatsapp) {
+    const isTel = /^[0-9+ \-]+$/.test(msg.contact.trim());
+    if (isTel) {
+      const cleanTel = msg.contact.replace(/[^0-9]/g, '');
+      btnWhatsapp.href = `https://wa.me/225${cleanTel}?text=Assalamu%20alaykum%20${encodeURIComponent(msg.nom)},%20suite%20%C3%A0%20votre%20message%20au%20Sous-Comit%C3%A9%20AEEMCI%20Koumassi%20:`;
+      btnWhatsapp.style.display = 'inline-flex';
+    } else {
+      btnWhatsapp.href = `mailto:${msg.contact}?subject=Réponse AEEMCI Koumassi&body=Bonjour ${encodeURIComponent(msg.nom)},`;
+      btnWhatsapp.innerHTML = '✉️ Répondre par Email';
+      btnWhatsapp.style.display = 'inline-flex';
+    }
+  }
+
+  document.getElementById('modalLireMessage')?.classList.add('active');
+};
+
+window.fermerModalMessage = function() {
+  document.getElementById('modalLireMessage')?.classList.remove('active');
+};
+
+window.basculerStatutMessage = function(id) {
+  let list = JSON.parse(localStorage.getItem('aeemci_messages_contact')) || [];
+  const item = list.find(m => String(m.id) === String(id));
+  if (item) {
+    item.statut = item.statut === 'lu' ? 'non_lu' : 'lu';
+    localStorage.setItem('aeemci_messages_contact', JSON.stringify(list));
+    chargerMessagesContactCMS();
+    actualiserVueEnsembleKPI();
+    showToast(`Message marqué comme ${item.statut === 'lu' ? 'lu' : 'non lu'}.`);
+  }
+};
+
+window.supprimerMessageCMS = function(id) {
+  if (confirm("Supprimer ce message de la boîte de réception ?")) {
+    let list = JSON.parse(localStorage.getItem('aeemci_messages_contact')) || [];
+    list = list.filter(m => String(m.id) !== String(id));
+    localStorage.setItem('aeemci_messages_contact', JSON.stringify(list));
+    chargerMessagesContactCMS();
+    actualiserVueEnsembleKPI();
+    showToast("Message supprimé.");
+  }
+};
+
+window.exporterMessagesExcel = function() {
+  const liste = JSON.parse(localStorage.getItem('aeemci_messages_contact')) || [];
+  let csv = "ID Message;Nom Expediteur;Coordonnees Contact;Message;Statut;Date Reception\n";
+  liste.forEach(r => {
+    csv += `"${r.id}";"${r.nom}";"${r.contact}";"${(r.message || '').replace(/"/g, '""')}";"${r.statut || 'lu'}";"${r.date}"\n`;
+  });
+  telechargerCSVStudio(csv, `AEEMCI_Koumassi_Base_MESSAGES_${Date.now()}.csv`);
+  showToast("📥 Base Messages exportée avec succès !");
 };
 
 // 6. CONTACT & COORDONNÉES
@@ -1016,6 +1596,30 @@ window.toggleMenuCreer = function(event) {
 
 window.rechercherStudioGlobal = function(query) {
   if (!query) query = '';
+  if (typeof sousOngletBasesActif !== 'undefined') {
+    if (sousOngletBasesActif === 'subtab-sport') {
+      const input = document.getElementById('rechercheSportInput');
+      if (input) input.value = query;
+      if (typeof filtrerSportTable === 'function') filtrerSportTable(query);
+      return;
+    } else if (sousOngletBasesActif === 'subtab-sorties') {
+      const input = document.getElementById('rechercheSortiesInput');
+      if (input) input.value = query;
+      if (typeof filtrerSortiesTable === 'function') filtrerSortiesTable(query);
+      return;
+    } else if (sousOngletBasesActif === 'subtab-formations') {
+      const input = document.getElementById('rechercheFormationsInput');
+      if (input) input.value = query;
+      if (typeof filtrerFormationsInscriptionsTable === 'function') filtrerFormationsInscriptionsTable(query);
+      return;
+    } else if (sousOngletBasesActif === 'subtab-messages') {
+      const input = document.getElementById('rechercheMessagesInput');
+      if (input) input.value = query;
+      if (typeof filtrerMessagesContactTable === 'function') filtrerMessagesContactTable(query);
+      return;
+    }
+  }
+
   const input1 = document.getElementById('rechercheMilitantInput');
   if (input1) {
     input1.value = query;

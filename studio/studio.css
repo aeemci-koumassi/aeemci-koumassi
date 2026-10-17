@@ -961,3 +961,113 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ==========================================================================
+   MULTI-BASES DE DONNÉES & INSCRIPTIONS (STUDIO 3.0)
+   ========================================================================== */
+.sous-onglets-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--bordure-carte);
+  scrollbar-width: thin;
+}
+
+.sous-onglet-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--bordure-carte);
+  color: var(--texte-principal);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.sous-onglet-btn:hover {
+  background: var(--vert-tendre);
+  border-color: var(--vert-institutionnel);
+  color: var(--vert-institutionnel);
+  transform: translateY(-1px);
+}
+
+.sous-onglet-btn.actif {
+  background: var(--vert-institutionnel);
+  color: #FFFFFF;
+  border-color: var(--vert-institutionnel);
+  box-shadow: 0 4px 14px rgba(12, 56, 35, 0.22);
+}
+
+.sous-onglet-btn .badge-compteur {
+  background: #EEF2F6;
+  color: var(--vert-institutionnel);
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 20px;
+  transition: var(--transition);
+}
+
+.sous-onglet-btn.actif .badge-compteur {
+  background: var(--or);
+  color: var(--vert-sombre);
+}
+
+.sous-onglet-contenu {
+  display: none;
+  animation: fadeIn 0.25s ease;
+}
+
+.sous-onglet-contenu.actif {
+  display: block;
+}
+
+.badge-tag-discipline {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.12);
+  color: #065F46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.badge-tag-formation {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  background: rgba(212, 175, 55, 0.15);
+  color: #854D0E;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.badge-message-statut {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.badge-message-statut.non_lu {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+.badge-message-statut.lu {
+  background: #DEF7EC;
+  color: #03543F;
+}
