@@ -9,8 +9,8 @@
 <title>Contact &amp; Adhésion — AEEMCI Sous-Comité de Koumassi</title>
 <meta name="description" content="Contactez le bureau du Sous-Comité AEEMCI de Koumassi ou adhérez directement en ligne pour rejoindre nos activités et formations.">
 <link rel="icon" href="images/logo.png">
-<link rel="stylesheet" href="css/style.css?v=20261017_clean">
-<script src="js/base_donnees.js?v=20261017_clean" defer></script>
+<link rel="stylesheet" href="css/style.css?v=20261017_pro">
+<script src="js/base_donnees.js?v=20261017_pro" defer></script>
 <meta name="google-site-verification" content="eBhRI8A4nX2XsSqSKXnH_ou9wjGBq4_Fa7ZyyNVceHM" />
 </head>
 <body>
@@ -168,18 +168,18 @@
         <h3 style="font-size: 1.4rem; margin-bottom: 20px; color: var(--vert-emeraude);">Envoyer un Message</h3>
         <form action="#" method="POST" onsubmit="enregistrerContactFormulaire(event)" style="display: flex; flex-direction: column; gap: 16px;">
           <div>
-            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Nom &amp; Prénom *</label>
-            <input type="text" required placeholder="Ex: Sow Mohamed" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Nom &amp; Prénom *</label>
+            <input type="text" required placeholder="Ex: Sow Mohamed" class="pro-input">
           </div>
 
           <div>
-            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Email ou Téléphone *</label>
-            <input type="text" required placeholder="Ex: contact@gmail.com ou 0545305180" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Email ou Téléphone *</label>
+            <input type="text" required placeholder="Ex: contact@gmail.com ou 0545305180" class="pro-input">
           </div>
 
           <div>
-            <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Message *</label>
-            <textarea required rows="4" placeholder="Votre message..." style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit; resize: vertical;"></textarea>
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Message *</label>
+            <textarea required rows="4" placeholder="Votre message..." class="pro-input" style="resize: vertical;"></textarea>
           </div>
 
           <button type="submit" class="bouton-cta-secondaire" style="width: 100%; border: none;">Envoyer le message</button>
@@ -202,23 +202,23 @@
     <div class="carte-pilier-moderne m-auto" style="max-width: 600px;">
       <form action="#" method="POST" onsubmit="enregistrerAdhesionFormulaire(event)" style="display: flex; flex-direction: column; gap: 16px;">
         <div>
-          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Nom &amp; Prénom *</label>
-          <input type="text" name="nom" required placeholder="Ex: Traoré Aminata" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Nom &amp; Prénom *</label>
+          <input type="text" name="nom" required placeholder="Ex: Traoré Aminata" class="pro-input">
         </div>
 
         <div>
-          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Statut *</label>
-          <input type="text" name="statut" required placeholder="Ex: Élève (Lycée moderne), Étudiant (UFHB), Autre" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Statut *</label>
+          <input type="text" name="statut" required placeholder="Ex: Élève (Lycée moderne), Étudiant (UFHB), Autre" class="pro-input">
         </div>
 
         <div>
-          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Quartier à Koumassi *</label>
-          <input type="text" name="quartier" required placeholder="Ex: Prodomo, Remblais, Sicogi..." style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Quartier à Koumassi *</label>
+          <input type="text" name="quartier" required placeholder="Ex: Prodomo, Remblais, Sicogi..." class="pro-input">
         </div>
 
         <div>
-          <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: var(--texte-sombre);">Numéro Téléphone / WhatsApp *</label>
-          <input type="tel" name="telephone" required placeholder="Ex: +225 0545305180" style="width: 100%; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--bordure-douce); font-family: inherit;">
+          <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; color: var(--texte-sombre);">Numéro Téléphone / WhatsApp *</label>
+          <input type="tel" name="telephone" required placeholder="Ex: +225 0545305180" class="pro-input">
         </div>
 
         <button type="submit" class="bouton-cta-primaire" style="width: 100%; border: none;">Confirmer mon Adhésion &amp; Rejoindre WhatsApp →</button>
@@ -351,6 +351,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<script src="js/main.js?v=20261017_clean"></script>
+<script src="js/main.js?v=20261017_pro"></script>
 </body>
 </html>
