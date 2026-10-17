@@ -7,14 +7,14 @@
 const EVENEMENTS_AEEMCI = [
   {
     id: 1,
-    titre: "Assises Communales de la Jeunesse & Rentrée Solennelle",
-    theme: "« Ensemble pour une identité islamique affirmée et une réussite scolaire rayonnante »",
-    date: "2026-11-15T08:30:00",
-    dateAffichee: "Dimanche 15 Novembre 2026 • Dès 08H30",
-    lieu: "Collège Moderne La Colombe, Koumassi Sicogi",
-    badge: "GRAND RENDEZ-VOUS",
-    affiche: "images/secofis.jpg",
-    lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
+    titre: "Double Formation Pratique : Excel & IA × Affiches & Vidéo",
+    theme: "« Maîtrise des tableaux, automatisation IA & conception visuelle professionnelle »",
+    date: "2026-10-18T08:00:00",
+    dateAffichee: "Dimanche 18 Octobre 2026 • 08:00 - 14:00 UTC+0",
+    lieu: "ISTCO La Colombe, Koumassi (en face de la Cité SIR)",
+    badge: "DOUBLE FORMATION PRATIQUE",
+    affiche: "images/formateurs/sawadogo-mohamed.jpg",
+    lien: "https://aeemci-koumassi.github.io/formation-word/"
   },
   {
     id: 2,
@@ -416,126 +416,27 @@ function animerCompteur(el) {
   }, pasTemps);
 }
 
-// 9. GESTION DYNAMIQUE DU COMPTE À REBOURS & PROCHAINS ÉVÉNEMENTS (Présentation Pro)
+// 9. GESTION DU COMPTE À REBOURS OFFICIEL & SECTION AEEMCI ACADEMY
 function initialiserCompteAReboursAutomatique() {
-  const container = document.getElementById('section-widget-evenement');
-  if (!container) return;
+  // Date officielle de la Double Formation : Dimanche 18 Octobre 2026 à 08h00 GMT
+  const dateCible = new Date("2026-10-18T08:00:00").getTime();
 
-  // 1. Rassembler les événements du code et ceux configurés dans le CMS
-  let evenementsDisponibles = [...EVENEMENTS_AEEMCI];
-
-  const customRaw = localStorage.getItem('aeemci_evenements_custom');
-  if (customRaw) {
-    try {
-      const customList = JSON.parse(customRaw);
-      customList.forEach(c => {
-        if (c.date && !isNaN(new Date(c.date).getTime())) {
-          evenementsDisponibles.unshift({
-            id: c.id || Date.now(),
-            titre: c.titre || 'Événement AEEMCI',
-            theme: c.desc || c.description || '',
-            date: c.date,
-            dateAffichee: c.date,
-            lieu: c.lieu || 'Koumassi',
-            badge: c.badge || 'PROCHAIN ÉVÉNEMENT',
-            affiche: c.image || 'images/secofis.jpg',
-            lien: c.lien || 'https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm'
-          });
-        }
-      });
-    } catch(e) {}
-  }
-
-  // 2. Filtrer STRICTEMENT les événements futurs (les événements passés sont masqués automatiquement)
-  const maintenant = Date.now();
-  const evenementsFuturs = evenementsDisponibles
-    .filter(ev => new Date(ev.date).getTime() > maintenant)
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-  // 3. Cas A : Aucun événement futur -> Affichage d'une bannière d'information et calendrier WhatsApp élégante
-  if (evenementsFuturs.length === 0) {
-    container.innerHTML = `
-      <div class="conteneur">
-        <div class="banniere-evenement-compteur" style="grid-template-columns: 80px 1fr auto; gap: 20px;">
-          <div style="font-size: 2.8rem; text-align: center;">📅</div>
-          <div>
-            <span class="badge-tag or" style="margin-bottom: 6px; display: inline-block;">Mandat 2025–2026</span>
-            <h3 style="font-size: 1.35rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px;">Prochains Événements &amp; Calendrier Associatif</h3>
-            <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0;">
-              Les prochaines dates de formations et rencontres de la rentrée solennelle sont en cours de programmation. Rejoignez notre communauté WhatsApp pour recevoir les annonces officielles en temps réel.
-            </p>
-          </div>
-          <div>
-            <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000; padding: 12px 24px; font-weight: 800; font-size: 0.88rem; white-space: nowrap;">
-              Rejoindre la Communauté WhatsApp →
-            </a>
-          </div>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  // 4. Cas B : Un événement futur existe -> Affichage dynamique avec compte à rebours précis
-  const prochain = evenementsFuturs[0];
-  const targetTime = new Date(prochain.date).getTime();
-
-  container.innerHTML = `
-    <div class="conteneur">
-      <div class="banniere-evenement-compteur">
-        <!-- Vignette Affiche -->
-        <div style="position: relative; cursor: pointer;" onclick="ouvrirAfficheModal('${prochain.affiche}')">
-          <img id="hero-actu-image" loading="lazy" src="${prochain.affiche}" alt="${prochain.titre}" style="width: 85px; height: 115px; object-fit: cover; border-radius: 10px; border: 2px solid var(--or); box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease;">
-          <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.75); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px;">🔍 Zoom</span>
-        </div>
-
-        <!-- Informations Événement -->
-        <div>
-          <span class="badge-tag or" style="margin-bottom: 8px;">${prochain.badge}</span>
-          <h3 id="hero-actu-titre" style="font-size: 1.45rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px; line-height: 1.3;">${prochain.titre}</h3>
-          <div id="hero-actu-theme" style="font-size: 0.92rem; color: var(--or-clair); font-weight: 700; margin-bottom: 6px;">
-            Thème : ${prochain.theme}
-          </div>
-          <p id="hero-actu-details" style="color: rgba(255,255,255,0.88); font-size: 0.88rem; margin: 0;">
-            📍 ${prochain.lieu} • 📅 ${prochain.dateAffichee}
-          </p>
-        </div>
-
-        <!-- Compte à rebours & CTA Inscription -->
-        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
-          <div class="compte-rebours-box">
-            <div class="chronometre-unite">
-              <div class="chronometre-valeur" id="compteurJours">00</div>
-              <div class="chronometre-label">Jours</div>
-            </div>
-            <div class="chronometre-unite">
-              <div class="chronometre-valeur" id="compteurHeures">00</div>
-              <div class="chronometre-label">Heures</div>
-            </div>
-            <div class="chronometre-unite">
-              <div class="chronometre-valeur" id="compteurMinutes">00</div>
-              <div class="chronometre-label">Min</div>
-            </div>
-            <div class="chronometre-unite">
-              <div class="chronometre-valeur" id="compteurSecondes">00</div>
-              <div class="chronometre-label">Sec</div>
-            </div>
-          </div>
-
-          <a href="${prochain.lien}" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem; font-weight: 800;">
-            S'inscrire sur WhatsApp →
-          </a>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Mettre à jour les chiffres du compte à rebours chaque seconde
   function rafraichirChrono() {
-    const reste = targetTime - Date.now();
+    const maintenant = Date.now();
+    const reste = dateCible - maintenant;
+
+    const elJ = document.getElementById('pro-cd-days') || document.getElementById('compteurJours');
+    const elH = document.getElementById('pro-cd-hours') || document.getElementById('compteurHeures');
+    const elM = document.getElementById('pro-cd-mins') || document.getElementById('compteurMinutes');
+    const elS = document.getElementById('pro-cd-secs') || document.getElementById('compteurSecondes');
+
+    if (!elJ && !elH && !elM && !elS) return;
+
     if (reste <= 0) {
-      // Si l'heure est échue, relancer la fonction pour passer au prochain événement futur ou au fallback
-      initialiserCompteAReboursAutomatique();
+      if (elJ) elJ.textContent = "00";
+      if (elH) elH.textContent = "00";
+      if (elM) elM.textContent = "00";
+      if (elS) elS.textContent = "00";
       return;
     }
 
@@ -544,11 +445,6 @@ function initialiserCompteAReboursAutomatique() {
     const h = Math.floor((totalSec % 86400) / 3600);
     const m = Math.floor((totalSec % 3600) / 60);
     const s = Math.floor(totalSec % 60);
-
-    const elJ = document.getElementById('compteurJours');
-    const elH = document.getElementById('compteurHeures');
-    const elM = document.getElementById('compteurMinutes');
-    const elS = document.getElementById('compteurSecondes');
 
     if (elJ) elJ.textContent = String(d).padStart(2, '0');
     if (elH) elH.textContent = String(h).padStart(2, '0');
@@ -560,45 +456,192 @@ function initialiserCompteAReboursAutomatique() {
   setInterval(rafraichirChrono, 1000);
 }
 
-// 10. MODAL PRÉSENTATION OFFICIELLE & MODE PRÉSENTATION PRO
-function ouvrirPresentationModal() {
-  const modal = document.getElementById('modalPresentationOfficielle');
+// 10. GESTION DES INSCRIPTIONS AEEMCI ACADEMY & GÉNÉRATION DU BILLET QR
+function soumettreInscriptionAcademy(event) {
+  if (event) event.preventDefault();
+
+  const nom = (document.getElementById('f-nom')?.value || '').trim();
+  const whatsapp = (document.getElementById('f-whatsapp')?.value || '').trim();
+  const email = (document.getElementById('f-email')?.value || '').trim();
+  const formation = document.getElementById('f-formation')?.value || 'Pack Complet (Excel & IA + Design/Vidéo)';
+  const ordi = document.getElementById('f-ordi')?.value || 'Oui';
+  const statut = document.getElementById('f-statut')?.value || 'Étudiant';
+  const genre = document.getElementById('f-genre')?.value || 'Homme';
+
+  if (!nom || !whatsapp) {
+    showToast("Veuillez renseigner votre nom et votre numéro WhatsApp.");
+    return;
+  }
+
+  const codeTicket = 'TKT-EXCEL-IA-' + Math.floor(1000 + Math.random() * 9000);
+
+  const inscriptionData = {
+    nom,
+    whatsapp,
+    email,
+    formation,
+    ordi,
+    statut,
+    genre,
+    codeTicket,
+    dateInscription: new Date().toISOString()
+  };
+
+  try {
+    localStorage.setItem('aeemci_academy_registration', JSON.stringify(inscriptionData));
+  } catch(e) {}
+
+  appliquerDonneesBillet(inscriptionData);
+
+  // Basculer vers l'état "En attente d'approbation" (Exactement conforme à l'Image 2)
+  const formState = document.getElementById('event-form-state');
+  const approvedState = document.getElementById('event-approved-state');
+  if (formState) formState.classList.add('hidden');
+  if (approvedState) approvedState.classList.remove('hidden');
+
+  // Mettre à jour le compteur social
+  const socialCount = document.getElementById('social-participant-count');
+  if (socialCount) {
+    const act = parseInt(socialCount.textContent) || 48;
+    socialCount.textContent = act + 1;
+  }
+
+  showToast("Félicitations " + nom.split(' ')[0] + " ! Inscription enregistrée.");
+}
+
+function appliquerDonneesBillet(data) {
+  const elNom = document.getElementById('ticket-nom-display');
+  const elContact = document.getElementById('ticket-contact-display');
+  const elFormation = document.getElementById('ticket-formation-display');
+  const elCode = document.getElementById('ticket-code-display');
+  const elQR = document.getElementById('ticket-qrcode-img');
+  const elWaShare = document.getElementById('ticket-whatsapp-share');
+
+  if (elNom) elNom.textContent = data.nom || 'Participant Officiel';
+  if (elContact) elContact.textContent = data.whatsapp || '+225 07 11 98 58 10';
+  if (elFormation) elFormation.textContent = data.formation || 'Pack Complet (Excel & IA + Design & Vidéo)';
+  if (elCode) elCode.textContent = data.codeTicket || 'TKT-EXCEL-DESIGN-0042';
+
+  const qrPayload = encodeURIComponent(
+    `AEEMCI PASS: ${data.codeTicket} | ${data.nom} | ${data.whatsapp} | ${data.formation} | 18-OCT-2026 ISTCO LA COLOMBE`
+  );
+  if (elQR) {
+    elQR.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${qrPayload}`;
+  }
+
+  if (elWaShare) {
+    const waText = encodeURIComponent(
+      `Assalamou aleykoum ! J'ai réservé mon Pass pour la Double Formation Pratique AEEMCI Koumassi le Dimanche 18 Octobre 2026.\nMon Billet : ${data.codeTicket}\nNom : ${data.nom}\nAtelier : ${data.formation}`
+    );
+    elWaShare.href = `https://wa.me/2250711985810?text=${waText}`;
+  }
+}
+
+function chargerInscriptionExistante() {
+  try {
+    const raw = localStorage.getItem('aeemci_academy_registration');
+    if (raw) {
+      const data = JSON.parse(raw);
+      if (data && data.nom) {
+        appliquerDonneesBillet(data);
+        const formState = document.getElementById('event-form-state');
+        const approvedState = document.getElementById('event-approved-state');
+        if (formState && approvedState) {
+          formState.classList.add('hidden');
+          approvedState.classList.remove('hidden');
+        }
+      }
+    }
+  } catch(e) {}
+}
+
+function openTicketModal() {
+  const modal = document.getElementById('ticketModal');
   if (modal) {
-    modal.classList.add('actif');
+    modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
 }
 
-function fermerPresentationModal() {
-  const modal = document.getElementById('modalPresentationOfficielle');
+function closeTicketModal() {
+  const modal = document.getElementById('ticketModal');
   if (modal) {
-    modal.classList.remove('actif');
+    modal.classList.add('hidden');
     document.body.style.overflow = '';
   }
 }
 
-function imprimerDossierPresentation() {
-  window.print();
+function openGoogleCalendar() {
+  const calUrl = "https://www.google.com/calendar/render?action=TEMPLATE&text=" +
+    encodeURIComponent("Double Formation Pratique AEEMCI Koumassi : Excel & IA x Affiches & Vidéo") +
+    "&dates=20261018T080000Z/20261018T140000Z" +
+    "&details=" + encodeURIComponent("Double formation pratique gratuite organisée par l'AEEMCI Sous-comité de Koumassi. Excel & IA avec Djim Aboubacar + Design & Vidéo avec Sawadogo Mohamed.") +
+    "&location=" + encodeURIComponent("ISTCO La Colombe, Koumassi (en face de la Cité SIR), Abidjan");
+  window.open(calUrl, '_blank');
 }
 
-window.ouvrirPresentationModal = ouvrirPresentationModal;
-window.fermerPresentationModal = fermerPresentationModal;
-window.imprimerDossierPresentation = imprimerDossierPresentation;
+function copyVenueAddress() {
+  const adresse = "ISTCO La Colombe, Koumassi (en face de la Cité SIR, proche du Carrefour Sans Fil), Abidjan";
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(adresse).then(() => {
+      showToast("Adresse du lieu copiée dans le presse-papier !");
+    }).catch(() => {
+      showToast("Lieu : ISTCO La Colombe Koumassi (Cité SIR)");
+    });
+  } else {
+    showToast("Lieu : ISTCO La Colombe Koumassi (Cité SIR)");
+  }
+}
+
+function resetRegistrationForm() {
+  const formState = document.getElementById('event-form-state');
+  const approvedState = document.getElementById('event-approved-state');
+  if (formState && approvedState) {
+    approvedState.classList.add('hidden');
+    formState.classList.remove('hidden');
+  }
+}
+
+function toggleAcademyFaq(btn) {
+  if (!btn) return;
+  const tile = btn.closest('.faq-tile');
+  if (tile) {
+    tile.classList.toggle('open');
+  }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-msg');
+  if (!toast) return;
+  if (toastMsg && msg) toastMsg.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3500);
+}
+
+// Exposer les fonctions globales indispensables
+window.soumettreInscriptionAcademy = soumettreInscriptionAcademy;
+window.openTicketModal = openTicketModal;
+window.closeTicketModal = closeTicketModal;
+window.openGoogleCalendar = openGoogleCalendar;
+window.copyVenueAddress = copyVenueAddress;
+window.resetRegistrationForm = resetRegistrationForm;
+window.toggleAcademyFaq = toggleAcademyFaq;
+window.showToast = showToast;
 
 // 11. RACCOURCIS CLAVIER & ACCÈS DISCRET
 function initialiserRaccourcisClavier() {
+  // Charger une inscription préalablement enregistrée
+  chargerInscriptionExistante();
+
   document.addEventListener('keydown', function(e) {
-    // Ne pas intercepter si l'utilisateur saisit dans un champ de formulaire
     if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
 
-    // Touche P : Ouvrir le Dossier de Présentation Pro
-    if (e.key === 'P' || e.key === 'p') {
-      ouvrirPresentationModal();
-    }
-
-    // Touche Échap : Fermer les modales
+    // Touche Échap : Fermer les modales ouvertes
     if (e.key === 'Escape') {
-      fermerPresentationModal();
+      closeTicketModal();
       if (typeof fermerAfficheModal === 'function') fermerAfficheModal();
       if (typeof fermerSidebar === 'function') fermerSidebar();
     }
@@ -626,3 +669,4 @@ function initialiserRaccourcisClavier() {
     }
   });
 }
+

@@ -107,7 +107,6 @@
       <a href="actualites.html">Actualités</a>
       <a href="galerie.html">Galerie</a>
       <a href="contact.html">Contact</a>
-      <button type="button" class="bouton-presentation-nav" onclick="ouvrirPresentationModal()" title="Consulter la Plaquette Officielle">📄 Présentation Pro</button>
       <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire">Rejoindre</a>
     </nav>
   </div>
@@ -576,113 +575,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
-
-<!-- MODALE DOSSIER DE PRÉSENTATION OFFICIELLE (PRÉSENTATION PRO 2026) -->
-<div id="modalPresentationOfficielle" class="modal-presentation" onclick="fermerPresentationModal()">
-  <div class="dossier-presentation-card" onclick="event.stopPropagation()">
-    <!-- En-tête Dossier -->
-    <div class="dossier-header">
-      <div class="dossier-header-top">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <img src="images/logo.png" alt="Logo AEEMCI" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--or);">
-          <div>
-            <span class="badge-tag or" style="font-size: 0.72rem; letter-spacing: 1px;">DOCUMENT OFFICIEL • MANDAT 2025–2026</span>
-            <h2 style="font-size: 1.4rem; color: #FFFFFF; font-family: var(--font-titre); margin: 4px 0 0 0;">Dossier de Présentation Officielle</h2>
-          </div>
-        </div>
-        <button class="dossier-fermer-btn" onclick="fermerPresentationModal()" title="Fermer la présentation">&times;</button>
-      </div>
-      <div style="font-size: 0.92rem; color: rgba(255,255,255,0.88); line-height: 1.5;">
-        Sous-Comité AEEMCI de Koumassi (Abidjan) — « Pour une identité islamique ! » • « Ensemble nous sommes plus forts »
-      </div>
-    </div>
-
-    <!-- Corps du Dossier -->
-    <div class="dossier-corps">
-      <!-- 1. Identité & Vocation -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>🏛️</span> 1. Identité &amp; Vocation Institutionnelle</h3>
-        <p style="font-size: 0.93rem; line-height: 1.65; color: var(--texte-principal); margin-bottom: 12px;">
-          L'<strong>AEEMCI (Association des Élèves et Étudiants Musulmans de Côte d'Ivoire)</strong> est l'organisation pionnière de la jeunesse musulmane ivoirienne, reconnue d'utilité publique par l'État (Arrêté N° 79 du 12 Avril 1979). Le <strong>Sous-Comité de Koumassi</strong> assure l'encadrement pédagogique, moral et spirituel des élèves des collèges, lycées et grandes écoles de la commune.
-        </p>
-      </div>
-
-      <!-- 2. Chiffres Clés de Performance -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>📊</span> 2. Chiffres Clés &amp; Impact Communal</h3>
-        <div class="dossier-grille-stats">
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">+20</div>
-            <div class="dossier-stat-label">Sections Scolaires Actives</div>
-          </div>
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">+500</div>
-            <div class="dossier-stat-label">Élèves &amp; Étudiants Encadrés / An</div>
-          </div>
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">95%</div>
-            <div class="dossier-stat-label">Taux de Réussite BEPC &amp; BAC</div>
-          </div>
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">+50 Ans</div>
-            <div class="dossier-stat-label">D'Histoire &amp; Leadership (1975–2026)</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Programmes Majeurs & Académie du Numérique -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>🚀</span> 3. Académie du Numérique &amp; Programmes d'Excellence</h3>
-        <ul style="font-size: 0.92rem; line-height: 1.7; color: var(--texte-principal); padding-left: 20px;">
-          <li><strong>Masterclass Microsoft Word &amp; Suite Bureautique :</strong> Mise en page pro, TDR, rapports de stage et mémoires.</li>
-          <li><strong>Formation Microsoft Excel :</strong> Gestion de données, calculs avancés et tableaux croisés dynamiques.</li>
-          <li><strong>Prompt Engineering &amp; Intelligence Artificielle :</strong> Maîtrise des IA génératives appliquées aux études et à la productivité.</li>
-          <li><strong>PowerPoint &amp; Art Visuel :</strong> Conception de slides captivants pour soutenances et présentations publiques.</li>
-          <li><strong>Infographie &amp; Montage Vidéo :</strong> Conception d'affiches (Canva/Photoshop) et capsules vidéo.</li>
-          <li><strong>Concours d'Art Oratoire « Le Choc des Titans » :</strong> Joutes oratoires et tournoi d'éloquence inter-établissements.</li>
-        </ul>
-      </div>
-
-      <!-- 4. Bureau Exécutif 2025-2026 -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>👥</span> 4. Gouvernance &amp; Bureau Exécutif</h3>
-        <p style="font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); margin-bottom: 8px;">
-          <strong>Président du Sous-Comité :</strong> Sow Mohamed<br>
-          <strong>Vice-Présidence :</strong> Zeba Askandar (1er VP), Sangare Ousmane (2e VP), Konate Mariam (VP)<br>
-          <strong>Secrétariat Général :</strong> Diabate Fode (SG), Kouma Yaya (SG-A), Dabre Nassira (SG-A)<br>
-          <strong>Trésorerie Générale :</strong> Sogne Foussena (TG), Gana Fatim (TG-A), Traore Aïcha (Membre)<br>
-          <strong>Délégations Spécialisées :</strong> Culture (Kokora Mohamed), Sociale (Kangoute Salimata), DOM (Simpore Mohamed).
-        </p>
-      </div>
-
-      <!-- 5. Siège & Contacts Officiels -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>📍</span> 5. Siège &amp; Coordonnées Officielles</h3>
-        <p style="font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); margin: 0;">
-          <strong>Lieu des Rencontres :</strong> IST-ISG La Colombe / Collège Moderne La Colombe, Koumassi Sicogi (Chaque Samedi à 15H00)<br>
-          <strong>Téléphones Permanence :</strong> +225 05 45 30 51 80 / +225 07 57 47 73 72<br>
-          <strong>Email Officiel :</strong> aeemci.koumassi@gmail.com<br>
-          <strong>Portail Web :</strong> https://aeemci-koumassi.github.io/aeemci-koumassi/
-        </p>
-      </div>
-    </div>
-
-    <!-- Actions du Dossier -->
-    <div class="dossier-actions-barre">
-      <div style="font-size: 0.82rem; color: var(--texte-doux); font-weight: 600;">
-        💡 Astuce : Vous pouvez projeter ce document en réunion ou l'enregistrer en PDF.
-      </div>
-      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-        <button type="button" class="bouton-cta-contour" onclick="imprimerDossierPresentation()" style="border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px 18px; font-weight: 700; cursor: pointer;">
-          🖨️ Imprimer / PDF
-        </button>
-        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="font-size: 0.88rem; padding: 10px 20px; font-weight: 700;">
-          Rejoindre sur WhatsApp →
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script src="js/main.js?v=20261017_pro"></script>
 </body>

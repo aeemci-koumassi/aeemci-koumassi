@@ -56,6 +56,7 @@
 </script>
 
 <link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="css/style.css?v=20261017_pro">
 <script src="js/base_donnees.js?v=20261017_pro" defer></script>
 </head>
@@ -156,7 +157,6 @@
       <a href="actualites.html">Actualités</a>
       <a href="galerie.html">Galerie</a>
       <a href="contact.html">Contact</a>
-      <button type="button" class="bouton-presentation-nav" onclick="ouvrirPresentationModal()" title="Consulter la Plaquette Officielle du Mandat 2025-2026">📄 Présentation Pro</button>
       <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire">Rejoindre</a>
     </nav>
   </div>
@@ -185,9 +185,6 @@
           <span>Découvrir nos activités</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </a>
-        <button type="button" class="bouton-presentation-nav" onclick="ouvrirPresentationModal()" style="padding: 12px 22px; font-size: 0.95rem; border-width: 2px;">
-          📄 Plaquette Officielle 2026
-        </button>
         <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-secondaire">Devenir membre sur WhatsApp</a>
       </div>
     </div>
@@ -279,54 +276,582 @@
   </div>
 </section>
 
-<!-- ===== WIDGET PROCHAIN ÉVÉNEMENT & COMPTE À REBOURS DYNAMIQUE (PRÉSENTATION PRO) ===== -->
-<section id="section-widget-evenement" style="padding: 40px 0 0 0; background: var(--fond-clair);">
+<!-- ===== SECTION AEEMCI ACADEMY : DOUBLE FORMATION PRATIQUE (STYLE LUMA / IMAGE 2) ===== -->
+<section id="section-widget-evenement" class="academy-section">
   <div class="conteneur">
-    <div class="banniere-evenement-compteur">
-      <!-- Vignette Affiche Officielle -->
-      <div style="position: relative; cursor: pointer;" onclick="ouvrirAfficheModal('images/secofis.jpg')">
-        <img id="hero-actu-image" loading="lazy" src="images/secofis.jpg" alt="Affiche Prochain Événement" style="width: 85px; height: 115px; object-fit: cover; border-radius: 10px; border: 2px solid var(--or); box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease;">
-        <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.75); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px;">🔍 Zoom</span>
-      </div>
-
-      <!-- Informations Événement -->
-      <div>
-        <span class="badge-tag or" style="margin-bottom: 8px;">GRAND RENDEZ-VOUS</span>
-        <h3 id="hero-actu-titre" style="font-size: 1.45rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px; line-height: 1.3;">Assises Communales de la Jeunesse &amp; Rentrée Solennelle</h3>
-        <div id="hero-actu-theme" style="font-size: 0.92rem; color: var(--or-clair); font-weight: 700; margin-bottom: 6px;">
-          Thème : « Ensemble pour une identité islamique affirmée et une réussite scolaire rayonnante »
+    
+    <!-- Topbar / Titre de la Section -->
+    <div class="academy-section-header">
+      <div class="academy-brand-pill">
+        <img src="images/logo.png" alt="AEEMCI" class="academy-brand-logo">
+        <div>
+          <span class="academy-brand-name">AEEMCI <span class="academy-brand-accent">ACADEMY</span></span>
+          <span class="academy-brand-sub">Sous-comité Koumassi · Immersion Pratique 2026</span>
         </div>
-        <p id="hero-actu-details" style="color: rgba(255,255,255,0.88); font-size: 0.88rem; margin: 0;">
-          📍 Collège Moderne La Colombe, Koumassi Sicogi • 📅 Dimanche 15 Novembre 2026 • Dès 08H30
-        </p>
       </div>
-
-      <!-- Compte à rebours & CTA -->
-      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
-        <div class="compte-rebours-box">
-          <div class="chronometre-unite">
-            <div class="chronometre-valeur" id="compteurJours">00</div>
-            <div class="chronometre-label">Jours</div>
-          </div>
-          <div class="chronometre-unite">
-            <div class="chronometre-valeur" id="compteurHeures">00</div>
-            <div class="chronometre-label">Heures</div>
-          </div>
-          <div class="chronometre-unite">
-            <div class="chronometre-valeur" id="compteurMinutes">00</div>
-            <div class="chronometre-label">Min</div>
-          </div>
-          <div class="chronometre-unite">
-            <div class="chronometre-valeur" id="compteurSecondes">00</div>
-            <div class="chronometre-label">Sec</div>
-          </div>
-        </div>
-
-        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem; font-weight: 800;">
-          S'inscrire sur WhatsApp →
-        </a>
-      </div>
+      <a href="https://aeemci-koumassi.github.io/formation-word/" target="_blank" rel="noopener" class="academy-link-pill" title="Ouvrir la page dédiée plein écran">
+        <span>Portail Dédié ↗</span>
+      </a>
     </div>
+
+    <!-- Grille Principale 2 Colonnes (Gauche: Flyer & Organisateurs / Droite: Compteur & Inscription) -->
+    <div class="academy-layout-grid">
+      
+      <!-- ==============================================
+           COLONNE GAUCHE : POSTER PRO, ORGANISATEURS & SOCIAL
+           ============================================== -->
+      <div class="academy-col-left">
+        
+        <!-- FLYER OFFICIEL HAUTE DÉFINITION (Card Pro) -->
+        <div class="academy-poster-card">
+          <!-- Effets de lueurs ambiantes -->
+          <div class="poster-glow-emerald"></div>
+          <div class="poster-glow-amber"></div>
+
+          <!-- En-tête Flyer -->
+          <div class="poster-header-row">
+            <div class="poster-badge-aeemci">
+              <img src="images/logo.png" alt="AEEMCI" class="poster-logo-img">
+              <span>AEEMCI KOUMASSI</span>
+            </div>
+            <span class="poster-badge-free">PASS 100% GRATUIT</span>
+          </div>
+
+          <!-- Corps du Flyer -->
+          <div class="poster-body">
+            <span class="poster-sur-titre">Double Formation Pratique</span>
+            <h2 class="poster-main-title">
+              Excel &amp; IA <br>
+              <span class="poster-amp">&amp;</span> Affiches &amp; Vidéo
+            </h2>
+
+            <!-- Formateurs sur le Flyer -->
+            <div class="poster-trainers-row">
+              <!-- Formateur 1 -->
+              <div class="poster-trainer-card">
+                <img src="images/formateurs/djim-aboubacar.jpg" alt="Djim Aboubacar Mikahillo" class="poster-trainer-photo">
+                <div class="poster-trainer-meta">
+                  <p class="poster-trainer-name">Djim Aboubacar</p>
+                  <p class="poster-trainer-tag amber">Excel &amp; IA</p>
+                </div>
+              </div>
+              <!-- Formateur 2 -->
+              <div class="poster-trainer-card">
+                <img src="images/formateurs/sawadogo-mohamed.jpg" alt="Sawadogo Mohamed" class="poster-trainer-photo">
+                <div class="poster-trainer-meta">
+                  <p class="poster-trainer-name">Sawadogo Mohamed</p>
+                  <p class="poster-trainer-tag emerald">Design &amp; Vidéo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bas du Flyer -->
+          <div class="poster-footer-row">
+            <span class="poster-footer-date">
+              <i class="fa-regular fa-calendar-check text-amber"></i>
+              Dimanche 18 Oct. 2026
+            </span>
+            <span class="poster-footer-venue">
+              <i class="fa-solid fa-location-dot text-emerald"></i>
+              ISTCO La Colombe
+            </span>
+          </div>
+        </div>
+
+        <!-- ORGANISÉ PAR (Bloc Organisateurs Officiels) -->
+        <div class="academy-hosts-section">
+          <h4 class="academy-block-label">Organisé par</h4>
+          
+          <div class="academy-hosts-stack">
+            <!-- Hôte 1: AEEMCI Sous-comité -->
+            <div class="academy-host-item">
+              <img src="images/logo.png" alt="AEEMCI" class="academy-host-avatar logo-style">
+              <div class="academy-host-info">
+                <div class="academy-host-title-line">
+                  <p class="academy-host-title">AEEMCI Sous-comité Koumassi</p>
+                  <i class="fa-solid fa-circle-check text-emerald check-icon" title="Comité Officiel Vérifié"></i>
+                </div>
+                <p class="academy-host-sub">Comité d'Organisation Officiel</p>
+              </div>
+            </div>
+
+            <!-- Hôte 2: Djim Aboubacar -->
+            <div class="academy-host-item">
+              <img src="images/formateurs/djim-aboubacar.jpg" alt="Djim Aboubacar Mikahillo" class="academy-host-avatar">
+              <div class="academy-host-info">
+                <div class="academy-host-title-line">
+                  <p class="academy-host-title">Djim Aboubacar Mikahillo</p>
+                  <span class="academy-tag amber">Formateur</span>
+                </div>
+                <p class="academy-host-sub">Spécialiste Excel &amp; IA</p>
+              </div>
+            </div>
+
+            <!-- Hôte 3: Sawadogo Mohamed -->
+            <div class="academy-host-item">
+              <img src="images/formateurs/sawadogo-mohamed.jpg" alt="Sawadogo Mohamed" class="academy-host-avatar">
+              <div class="academy-host-info">
+                <div class="academy-host-title-line">
+                  <p class="academy-host-title">Sawadogo Mohamed</p>
+                  <span class="academy-tag teal">Formateur</span>
+                </div>
+                <p class="academy-host-sub">Informaticien, Théologien · Design &amp; Vidéo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PREUVE SOCIALE & PARTICIPANTS RÉELS -->
+        <div class="academy-social-proof">
+          <p id="participant-count-header" class="academy-social-counter">
+            <span id="social-participant-count">48</span> Participant(s)
+          </p>
+
+          <div class="academy-live-badge-wrapper">
+            <div class="academy-live-pill">
+              <span class="pulse-green-dot"></span>
+              <span>Inscriptions ouvertes</span>
+            </div>
+          </div>
+
+          <p id="social-participant-names" class="academy-social-sub">
+            Les inscriptions sont ouvertes · Réservez votre Pass 100% Gratuit !
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ==============================================
+           COLONNE DROITE : DATE/LIEU, COMPTEUR ROUGE & CARTE D'ACTION
+           ============================================== -->
+      <div class="academy-col-right">
+        
+        <!-- CARTES MÉTAS : DATE & LIEU -->
+        <div class="academy-metas-grid">
+          
+          <!-- Bloc Date -->
+          <div class="academy-meta-tile">
+            <div class="cal-tile-box">
+              <span class="cal-tile-month">OCT.</span>
+              <span class="cal-tile-day">18</span>
+            </div>
+            <div>
+              <p class="meta-tile-title">Dimanche 18 octobre</p>
+              <p class="meta-tile-sub">08:00 - 14:00 UTC+0</p>
+            </div>
+          </div>
+
+          <!-- Bloc Lieu -->
+          <div class="academy-meta-tile">
+            <div class="venue-tile-icon">
+              <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+                <p class="meta-tile-title truncate">ISTCO La Colombe</p>
+                <a href="#venue-location" class="plan-pill-link">
+                  <i class="fa-solid fa-map"></i> Plan
+                </a>
+              </div>
+              <p class="meta-tile-sub truncate">Cité SIR, Koumassi</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COMPTEUR PRO DANS LE CHAMP EN ROUGE GLOWING (EXACTEMENT COMME IMAGE 2) -->
+        <div class="academy-countdown-banner">
+          <div class="cd-glow-subtil"></div>
+
+          <div class="cd-header-bar">
+            <div class="cd-title-wrap">
+              <span class="cd-ping-wrap">
+                <span class="cd-ping-wave"></span>
+                <span class="cd-ping-center"></span>
+              </span>
+              <span>Compte à rebours officiel</span>
+            </div>
+            <span class="cd-start-tag">
+              <i class="fa-regular fa-clock"></i> Début à 08h00 GMT
+            </span>
+          </div>
+
+          <!-- 4 Boîtes Digitales du Compteur -->
+          <div class="cd-digits-grid">
+            <div class="cd-box-item">
+              <span id="pro-cd-days" class="cd-val">00</span>
+              <span class="cd-lbl">Jours</span>
+            </div>
+            <div class="cd-box-item">
+              <span id="pro-cd-hours" class="cd-val">16</span>
+              <span class="cd-lbl">Heures</span>
+            </div>
+            <div class="cd-box-item">
+              <span id="pro-cd-mins" class="cd-val">00</span>
+              <span class="cd-lbl">Minutes</span>
+            </div>
+            <div class="cd-box-item">
+              <span id="pro-cd-secs" class="cd-val text-amber-cd">00</span>
+              <span class="cd-lbl">Secondes</span>
+            </div>
+          </div>
+
+          <div class="cd-footer-bar">
+            <span class="cd-footer-info">
+              <i class="fa-solid fa-users"></i>
+              <span>Places en présentiel limitées</span>
+            </span>
+            <span class="cd-footer-quota">
+              <i class="fa-solid fa-bolt text-amber"></i> Clôture à quota
+            </span>
+          </div>
+        </div>
+
+        <!-- ==============================================
+             ACTION CARD : INSCRIPTION / EN ATTENTE D'APPROBATION
+             ============================================== -->
+        <div class="academy-action-card">
+          
+          <!-- ÉTAT 1 : FORMULAIRE D'INSCRIPTION -->
+          <div id="event-form-state" class="event-form-state">
+            <div class="action-card-header">
+              <h3 class="action-card-title">Inscription à la formation</h3>
+              <p class="action-card-desc">Accès gratuit aux ateliers. Places limitées avec certification.</p>
+            </div>
+
+            <form id="formInscription" onsubmit="soumettreInscriptionAcademy(event)" class="academy-form-body">
+              
+              <!-- Nom & Prénoms -->
+              <div class="pro-field-wrap">
+                <label for="f-nom" class="pro-label">
+                  <i class="fa-regular fa-user text-slate-muted"></i>
+                  <span>Nom &amp; Prénoms</span>
+                  <span class="required-star">*</span>
+                </label>
+                <input type="text" id="f-nom" required class="pro-input" placeholder="Ex : Bamba Siaka" autocomplete="name">
+              </div>
+
+              <!-- Contact WhatsApp & Email -->
+              <div class="pro-fields-grid">
+                <div class="pro-field-wrap">
+                  <label for="f-whatsapp" class="pro-label">
+                    <i class="fa-brands fa-whatsapp text-emerald"></i>
+                    <span>Numéro WhatsApp</span>
+                    <span class="required-star">*</span>
+                  </label>
+                  <input type="tel" id="f-whatsapp" required class="pro-input font-medium" placeholder="07 11 98 58 10" autocomplete="tel">
+                </div>
+
+                <div class="pro-field-wrap">
+                  <label for="f-email" class="pro-label">
+                    <i class="fa-regular fa-envelope text-slate-muted"></i>
+                    <span>Adresse Email</span>
+                    <span class="optional-tag">(recommandé)</span>
+                  </label>
+                  <input type="email" id="f-email" class="pro-input" placeholder="nom@exemple.com" autocomplete="email">
+                </div>
+              </div>
+
+              <!-- Choix Atelier & Ordinateur -->
+              <div class="pro-fields-grid">
+                <div class="pro-field-wrap">
+                  <label for="f-formation" class="pro-label">
+                    <i class="fa-solid fa-graduation-cap text-slate-muted"></i>
+                    <span>Atelier souhaité</span>
+                    <span class="required-star">*</span>
+                  </label>
+                  <select id="f-formation" required class="pro-input pro-select">
+                    <option value="Les deux formations (Pack Complet)" selected>Pack Complet (Excel &amp; IA + Design/Vidéo)</option>
+                    <option value="Excel &amp; IA uniquement">Excel &amp; IA uniquement</option>
+                    <option value="Création d'Affiches &amp; Montage Vidéo uniquement">Affiches &amp; Montage Vidéo uniquement</option>
+                  </select>
+                </div>
+
+                <div class="pro-field-wrap">
+                  <label for="f-ordi" class="pro-label">
+                    <i class="fa-solid fa-laptop text-slate-muted"></i>
+                    <span>Avez-vous un PC ?</span>
+                    <span class="required-star">*</span>
+                  </label>
+                  <select id="f-ordi" required class="pro-input pro-select">
+                    <option value="Oui, j'aurai mon PC" selected>Oui, j'aurai mon ordinateur</option>
+                    <option value="Non, je suivrai sur écran/smartphone">Non, je suivrai sur smartphone/écran</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Statut & Genre -->
+              <div class="pro-fields-grid">
+                <div class="pro-field-wrap">
+                  <label for="f-statut" class="pro-label">
+                    <i class="fa-solid fa-id-badge text-slate-muted"></i>
+                    <span>Vous êtes</span>
+                    <span class="required-star">*</span>
+                  </label>
+                  <select id="f-statut" required class="pro-input pro-select">
+                    <option value="Étudiant" selected>Étudiant</option>
+                    <option value="Élève">Élève</option>
+                    <option value="Professionnel">Professionnel</option>
+                    <option value="Autre">Autre</option>
+                  </select>
+                </div>
+
+                <div class="pro-field-wrap">
+                  <label for="f-genre" class="pro-label">
+                    <i class="fa-solid fa-venus-mars text-slate-muted"></i>
+                    <span>Genre</span>
+                  </label>
+                  <select id="f-genre" class="pro-input pro-select">
+                    <option value="Homme" selected>Homme (Frère)</option>
+                    <option value="Femme">Femme (Sœur)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="pro-submit-wrap">
+                <button type="submit" id="submitBtn" class="pro-btn-primary">
+                  <span id="submitLabel">S'inscrire à l'événement</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+
+              <p class="pro-form-footer-hint">
+                En vous inscrivant, vous recevrez votre confirmation officielle et votre ticket numérique instantanément.
+              </p>
+            </form>
+          </div>
+
+          <!-- ==============================================
+               ÉTAT 2 : EN ATTENTE D'APPROBATION (EXACT IMAGE 2)
+               ============================================== -->
+          <div id="event-approved-state" class="event-approved-state hidden">
+            
+            <!-- Peach Smiley Avatar Bubble -->
+            <div class="approval-smiley-box">
+              😊
+            </div>
+
+            <!-- Approval Title & Note -->
+            <div>
+              <h3 class="approval-heading">En attente d'approbation</h3>
+              <p class="approval-subtext">
+                Nous vous informerons lorsque l'organisateur approuvera votre inscription.
+              </p>
+            </div>
+
+            <!-- Calendar Action -->
+            <div>
+              <button type="button" onclick="openGoogleCalendar()" class="pro-btn-secondary">
+                <i class="fa-regular fa-calendar-plus text-slate-muted"></i>
+                <span>Ajouter au calendrier</span>
+              </button>
+            </div>
+
+            <!-- Gray Sub-card with Envelope -->
+            <div class="approval-subcard-box">
+              <div class="envelope-circle">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+
+              <p class="envelope-instruction">
+                Veuillez vérifier vos informations pour gérer votre inscription et voir votre billet d'accès officiel.
+              </p>
+
+              <div>
+                <button type="button" onclick="openTicketModal()" class="pro-btn-secondary">
+                  <i class="fa-solid fa-qrcode text-emerald"></i>
+                  <span>Consulter mon Pass &amp; Billet</span>
+                  <i class="fa-solid fa-arrow-right arrow-mini"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Secondary Links -->
+            <div class="approval-links-row">
+              <button type="button" onclick="resetRegistrationForm()" class="approval-link-btn">
+                Inscrire un autre participant
+              </button>
+              <button type="button" onclick="openTicketModal()" class="approval-link-btn font-bold">
+                <i class="fa-solid fa-qrcode"></i> Voir mon Pass &amp; QR Code
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ==============================================
+             LOCALISATION DU LIEU & PLAN D'ACCÈS
+             ============================================== -->
+        <div id="venue-location" class="academy-venue-block">
+          
+          <div class="venue-head-flex">
+            <div>
+              <div class="venue-title-box">
+                <span class="venue-green-dot"></span>
+                <h3 class="venue-main-title">Localisation du lieu</h3>
+              </div>
+              <p class="venue-address-sub">ISTCO La Colombe · Koumassi, en face de la Cité SIR</p>
+            </div>
+
+            <div class="venue-buttons-flex">
+              <a href="https://www.google.com/maps/dir/?api=1&destination=ISTCO+La+Colombe+Koumassi+Abidjan" target="_blank" rel="noopener noreferrer" class="pro-btn-secondary text-emerald">
+                <i class="fa-solid fa-diamond-turn-right text-emerald"></i>
+                <span>Itinéraire Google Maps ↗</span>
+              </a>
+              <button type="button" onclick="copyVenueAddress()" class="pro-btn-secondary" title="Copier l'adresse">
+                <i class="fa-regular fa-copy text-slate-muted"></i>
+                <span>Copier l'adresse</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- OpenStreetMap Iframe -->
+          <div class="venue-map-frame-box">
+            <iframe 
+              id="venue-map-iframe"
+              title="Plan interactif — ISTCO La Colombe Koumassi"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-3.968%2C5.299%2C-3.955%2C5.309&amp;layer=mapnik&amp;marker=5.3041%2C-3.96171" 
+              class="venue-iframe" 
+              loading="lazy">
+            </iframe>
+          </div>
+
+          <!-- Transport & Guide Cards -->
+          <div class="transport-cards-grid">
+            
+            <!-- Bus SOTRA -->
+            <div class="transport-card-tile">
+              <div class="transport-card-head text-emerald">
+                <i class="fa-solid fa-bus"></i>
+                <span>Bus SOTRA</span>
+              </div>
+              <p class="transport-card-text">
+                Descendre à l'arrêt du <strong>Carrefour Sans Fil</strong> ou directement à la <strong>Cité SIR</strong>. L'ISTCO La Colombe est située juste en face (à 2 minutes de marche).
+              </p>
+            </div>
+
+            <!-- Taxis -->
+            <div class="transport-card-tile">
+              <div class="transport-card-head text-amber-dark">
+                <i class="fa-solid fa-taxi"></i>
+                <span>Taxis &amp; Wôrô-wôrô</span>
+              </div>
+              <p class="transport-card-text">
+                Indiquer au chauffeur : <em>« Koumassi, Carrefour Sans Fil / en face de la Cité SIR (ISTCO La Colombe) »</em>.
+              </p>
+            </div>
+
+            <!-- VTC -->
+            <div class="transport-card-tile">
+              <div class="transport-card-head text-blue-dark">
+                <i class="fa-solid fa-car"></i>
+                <span>VTC (Yango) &amp; Voitures</span>
+              </div>
+              <p class="transport-card-text">
+                Rechercher dans l'application : <strong>ISTCO La Colombe Koumassi</strong> ou <strong>Cité SIR Koumassi</strong> (repère : Carrefour Sans Fil).
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ==============================================
+             À PROPOS DE CET ÉVÉNEMENT & FAQ ACCORDION
+             ============================================== -->
+        <div id="about-event" class="academy-about-block">
+          
+          <div class="about-block-header">
+            <h3 class="about-block-title">À propos de cet événement</h3>
+            <p class="about-block-lead">
+              L'<strong>AEEMCI Sous-comité de Koumassi</strong> organise une immersion pratique intensive le <strong>Dimanche 18 Octobre 2026</strong>. Cette journée est conçue pour outiller les élèves, étudiants et professionnels aux outils les plus demandés du numérique.
+            </p>
+          </div>
+
+          <!-- Ateliers Pratiques -->
+          <div class="ateliers-stack">
+            <!-- Atelier 1 -->
+            <div class="atelier-card-box">
+              <div class="atelier-card-top">
+                <span class="atelier-badge amber">Atelier 1</span>
+                <span class="atelier-time">08:30 - 11:00</span>
+              </div>
+              <h4 class="atelier-card-heading">Excel &amp; IA : Maîtrise des Tableaux, Formules &amp; Analyse Assistée par IA</h4>
+              <p class="atelier-trainer-line">Formateur : <strong>Djim Aboubacar Mikahillo</strong> (Spécialiste Excel &amp; IA)</p>
+              <p class="atelier-desc-text">
+                Découvrez comment structurer vos données, maîtriser les formules indispensables et exploiter l'Intelligence Artificielle pour automatiser vos calculs, tableaux de bord et analyses professionnelles.
+              </p>
+            </div>
+
+            <!-- Atelier 2 -->
+            <div class="atelier-card-box">
+              <div class="atelier-card-top">
+                <span class="atelier-badge teal">Atelier 2</span>
+                <span class="atelier-time">11:15 - 13:45</span>
+              </div>
+              <h4 class="atelier-card-heading">Création d'Affiches &amp; Montages Vidéo Innovants</h4>
+              <p class="atelier-trainer-line">Formateur : <strong>Sawadogo Mohamed</strong> (Informaticien &amp; Théologien)</p>
+              <p class="atelier-desc-text">
+                Apprenez les règles d'or du graphisme, la psychologie des couleurs et maîtrisez le montage vidéo dynamique (dérushage, rythmique, effets visuels et titrage) pour captiver vos audiences.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ce qu'il faut apporter -->
+          <div class="prereq-box-tile">
+            <h4 class="prereq-title-txt">Ce qu'il faut apporter</h4>
+            <ul class="prereq-items-list">
+              <li>Ordinateur portable chargé avec Microsoft Excel installé (fortement recommandé).</li>
+              <li>Smartphone avec espace disponible pour les exercices pratiques d'affiches et vidéo.</li>
+              <li>Bloc-notes et stylo pour la prise de notes pratiques.</li>
+            </ul>
+          </div>
+
+          <!-- FAQ Accordion -->
+          <div class="faq-accordion-wrap">
+            <h4 class="faq-section-title">Questions Fréquentes</h4>
+            
+            <div class="faq-items-list">
+              <div class="faq-tile">
+                <button type="button" class="faq-toggle-btn" onclick="toggleAcademyFaq(this)">
+                  <span>1. La formation est-elle totalement gratuite ?</span>
+                  <i class="fa-solid fa-chevron-down faq-arrow-icon"></i>
+                </button>
+                <div class="faq-collapse-body">
+                  <p>Oui, l'accès à la journée de formation est 100% gratuit, offert par l'AEEMCI Sous-comité de Koumassi. L'inscription préalable en ligne est obligatoire pour réserver son pass.</p>
+                </div>
+              </div>
+
+              <div class="faq-tile">
+                <button type="button" class="faq-toggle-btn" onclick="toggleAcademyFaq(this)">
+                  <span>2. Où se situe précisément le lieu ?</span>
+                  <i class="fa-solid fa-chevron-down faq-arrow-icon"></i>
+                </button>
+                <div class="faq-collapse-body">
+                  <p>À l'<strong>ISTCO La Colombe</strong> (Institut Supérieur Technique La Colombe), situé à <strong>Koumassi, juste en face de la Cité SIR</strong> (proche du <strong>Carrefour Sans Fil</strong>). Vous pouvez consulter le plan interactif juste au-dessus.</p>
+                </div>
+              </div>
+
+              <div class="faq-tile">
+                <button type="button" class="faq-toggle-btn" onclick="toggleAcademyFaq(this)">
+                  <span>3. Faut-il obligatoirement un ordinateur ?</span>
+                  <i class="fa-solid fa-chevron-down faq-arrow-icon"></i>
+                </button>
+                <div class="faq-collapse-body">
+                  <p>Avoir son ordinateur est un vrai avantage pour pratiquer directement les manipulations Excel &amp; IA. Néanmoins, les participants sans ordinateur peuvent suivre les ateliers sur écran et pratiquer la partie affiches et vidéo sur leur smartphone.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 </section>
 
@@ -997,110 +1522,68 @@ function fermerAfficheModal() {
   </div>
 </div>
 
-<!-- MODALE DOSSIER DE PRÉSENTATION OFFICIELLE (PRÉSENTATION PRO 2026) -->
-<div id="modalPresentationOfficielle" class="modal-presentation" onclick="fermerPresentationModal()">
-  <div class="dossier-presentation-card" onclick="event.stopPropagation()">
-    <!-- En-tête Dossier -->
-    <div class="dossier-header">
-      <div class="dossier-header-top">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <img src="images/logo.png" alt="Logo AEEMCI" style="width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--or);">
-          <div>
-            <span class="badge-tag or" style="font-size: 0.72rem; letter-spacing: 1px;">DOCUMENT OFFICIEL • MANDAT 2025–2026</span>
-            <h2 style="font-size: 1.4rem; color: #FFFFFF; font-family: var(--font-titre); margin: 4px 0 0 0;">Dossier de Présentation Officielle</h2>
-          </div>
-        </div>
-        <button class="dossier-fermer-btn" onclick="fermerPresentationModal()" title="Fermer la présentation">&times;</button>
-      </div>
-      <div style="font-size: 0.92rem; color: rgba(255,255,255,0.88); line-height: 1.5;">
-        Sous-Comité AEEMCI de Koumassi (Abidjan) — « Pour une identité islamique ! » • « Ensemble nous sommes plus forts »
-      </div>
+<!-- TOAST NOTIFICATION -->
+<div id="toast" class="toast-notification">
+  <i class="fa-solid fa-circle-check text-emerald"></i>
+  <span id="toast-msg">Lien copié dans le presse-papier !</span>
+</div>
+
+<!-- MODAL TICKET OFFICIEL & QR CODE (PASS PARTICIPANT) -->
+<div id="ticketModal" class="ticket-modal-overlay hidden" onclick="closeTicketModal()">
+  <div class="ticket-modal-card" onclick="event.stopPropagation()">
+    
+    <!-- Bouton Fermer -->
+    <button type="button" onclick="closeTicketModal()" class="ticket-close-btn" aria-label="Fermer le billet">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- En-tête Billet -->
+    <div class="ticket-header-box">
+      <span class="ticket-pill-badge">Pass Participant Officiel</span>
+      <h3 class="ticket-heading">Double Formation 2026</h3>
+      <p class="ticket-subheading">Dimanche 18 Octobre 2026 · ISTCO La Colombe</p>
     </div>
 
-    <!-- Corps du Dossier -->
-    <div class="dossier-corps">
-      <!-- 1. Identité & Vocation -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>🏛️</span> 1. Identité &amp; Vocation Institutionnelle</h3>
-        <p style="font-size: 0.93rem; line-height: 1.65; color: var(--texte-principal); margin-bottom: 12px;">
-          L'<strong>AEEMCI (Association des Élèves et Étudiants Musulmans de Côte d'Ivoire)</strong> est l'organisation pionnière de la jeunesse musulmane ivoirienne, reconnue d'utilité publique par l'État (Arrêté N° 79 du 12 Avril 1979). Le <strong>Sous-Comité de Koumassi</strong> assure l'encadrement pédagogique, moral et spirituel des élèves des collèges, lycées et grandes écoles de la commune.
-        </p>
+    <!-- Carte Visuelle du Billet -->
+    <div class="ticket-card-surface">
+      <div class="ticket-top-bar">
+        <span class="ticket-brand-txt">AEEMCI ACADEMY</span>
+        <span id="ticket-code-display" class="ticket-code-badge">TKT-EXCEL-DESIGN-0042</span>
       </div>
 
-      <!-- 2. Chiffres Clés de Performance -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>📊</span> 2. Chiffres Clés &amp; Impact Communal</h3>
-        <div class="dossier-grille-stats">
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">+20</div>
-            <div class="dossier-stat-label">Sections Scolaires Actives</div>
-          </div>
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">+500</div>
-            <div class="dossier-stat-label">Élèves &amp; Étudiants Encadrés / An</div>
-          </div>
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">95%</div>
-            <div class="dossier-stat-label">Taux de Réussite BEPC &amp; BAC</div>
-          </div>
-          <div class="dossier-stat-item">
-            <div class="dossier-stat-nombre">+50 Ans</div>
-            <div class="dossier-stat-label">D'Histoire &amp; Leadership (1975–2026)</div>
-          </div>
-        </div>
+      <div class="ticket-field-block">
+        <p class="ticket-field-label">Participant</p>
+        <p id="ticket-nom-display" class="ticket-field-name">Bamba Siaka</p>
+        <p id="ticket-contact-display" class="ticket-field-phone">+225 07 11 98 58 10</p>
       </div>
 
-      <!-- 3. Programmes Majeurs & Académie du Numérique -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>🚀</span> 3. Académie du Numérique &amp; Programmes d'Excellence</h3>
-        <ul style="font-size: 0.92rem; line-height: 1.7; color: var(--texte-principal); padding-left: 20px;">
-          <li><strong>Masterclass Microsoft Word &amp; Suite Bureautique :</strong> Mise en page pro, TDR, rapports de stage et mémoires.</li>
-          <li><strong>Formation Microsoft Excel :</strong> Gestion de données, calculs avancés et tableaux croisés dynamiques.</li>
-          <li><strong>Prompt Engineering &amp; Intelligence Artificielle :</strong> Maîtrise des IA génératives appliquées aux études et à la productivité.</li>
-          <li><strong>PowerPoint &amp; Art Visuel :</strong> Conception de slides captivants pour soutenances et présentations publiques.</li>
-          <li><strong>Infographie &amp; Montage Vidéo :</strong> Conception d'affiches (Canva/Photoshop) et capsules vidéo.</li>
-          <li><strong>Concours d'Art Oratoire « Le Choc des Titans » :</strong> Joutes oratoires et tournoi d'éloquence inter-établissements.</li>
-        </ul>
+      <div class="ticket-field-block">
+        <p class="ticket-field-label">Option sélectionnée</p>
+        <p id="ticket-formation-display" class="ticket-field-workshop">Pack Complet (Excel &amp; IA + Design &amp; Vidéo)</p>
       </div>
 
-      <!-- 4. Bureau Exécutif 2025-2026 -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>👥</span> 4. Gouvernance &amp; Bureau Exécutif</h3>
-        <p style="font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); margin-bottom: 8px;">
-          <strong>Président du Sous-Comité :</strong> Sow Mohamed<br>
-          <strong>Vice-Présidence :</strong> Zeba Askandar (1er VP), Sangare Ousmane (2e VP), Konate Mariam (VP)<br>
-          <strong>Secrétariat Général :</strong> Diabate Fode (SG), Kouma Yaya (SG-A), Dabre Nassira (SG-A)<br>
-          <strong>Trésorerie Générale :</strong> Sogne Foussena (TG), Gana Fatim (TG-A), Traore Aïcha (Membre)<br>
-          <strong>Délégations Spécialisées :</strong> Culture (Kokora Mohamed), Sociale (Kangoute Salimata), DOM (Simpore Mohamed).
-        </p>
+      <!-- Conteneur QR Code -->
+      <div class="ticket-qr-box">
+        <img id="ticket-qrcode-img" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=AEEMCI-PASS-2026" alt="QR Code d'accès" class="ticket-qr-image">
       </div>
 
-      <!-- 5. Siège & Contacts Officiels -->
-      <div class="dossier-section-bloc">
-        <h3 class="dossier-section-titre"><span>📍</span> 5. Siège &amp; Coordonnées Officielles</h3>
-        <p style="font-size: 0.92rem; line-height: 1.6; color: var(--texte-principal); margin: 0;">
-          <strong>Lieu des Rencontres :</strong> IST-ISG La Colombe / Collège Moderne La Colombe, Koumassi Sicogi (Chaque Samedi à 15H00)<br>
-          <strong>Téléphones Permanence :</strong> +225 05 45 30 51 80 / +225 07 57 47 73 72<br>
-          <strong>Email Officiel :</strong> aeemci.koumassi@gmail.com<br>
-          <strong>Portail Web :</strong> https://aeemci-koumassi.github.io/aeemci-koumassi/
-        </p>
-      </div>
+      <p class="ticket-disclaimer">
+        Présentez ce QR Code ou votre nom à l'accueil pour accéder aux ateliers.
+      </p>
     </div>
 
-    <!-- Actions du Dossier -->
-    <div class="dossier-actions-barre">
-      <div style="font-size: 0.82rem; color: var(--texte-doux); font-weight: 600;">
-        💡 Astuce : Vous pouvez projeter ce document en réunion ou l'enregistrer en PDF.
-      </div>
-      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-        <button type="button" class="bouton-cta-contour" onclick="imprimerDossierPresentation()" style="border-color: var(--vert-emeraude); color: var(--vert-emeraude); font-size: 0.88rem; padding: 10px 18px; font-weight: 700; cursor: pointer;">
-          🖨️ Imprimer / PDF
-        </button>
-        <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="font-size: 0.88rem; padding: 10px 20px; font-weight: 700;">
-          Rejoindre sur WhatsApp →
-        </a>
-      </div>
+    <!-- Boutons d'Action -->
+    <div class="ticket-buttons-stack">
+      <a id="ticket-whatsapp-share" href="#" target="_blank" rel="noopener" class="ticket-btn-whatsapp">
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        <span>Recevoir sur mon WhatsApp</span>
+      </a>
+      <button type="button" onclick="window.print()" class="ticket-btn-print">
+        <i class="fa-solid fa-print"></i>
+        <span>Imprimer / Enregistrer en PDF</span>
+      </button>
     </div>
+
   </div>
 </div>
 
