@@ -3369,3 +3369,232 @@ a.contact-valeur:hover {
     gap: 12px !important;
   }
 }
+
+/* ==========================================================================
+   10. EXPERT MOBILE OPTIMIZATION (SMARTPHONE FIRST 2026)
+   Specifiquement concu pour les ecrans tactiles 360px - 768px
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* Empeche tout defilement horizontal indesirable sur mobile */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    -webkit-text-size-adjust: 100% !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* Bandeau Partenaires : Defilement horizontal fluide tactile (Chips modernes) */
+  .bandeau-partenaires {
+    padding: 12px 0 !important;
+    background: #FFFFFF !important;
+  }
+
+  .bandeau-partenaires-container {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+    padding: 0 16px !important;
+  }
+
+  .bandeau-partenaires-titre {
+    font-size: 0.74rem !important;
+    color: var(--vert-emeraude) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px !important;
+  }
+
+  .bandeau-partenaires-liste {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    width: 100% !important;
+    gap: 8px !important;
+    padding: 4px 2px 6px 2px !important;
+    scrollbar-width: none !important;
+  }
+
+  .bandeau-partenaires-liste::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .partenaire-badge {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    font-size: 0.76rem !important;
+    padding: 6px 13px !important;
+    border-radius: 50px !important;
+    background: rgba(12, 56, 35, 0.05) !important;
+    border: 1px solid rgba(12, 56, 35, 0.12) !important;
+  }
+
+  /* Hero Section : Ergonomie & Confort Visuel Smartphone */
+  .hero-moderne {
+    padding: 85px 0 35px 0 !important;
+  }
+
+  .hero-basmala-calligraphie {
+    font-size: 0.95rem !important;
+    margin-bottom: 12px !important;
+  }
+
+  .pro-pill-badge {
+    font-size: 0.78rem !important;
+    padding: 6px 14px !important;
+    margin: 0 auto 14px auto !important;
+    max-width: 95% !important;
+  }
+
+  .hero-titre {
+    font-size: clamp(1.7rem, 6.5vw, 2.15rem) !important;
+    line-height: 1.25 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .hero-description {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 0 8px !important;
+  }
+
+  .hero-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 20px auto 0 auto !important;
+    gap: 12px !important;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    width: 100% !important;
+    min-height: 48px !important;
+    font-size: 0.94rem !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    touch-action: manipulation !important;
+  }
+
+  .hero-actions a:active,
+  .hero-actions button:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* Medaillon Visuel Hero : Plus compact et centre */
+  .hero-medaillon-cadre {
+    max-width: 310px !important;
+    padding: 24px 16px !important;
+    border-radius: 20px !important;
+    margin: 10px auto 0 auto !important;
+  }
+
+  .hero-medaillon-cadre img {
+    width: 90px !important;
+    height: 90px !important;
+    margin: 0 auto 12px auto !important;
+  }
+
+  .hero-medaillon-nom {
+    font-size: 1.2rem !important;
+  }
+
+  .hero-medaillon-devise {
+    font-size: 0.74rem !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Chiffres Cles : 2 Colonnes Elegantes sur Mobile au lieu d'une longue liste */
+  .grille-chiffres-cles {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin-top: 28px !important;
+  }
+
+  .carte-chiffre-cle {
+    padding: 18px 12px !important;
+    border-radius: 16px !important;
+  }
+
+  .valeur-chiffre-cle {
+    font-size: 1.7rem !important;
+  }
+
+  .label-chiffre-cle {
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .chiffre-icone-wrapper {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.25rem !important;
+    margin: 0 auto 10px auto !important;
+  }
+
+  /* Bouton Retour en Haut : Dimensions tactiles precises et aucun chevauchement */
+  .btn-retour-en-haut {
+    bottom: 20px !important;
+    right: 18px !important;
+    width: 44px !important;
+    height: 44px !important;
+    z-index: 999 !important;
+  }
+
+  /* Bouton Flottant WhatsApp : Totalement desactive pour eviter tout chevauchement */
+  .btn-flottant-communaute,
+  .widget-whatsapp-flottant {
+    display: none !important;
+  }
+
+  /* Cartes Articles / Activites : Confort de lecture mobile */
+  .carte-actualite-moderne,
+  .carte-pilier-moderne,
+  .carte-activite {
+    border-radius: 16px !important;
+  }
+
+  .carte-actu-corps {
+    padding: 18px 16px !important;
+  }
+
+  .carte-actu-titre {
+    font-size: 1.15rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .carte-actu-desc {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Optimisation de la Modale Lightbox sur mobile */
+  .modal-media-boite {
+    width: 94% !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  /* Ecrans tres etroits (iPhone SE, etc.) */
+  .grille-chiffres-cles {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-titre {
+    font-size: 1.55rem !important;
+  }
+
+  .hero-actions a,
+  .hero-actions button {
+    font-size: 0.88rem !important;
+    padding: 12px 14px !important;
+  }
+}
