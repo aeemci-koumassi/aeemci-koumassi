@@ -183,50 +183,87 @@
 
 </main>
 
-<!-- ===== FOOTER EXÉCUTIF (DESIGN PRO 2026) ===== -->
+<!-- ===== PIED DE PAGE / FOOTER (PRO & ÉPURÉ 2026) ===== -->
 <footer class="pied-site">
   <div class="conteneur">
-    <div class="grille-pied">
-      <div class="pied-colonne">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-          <img loading="lazy" src="images/logo.png" alt="Logo AEEMCI" style="height: 48px; width: 48px; border-radius: 50%; border: 2px solid var(--or);">
-          <div>
-            <h3 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 800; font-family: var(--font-titre);">AEEMCI KOUMASSI</h3>
-            <span style="color: var(--or-clair); font-size: 0.76rem; font-weight: 700; text-transform: uppercase;">Sous-Comité de Koumassi</span>
+    <div class="grille-pied-pro">
+      
+      <!-- Colonne 1 : Identité & Vocation -->
+      <div class="pied-colonne-pro identite">
+        <a href="index.html" class="pied-logo-marque">
+          <img loading="lazy" src="images/logo.png" alt="Logo AEEMCI" onerror="this.src='logo.png'">
+          <div class="pied-titre-marque">
+            <span class="pied-sigle">AEEMCI</span>
+            <span class="pied-sous-sigle">Sous-Comité de Koumassi</span>
           </div>
-        </div>
-        <p style="font-size: 0.9rem; line-height: 1.65; color: rgba(255, 255, 255, 0.78); margin-bottom: 18px;">
-          Cultiver la foi, bâtir la réussite scolaire et promouvoir la solidarité parmi les élèves et étudiants musulmans de Koumassi.
+        </a>
+        <p class="pied-description">
+          Structure d'encadrement, de formation spirituelle et de réussite académique des élèves et étudiants musulmans de la commune de Koumassi.
         </p>
-        <span class="badge-tag or" style="font-size: 0.76rem;">« Ensemble nous sommes plus forts »</span>
+        <div class="pied-devise-badge">
+          <span class="devise-etoile">۞</span>
+          <span class="devise-texte">« Ensemble nous sommes plus forts »</span>
+        </div>
       </div>
 
-      <div class="pied-colonne">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="index.html">➔ Accueil</a></li>
-          <li><a href="historique.html">➔ Historique &amp; Devise</a></li>
-          <li><a href="activites.html">➔ Activités &amp; Formations</a></li>
-          <li><a href="actualites.html">➔ Actualités &amp; Événements</a></li>
-          <li><a href="galerie.html">➔ Galerie Média HD</a></li>
-          <li><a href="contact.html">➔ Contact &amp; Adhésion</a></li>
+      <!-- Colonne 2 : Navigation Rapide -->
+      <div class="pied-colonne-pro navigation">
+        <h4 class="pied-titre-colonne">Navigation</h4>
+        <ul class="pied-liens-liste">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="historique.html">Historique &amp; Vision</a></li>
+          <li><a href="activites.html">Activités &amp; Formations</a></li>
+          <li><a href="actualites.html">Actualités &amp; Événements</a></li>
+          <li><a href="galerie.html">Galerie Média</a></li>
+          <li><a href="contact.html">Contact &amp; Adhésion</a></li>
         </ul>
       </div>
 
-      <div class="pied-colonne">
-        <h4>Siège &amp; Contact</h4>
-        <ul>
-          <li><span style="color: var(--or-clair); font-weight: 700;">📍 Localisation :</span> Koumassi, Abidjan</li>
-          <li><span style="color: var(--or-clair); font-weight: 700;">📞 Contacts :</span> +225 05 45 30 51 80 / 07 57 47 73 72</li>
-          <li><span style="color: var(--or-clair); font-weight: 700;">✉️ Email :</span> aeemci.koumassi@gmail.com</li>
-          <li><span style="color: var(--or-clair); font-weight: 700;">⏰ Réunions :</span> Chaque Samedi (IST-ISG La Colombe)</li>
+      <!-- Colonne 3 : Siège & Permanence -->
+      <div class="pied-colonne-pro contact">
+        <h4 class="pied-titre-colonne">Permanence &amp; Siège</h4>
+        <ul class="pied-contact-liste">
+          <li>
+            <span class="contact-icone-cercle"><i class="fa-solid fa-location-dot"></i></span>
+            <div class="contact-details">
+              <span class="contact-libelle">Localisation</span>
+              <span class="contact-valeur" id="site-contact-adresse">Koumassi Sicogi, Collège La Colombe</span>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icone-cercle"><i class="fa-solid fa-phone"></i></span>
+            <div class="contact-details">
+              <span class="contact-libelle">Infoline &amp; WhatsApp</span>
+              <a href="tel:+2250545305180" class="contact-valeur" id="site-contact-phone">+225 05 45 30 51 80 / 07 57 47 73 72</a>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icone-cercle"><i class="fa-solid fa-envelope"></i></span>
+            <div class="contact-details">
+              <span class="contact-libelle">Courriel Officiel</span>
+              <a href="mailto:aeemci.koumassi@gmail.com" class="contact-valeur" id="site-contact-email">aeemci.koumassi@gmail.com</a>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icone-cercle"><i class="fa-solid fa-calendar-check"></i></span>
+            <div class="contact-details">
+              <span class="contact-libelle">Permanence Hebdomadaire</span>
+              <span class="contact-valeur" id="site-contact-horaires">Tous les Samedis dès 15H00 (IST-ISG La Colombe)</span>
+            </div>
+          </li>
         </ul>
       </div>
+
     </div>
 
-    <div class="bas-pied-site">
-      <p>© 2025 - 2026 AEEMCI Sous-Comité de Koumassi. Tous droits réservés.</p>
-      <span style="color: var(--or-clair); font-weight: 700; font-size: 0.82rem; background: rgba(212, 175, 55, 0.12); padding: 5px 14px; border-radius: 50px; border: 1px solid rgba(212, 175, 55, 0.3);">🟢 Mandat Exécutif 2025–2026</span>
+    <!-- Bas du Pied de Page -->
+    <div class="bas-pied-pro">
+      <div class="bas-copyright">
+        © 2025–2026 AEEMCI Sous-Comité de Koumassi · Tous droits réservés.
+      </div>
+      <div class="bas-mandat-pill">
+        <span class="mandat-dot"></span> Mandat Exécutif 2025–2026
+      </div>
     </div>
   </div>
 </footer>

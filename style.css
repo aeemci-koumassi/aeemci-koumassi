@@ -3104,3 +3104,268 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--or) !important;
   box-shadow: 0 14px 28px rgba(12, 56, 35, 0.08) !important;
 }
+
+/* ==========================================================================
+   9. PIED DE PAGE PROFESSIONNEL ET ÉPURÉ (DESIGN PRO & SIMPLE 2026)
+   ========================================================================== */
+.pied-site {
+  background: linear-gradient(180deg, #051A10 0%, #03120B 100%) !important;
+  color: #E2E8F0 !important;
+  padding: 64px 0 36px 0 !important;
+  border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
+  position: relative !important;
+}
+
+.grille-pied-pro {
+  display: grid !important;
+  grid-template-columns: 1.35fr 0.85fr 1.3fr !important;
+  gap: 50px !important;
+  padding-bottom: 44px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Colonne 1 : Identité */
+.pied-logo-marque {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-decoration: none !important;
+  margin-bottom: 16px !important;
+}
+
+.pied-logo-marque img {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid var(--or, #D4AF37) !important;
+  background: #FFFFFF !important;
+  padding: 2px !important;
+}
+
+.pied-titre-marque {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.pied-sigle {
+  font-family: var(--font-titre, sans-serif) !important;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.pied-sous-sigle {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: var(--or-clair, #F5D77F) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  margin-top: 2px !important;
+}
+
+.pied-description {
+  font-size: 0.88rem !important;
+  line-height: 1.65 !important;
+  color: rgba(226, 232, 240, 0.75) !important;
+  margin-bottom: 20px !important;
+  max-width: 360px !important;
+}
+
+.pied-devise-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(212, 175, 55, 0.08) !important;
+  border: 1px solid rgba(212, 175, 55, 0.28) !important;
+  border-radius: 50px !important;
+  padding: 6px 16px !important;
+  color: var(--or-clair, #F5D77F) !important;
+  font-size: 0.78rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px !important;
+}
+
+.pied-devise-badge .devise-etoile {
+  color: var(--or, #D4AF37) !important;
+  font-size: 0.9rem !important;
+}
+
+/* Colonnes & Titres */
+.pied-titre-colonne {
+  color: #FFFFFF !important;
+  font-family: var(--font-titre, sans-serif) !important;
+  font-size: 0.85rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.4px !important;
+  margin: 0 0 20px 0 !important;
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.pied-titre-colonne::after {
+  content: "" !important;
+  display: block !important;
+  width: 20px !important;
+  height: 2px !important;
+  background: var(--or, #D4AF37) !important;
+  border-radius: 2px !important;
+}
+
+/* Colonne 2 : Liens Navigation */
+.pied-liens-liste {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.pied-liens-liste a {
+  color: rgba(226, 232, 240, 0.72) !important;
+  font-size: 0.90rem !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.pied-liens-liste a::before {
+  content: "›" !important;
+  color: var(--or, #D4AF37) !important;
+  font-size: 1.1rem !important;
+  line-height: 1 !important;
+  transition: transform 0.25s ease !important;
+}
+
+.pied-liens-liste a:hover {
+  color: #FFFFFF !important;
+  transform: translateX(4px) !important;
+}
+
+.pied-liens-liste a:hover::before {
+  transform: translateX(2px) !important;
+  color: var(--or-clair, #F5D77F) !important;
+}
+
+/* Colonne 3 : Contact & Permanence */
+.pied-contact-liste {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.pied-contact-liste li {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+}
+
+.contact-icone-cercle {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 8px !important;
+  background: rgba(212, 175, 55, 0.1) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  color: var(--or-clair, #F5D77F) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0.85rem !important;
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+}
+
+.contact-details {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.contact-libelle {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: rgba(212, 175, 55, 0.85) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+}
+
+.contact-valeur {
+  font-size: 0.88rem !important;
+  color: #F8FAFC !important;
+  text-decoration: none !important;
+  line-height: 1.4 !important;
+  transition: color 0.2s ease !important;
+}
+
+a.contact-valeur:hover {
+  color: var(--or-clair, #F5D77F) !important;
+}
+
+/* Bas du Footer */
+.bas-pied-pro {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding-top: 24px !important;
+  padding-bottom: 24px !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+}
+
+.bas-copyright {
+  font-size: 0.84rem !important;
+  color: rgba(226, 232, 240, 0.6) !important;
+}
+
+.bas-mandat-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 5px 14px !important;
+  border-radius: 50px !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  color: #E2E8F0 !important;
+}
+
+.bas-mandat-pill .mandat-dot {
+  width: 7px !important;
+  height: 7px !important;
+  background: #10B981 !important;
+  border-radius: 50% !important;
+  display: inline-block !important;
+}
+
+/* Ajustement Widget Flottant pour ne JAMAIS chevaucher le footer */
+.widget-whatsapp-flottant {
+  bottom: 24px !important;
+  right: 24px !important;
+}
+
+.bulle-whatsapp-texte {
+  display: none !important; /* Supprime l'encart noir encombrant qui masquait le texte */
+}
+
+@media (max-width: 900px) {
+  .grille-pied-pro {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .bas-pied-pro {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 12px !important;
+  }
+}
