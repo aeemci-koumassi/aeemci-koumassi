@@ -225,6 +225,11 @@ async function synchroniserFormationsPublic() {
   if (!formations) return;
 
   try {
+    if (Array.isArray(formations)) {
+      formations = formations.filter(f => !f.intitule || (!f.intitule.includes('Module 3') && !f.intitule.includes('Soutien Scolaire')));
+      try { localStorage.setItem('aeemci_cms_formations', JSON.stringify(formations)); } catch(err){}
+    }
+
     const container = document.getElementById('container-formations') || document.getElementById('publicFormationsContainer') || document.querySelector('.grille-formations');
 
     if (container && formations && formations.length > 0) {
@@ -232,17 +237,12 @@ async function synchroniserFormationsPublic() {
       formations.forEach(f => {
         const item = document.createElement('div');
         item.className = 'carte-formation-item';
-        item.style.cssText = "border: 1px solid var(--bordure-carte); border-radius: 16px; padding: 24px; background: #FFFFFF; box-shadow: var(--ombre-carte); display: flex; flex-direction: column; justify-content: space-between;";
+        item.style.cssText = "border: 1px solid var(--bordure-carte); border-radius: 16px; padding: 24px; background: #FFFFFF; box-shadow: var(--ombre-carte); display: flex; flex-direction: column; justify-content: flex-start;";
         item.innerHTML = `
           <div>
             <span class="badge-tag or" style="margin-bottom: 10px; display: inline-block;">Module Officiel</span>
             <h3 style="font-size: 1.2rem; color: var(--vert-emeraude); font-weight: 800; margin-bottom: 8px;">${f.intitule}</h3>
-            <p style="font-size: 0.9rem; color: var(--texte-doux); line-height: 1.6; margin-bottom: 16px;">${f.description}</p>
-          </div>
-          <div>
-            <a href="${f.lien || 'https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm'}" target="_blank" rel="noopener" class="bouton-action-contour" style="width: 100%; justify-content: center; font-weight: 700;">
-              Réserver ma place sur WhatsApp →
-            </a>
+            <p style="font-size: 0.9rem; color: var(--texte-doux); line-height: 1.6; margin-bottom: 0;">${f.description}</p>
           </div>
         `;
         container.appendChild(item);

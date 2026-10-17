@@ -347,8 +347,7 @@ function ouvrirModalInscriptionFormation(moduleDefaut = '') {
     "Concours Éloquence « Choc des Titans »",
     "Module 1 : Tajwid & Sciences Coraniques",
     "Module 2 : Art Oratoire & Prise de Parole",
-    "Module 3 : Soutien Scolaire BEPC & BAC",
-    "Module 4 : Leadership & Gestion de Projet",
+    "Module 3 : Leadership & Gestion de Projet",
     "Autre Formation / Activité"
   ];
 

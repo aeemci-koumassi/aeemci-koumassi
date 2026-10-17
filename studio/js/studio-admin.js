@@ -153,13 +153,6 @@ const CMS_DEFAUTS = {
       description: "Techniques d'art oratoire, maîtrise de soi, structuration de discours et éloquence en public.",
       lien: "https://wa.me/2250545305180?text=Je%20souhaite%20m'inscrire%20au%20module%20Art%20Oratoire",
       inscrits: 120
-    },
-    {
-      id: 203,
-      intitule: "Module 3 : Soutien Scolaire BEPC & BAC",
-      description: "Encadrement intensif en Mathématiques, Physique-Chimie, SVT et Français pour les candidats aux examens.",
-      lien: "https://wa.me/2250545305180?text=Je%20souhaite%20m'inscrire%20au%20Soutien%20Scolaire",
-      inscrits: 195
     }
   ],
   galerie: [],
@@ -678,7 +671,11 @@ window.supprimerActualiteCMS = function(id) {
 
 // 3. FORMATIONS CRUD
 function chargerFormationsCMS() {
-  const formations = JSON.parse(localStorage.getItem('aeemci_cms_formations')) || CMS_DEFAUTS.formations;
+  let formations = JSON.parse(localStorage.getItem('aeemci_cms_formations')) || CMS_DEFAUTS.formations;
+  if (Array.isArray(formations)) {
+    formations = formations.filter(f => !f.intitule || (!f.intitule.includes('Module 3') && !f.intitule.includes('Soutien Scolaire')));
+    localStorage.setItem('aeemci_cms_formations', JSON.stringify(formations));
+  }
   const container = document.getElementById('containerFormationsCMS');
   if (!container) return;
 
