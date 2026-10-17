@@ -633,6 +633,14 @@ window.showToast = showToast;
 
 // 11. RACCOURCIS CLAVIER & ACCÈS DISCRET
 function initialiserRaccourcisClavier() {
+  // Purge de sécurité immédiate de toute trace de modale présentation résiduelle
+  try {
+    const oldModal = document.getElementById('modalPresentationOfficielle');
+    if (oldModal) oldModal.remove();
+    document.querySelectorAll('.bouton-presentation-nav, .modal-presentation').forEach(el => el.remove());
+    if (document.body.style.overflow === 'hidden') document.body.style.overflow = '';
+  } catch(e) {}
+
   // Charger une inscription préalablement enregistrée
   chargerInscriptionExistante();
 
