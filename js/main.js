@@ -611,4 +611,47 @@ window.addEventListener('scroll', function() {
   }
 }, { passive: true });
 
+// 13. BOUTON RETOUR EN HAUT AVEC JAUGE CIRCULAIRE PROGRESSIVE
+(function() {
+  function initRetourEnHaut() {
+    const btn = document.getElementById('btnRetourEnHaut');
+    const cercle = document.getElementById('progresCerclePath');
+    if (!btn) return;
+
+    const perimetre = 2 * Math.PI * 16; // Rayon 16 = ~100.53
+
+    window.addEventListener('scroll', function() {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollY = window.scrollY;
+
+      if (scrollY > 300) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+
+      if (cercle && totalHeight > 0) {
+        const fraction = Math.min(1, Math.max(0, scrollY / totalHeight));
+        const offset = perimetre * (1 - fraction);
+        cercle.style.strokeDashoffset = offset;
+      }
+    }, { passive: true });
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRetourEnHaut);
+  } else {
+    initRetourEnHaut();
+  }
+})();
+
+
 

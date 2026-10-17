@@ -119,11 +119,17 @@
 
 <!-- ===== BANNIÈRE HISTORIQUE ===== -->
 <section class="hero-moderne" style="padding: 60px 0;">
-  <div class="conteneur texte-centre m-auto" style="max-width: 760px;">
+  <div class="hero-motif-overlay"></div>
+  <div class="conteneur texte-centre m-auto" style="max-width: 760px; position: relative; z-index: 2;">
     <span class="badge-tag or">Notre Mémoire &amp; Héritage</span>
     <h1 class="hero-titre" style="margin-top: 12px; font-size: clamp(2.2rem, 4vw, 3.2rem);">
       L'Histoire de l'<span class="or-accent">AEEMCI</span> &amp; de Koumassi
     </h1>
+    <div class="ornement-islamique" aria-hidden="true">
+      <span class="ligne-or"></span>
+      <span class="etoile-or">۞</span>
+      <span class="ligne-or"></span>
+    </div>
     <p class="hero-description m-auto" style="font-size: 1.1rem;">
       De la fondation nationale en 1972, du Congrès constitutif de 1975 et de la reconnaissance de 1979 jusqu'au rayonnement du Sous-Comité de Koumassi aujourd'hui.
     </p>
@@ -335,6 +341,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
+<!-- ===== BOUTON FLOTTANT RETOUR EN HAUT (AVEC JAUGE CIRCULAIRE) ===== -->
+<button id="btnRetourEnHaut" class="btn-retour-en-haut" aria-label="Retour en haut de page">
+  <svg class="progres-cercle" viewBox="0 0 40 40">
+    <circle class="progres-fond" cx="20" cy="20" r="16"></circle>
+    <circle id="progresCerclePath" class="progres-barre" cx="20" cy="20" r="16"></circle>
+  </svg>
+  <span class="fleche-haut">↑</span>
+</button>
+
+<!-- ===== BADGE FLOTTANT COMMUNAUTÉ WHATSAPP ===== -->
+<a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="btn-flottant-communaute" aria-label="Rejoindre la communauté WhatsApp AEEMCI Koumassi">
+  <span class="pastille-pulse"></span>
+  <span class="icone-wa"><i class="fa-brands fa-whatsapp"></i></span>
+  <span class="texte-btn">Rejoindre la Communauté</span>
+</a>
 
 <script src="js/main.js?v=20261017_pro"></script>
 </body>
