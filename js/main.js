@@ -1,7 +1,23 @@
 /* ==========================================================================
    SITE PUBLIC AEEMCI KOUMASSI — SCRIPT DE SYNCHRONISATION DYNAMIQUE (MAIN.JS)
-   Version: 20261017_pro (Optimisé Présentation Pro & Haute Performance)
+   Version: 20261021_site (100% Site Web Institutionnel & Purifié)
    ========================================================================== */
+
+// Nettoyage et désactivation immédiate de tout Service Worker ou Cache PWA
+(function() {
+  if (typeof window !== 'undefined') {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        regs.forEach(function(r) { r.unregister(); });
+      }).catch(function() {});
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(keys) {
+        keys.forEach(function(k) { caches.delete(k); });
+      }).catch(function() {});
+    }
+  }
+})();
 
 // 📅 TABLEAU OFFICIEL DES PROCHAINS ÉVÉNEMENTS (Facilement Modifiable)
 const EVENEMENTS_AEEMCI = [
