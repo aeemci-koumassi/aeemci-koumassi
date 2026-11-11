@@ -420,12 +420,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-grille {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 56px;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  max-width: 920px !important;
+  margin: 0 auto !important;
+  gap: 24px !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.hero-colonne-centree {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  max-width: 860px !important;
+  margin: 0 auto !important;
 }
 
 .slogan-majestueux-box {
@@ -3398,9 +3412,12 @@ a.contact-valeur:hover {
 .hero-en-tete-spirituel {
   display: flex !important;
   flex-direction: column !important;
-  align-items: flex-start !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
   gap: 10px !important;
   margin-bottom: 20px !important;
+  width: 100% !important;
 }
 
 .hero-basmala-calligraphie {
@@ -3449,17 +3466,20 @@ a.contact-valeur:hover {
 
 /* Devise et Slogan sous le titre */
 .hero-devise-citation {
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
   gap: 10px !important;
-  font-size: 0.95rem !important;
-  color: rgba(255, 255, 255, 0.9) !important;
-  margin-bottom: 20px !important;
+  font-size: 0.98rem !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  margin: 0 auto 24px auto !important;
   font-weight: 600 !important;
-  background: rgba(212, 175, 55, 0.08) !important;
-  border-left: 3px solid var(--or, #D4AF37) !important;
-  padding: 8px 16px !important;
-  border-radius: 0 10px 10px 0 !important;
+  background: rgba(212, 175, 55, 0.12) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  padding: 10px 24px !important;
+  border-radius: 50px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
   max-width: fit-content !important;
 }
 
@@ -3543,11 +3563,16 @@ a.contact-valeur:hover {
 .hero-reassurance-row {
   display: flex !important;
   align-items: center !important;
-  gap: 24px !important;
+  justify-content: center !important;
+  gap: 28px !important;
   flex-wrap: wrap !important;
-  margin-top: 34px !important;
+  margin-top: 36px !important;
   padding-top: 24px !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+  width: 100% !important;
+  max-width: 720px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 .reassurance-item {
