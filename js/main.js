@@ -591,6 +591,7 @@ function initialiserRaccourcisClavier() {
     if (e.key === 'Escape') {
       if (typeof fermerAfficheModal === 'function') fermerAfficheModal();
       if (typeof fermerMenuWeb === 'function') fermerMenuWeb();
+      if (typeof fermerLightboxGalerie === 'function') fermerLightboxGalerie();
     }
 
     // Ctrl + Shift + A : AccÃ¨s Studio CrÃ©ateur
@@ -776,3 +777,32 @@ window.fermerMenuWeb = fermerMenuWeb;
     verifierModeStandalone();
   }
 })();
+
+// ==========================================================================
+// 16. FAQ INTERACTIVE ACCORDÉON
+// ==========================================================================
+function toggleFaq(btn) {
+  if (!btn) return;
+  const item = btn.closest('.faq-item');
+  if (!item) return;
+
+  const estOuvert = item.classList.contains('ouvert');
+
+  // Accordéon exclusif : ferme les autres pour garder une lecture aérée
+  document.querySelectorAll('.faq-item.ouvert').forEach(function(autre) {
+    if (autre !== item) {
+      autre.classList.remove('ouvert');
+      const autreBtn = autre.querySelector('.faq-question');
+      if (autreBtn) autreBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  if (estOuvert) {
+    item.classList.remove('ouvert');
+    btn.setAttribute('aria-expanded', 'false');
+  } else {
+    item.classList.add('ouvert');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+}
+window.toggleFaq = toggleFaq;
