@@ -1,9 +1,9 @@
 /* ==========================================================================
-   SITE PUBLIC AEEMCI KOUMASSI — SCRIPT DE SYNCHRONISATION DYNAMIQUE (MAIN.JS)
-   Version: 20261021_site (100% Site Web Institutionnel & Purifié)
+   SITE PUBLIC AEEMCI KOUMASSI — SCRIPT PRINCIPAL DU SITE WEB (MAIN.JS)
+   Version: 20261111_site (100% Site Web Institutionnel Responsive)
    ========================================================================== */
 
-// Nettoyage et désactivation immédiate de tout Service Worker ou Cache PWA
+// Désactivation silencieuse et nettoyage de tout Service Worker ou Cache résiduel
 (function() {
   if (typeof window !== 'undefined') {
     if ('serviceWorker' in navigator) {
@@ -590,7 +590,7 @@ function initialiserRaccourcisClavier() {
     // Touche Échap : Fermer les modales ouvertes
     if (e.key === 'Escape') {
       if (typeof fermerAfficheModal === 'function') fermerAfficheModal();
-      if (typeof fermerSidebar === 'function') fermerSidebar();
+      if (typeof fermerMenuWeb === 'function') fermerMenuWeb();
     }
 
     // Ctrl + Shift + A : Accès Studio Créateur
@@ -669,3 +669,69 @@ window.addEventListener('scroll', function() {
   }
 })();
 
+// ==========================================================================
+// 14. NAVIGATION MOBILE CLASSIQUE 100% SITE WEB (DROPDOWN ACCORDÉON)
+// ==========================================================================
+function toggleMenuWeb(event) {
+  if (event) {
+    if (typeof event.preventDefault === 'function') event.preventDefault();
+    if (typeof event.stopPropagation === 'function') event.stopPropagation();
+  }
+  const nav = document.querySelector('.menu-navigation');
+  const btn = document.querySelector('.menu-burger');
+  if (!nav) return;
+  const estOuvert = nav.classList.toggle('ouvert');
+  if (btn) {
+    btn.setAttribute('aria-expanded', estOuvert ? 'true' : 'false');
+    btn.classList.toggle('actif', estOuvert);
+  }
+}
+
+function fermerMenuWeb() {
+  const nav = document.querySelector('.menu-navigation');
+  const btn = document.querySelector('.menu-burger');
+  if (nav && nav.classList.contains('ouvert')) {
+    nav.classList.remove('ouvert');
+  }
+  if (btn) {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.classList.remove('actif');
+  }
+}
+
+// Exposer globalement
+window.toggleMenuWeb = toggleMenuWeb;
+window.fermerMenuWeb = fermerMenuWeb;
+
+// Écouteurs de navigation
+(function initNavigationWeb() {
+  function attacherEvenements() {
+    // Fermeture automatique au clic sur un lien du menu
+    document.querySelectorAll('.menu-navigation a').forEach(function(lien) {
+      lien.addEventListener('click', function() {
+        fermerMenuWeb();
+      });
+    });
+
+    // Fermeture au clic en dehors de l'en-tête
+    document.addEventListener('click', function(e) {
+      const entete = document.querySelector('.entete-site');
+      if (entete && !entete.contains(e.target)) {
+        fermerMenuWeb();
+      }
+    });
+
+    // Fermeture automatique si redimensionnement vers écran large
+    window.addEventListener('resize', function() {
+      if (window.innerWidth > 992) {
+        fermerMenuWeb();
+      }
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attacherEvenements);
+  } else {
+    attacherEvenements();
+  }
+})();
