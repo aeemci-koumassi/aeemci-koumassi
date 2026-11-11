@@ -1,9 +1,9 @@
 /* ==========================================================================
-   SITE PUBLIC AEEMCI KOUMASSI â€” SCRIPT PRINCIPAL DU SITE WEB (MAIN.JS)
+   SITE PUBLIC AEEMCI KOUMASSI — SCRIPT PRINCIPAL DU SITE WEB (MAIN.JS)
    Version: 20261111_site (100% Site Web Institutionnel Responsive)
    ========================================================================== */
 
-// DÃ©sactivation silencieuse et nettoyage de tout Service Worker ou Cache rÃ©siduel
+// Désactivation silencieuse et nettoyage de tout Service Worker ou Cache résiduel
 (function() {
   if (typeof window !== 'undefined') {
     if ('serviceWorker' in navigator) {
@@ -19,15 +19,15 @@
   }
 })();
 
-// ðŸ“… TABLEAU OFFICIEL DES PROCHAINS Ã‰VÃ‰NEMENTS (Facilement Modifiable)
+//  TABLEAU OFFICIEL DES PROCHAINS ÉVÉNEMENTS (Facilement Modifiable)
 const EVENEMENTS_AEEMCI = [
   {
     id: 1,
-    titre: "Assises Communales de la Jeunesse & RentrÃ©e Solennelle",
-    theme: "Â« Ensemble pour une identitÃ© islamique affirmÃ©e et une rÃ©ussite scolaire rayonnante Â»",
+    titre: "Assises Communales de la Jeunesse & Rentrée Solennelle",
+    theme: "« Ensemble pour une identité islamique affirmée et une réussite scolaire rayonnante »",
     date: "2026-11-15T08:30:00",
-    dateAffichee: "Dimanche 15 Novembre 2026 â€¢ DÃ¨s 08H30",
-    lieu: "CollÃ¨ge Moderne La Colombe, Koumassi Sicogi",
+    dateAffichee: "Dimanche 15 Novembre 2026 • Dès 08H30",
+    lieu: "Collège Moderne La Colombe, Koumassi Sicogi",
     badge: "GRAND RENDEZ-VOUS",
     affiche: "images/secofis.jpg",
     lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
@@ -35,33 +35,33 @@ const EVENEMENTS_AEEMCI = [
   {
     id: 2,
     titre: "Lancement de la Masterclass Microsoft Word & Suite Bureautique",
-    theme: "Â« Mise en page professionnelle de rapports de stage, TDR et mÃ©moires Â»",
+    theme: "« Mise en page professionnelle de rapports de stage, TDR et mémoires »",
     date: "2026-11-22T09:00:00",
-    dateAffichee: "Dimanche 22 Novembre 2026 â€¢ DÃ¨s 09H00",
+    dateAffichee: "Dimanche 22 Novembre 2026 • Dès 09H00",
     lieu: "Salle Informatique IST-ISG La Colombe (Koumassi)",
-    badge: "ACADÃ‰MIE DU NUMÃ‰RIQUE",
+    badge: "ACADÉMIE DU NUMÉRIQUE",
     affiche: "images/rentree-solennelle.jpg",
     lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
   },
   {
     id: 3,
-    titre: "Nuit du Mahouloud & VeillÃ©e Spirituelle 2026",
-    theme: "Â« Le Sermon d'Adieu : enseignements et leÃ§ons de fraternitÃ© pour la jeunesse Â»",
+    titre: "Nuit du Mahouloud & Veillée Spirituelle 2026",
+    theme: "« Le Sermon d'Adieu : enseignements et leçons de fraternité pour la jeunesse »",
     date: "2026-12-05T20:00:00",
-    dateAffichee: "Samedi 05 DÃ©cembre 2026 â€¢ DÃ¨s 20H00",
-    lieu: "Grande MosquÃ©e de Koumassi",
-    badge: "SPIRITUALITÃ‰ & FOI",
+    dateAffichee: "Samedi 05 Décembre 2026 • Dès 20H00",
+    lieu: "Grande Mosquée de Koumassi",
+    badge: "SPIRITUALITÉ & FOI",
     affiche: "images/maouloud.jpg",
     lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
   },
   {
     id: 4,
-    titre: "Grand Concours d'Art Oratoire Â« Le Choc des Titans Â»",
-    theme: "Â« Joutes oratoires, Ã©loquence et dÃ©bat d'idÃ©es inter-Ã©tablissements Â»",
+    titre: "Concours Communal d'Éloquence & Art Oratoire",
+    theme: "« Joutes oratoires, éloquence et débat d'idées inter-établissements »",
     date: "2026-12-20T14:00:00",
-    dateAffichee: "Dimanche 20 DÃ©cembre 2026 â€¢ DÃ¨s 14H00",
-    lieu: "AmphithÃ©Ã¢tre Koumassi",
-    badge: "ART ORATOIRE",
+    dateAffichee: "Dimanche 20 Décembre 2026 • Dès 14H00",
+    lieu: "Amphithéâtre Koumassi",
+    badge: "LEADERSHIP & TALENT",
     affiche: "images/journee-excellence.jpg",
     lien: "https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm"
   }
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initialiserRaccourcisClavier();
 });
 
-// Ã‰couteurs d'Ã©vÃ©nements temps rÃ©el pour mise Ã  jour instantanÃ©e sans rechargement de page
+// Écouteurs d'événements temps réel pour mise Ã  jour instantanée sans rechargement de page
 window.addEventListener('storage', function() {
   lancerSynchronisationGlobale();
 });
@@ -84,7 +84,7 @@ window.addEventListener('focus', function() {
   lancerSynchronisationGlobale();
 });
 
-// Gestion du cache pour Ã©viter les appels API excessifs
+// Gestion du cache pour éviter les appels API excessifs
 const CMS_CACHE = {
   lastFetch: 0,
   ttl: 5 * 60 * 1000, // 5 minutes
@@ -114,7 +114,7 @@ async function lancerSynchronisationGlobale() {
       synchroniserContactPublic()
     ]);
   } catch (e) {
-    console.warn("Synchronisation globale terminÃ©e avec ajustements locaux:", e);
+    console.warn("Synchronisation globale terminée avec ajustements locaux:", e);
   }
 
   CMS_CACHE.updateTimestamp();
@@ -142,7 +142,7 @@ function afficherSkeletons() {
   });
 }
 
-// 1. Synchronisation de la PrÃ©sidence & Mot du PrÃ©sident
+// 1. Synchronisation de la Présidence & Mot du Président
 async function synchroniserBureauPublic() {
   let bureau = null;
   if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
@@ -168,11 +168,11 @@ async function synchroniserBureauPublic() {
     if (bureau.presidentMot) motEls.forEach(el => el.textContent = bureau.presidentMot);
     if (bureau.presidentPhoto) photoEls.forEach(el => el.src = bureau.presidentPhoto);
   } catch (e) {
-    console.warn("Mise Ã  jour dynamique de la prÃ©sidence ignorÃ©e.");
+    console.warn("Mise Ã  jour dynamique de la présidence ignorée.");
   }
 }
 
-// 2. Synchronisation Dynamique des Ã‰vÃ©nements & ActualitÃ©s
+// 2. Synchronisation Dynamique des Événements & Actualités
 async function synchroniserActualitesPublic() {
   let actualites = null;
   if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
@@ -194,7 +194,7 @@ async function synchroniserActualitesPublic() {
           actualites.unshift({
             id: Date.now(),
             titre: c.titre,
-            categorie: c.badge || 'Ã‰VÃ‰NEMENT',
+            categorie: c.badge || 'ÉVÉNEMENT',
             date: c.date || 'Prochainement',
             lieu: c.lieu || 'Koumassi',
             description: c.desc || c.description,
@@ -214,11 +214,11 @@ async function synchroniserActualitesPublic() {
       article.className = 'carte-actualite-moderne';
       article.innerHTML = `
         <div class="carte-actu-image">
-          <span class="carte-actu-badge or">${actu.categorie || 'Ã‰VÃ‰NEMENT'}</span>
+          <span class="carte-actu-badge or">${actu.categorie || 'ÉVÉNEMENT'}</span>
           <img src="${actu.image || 'images/logo.png'}" alt="${actu.titre}" loading="lazy" onerror="this.src='images/logo.png';">
         </div>
         <div class="carte-actu-corps">
-          <span class="carte-actu-date">ðŸ“… ${actu.date} ${actu.lieu ? 'â€¢ ðŸ“ ' + actu.lieu : ''}</span>
+          <span class="carte-actu-date"> ${actu.date} ${actu.lieu ? '• ðŸ“ ' + actu.lieu : ''}</span>
           <h3 class="carte-actu-titre">${actu.titre}</h3>
           <p class="carte-actu-desc">${actu.description}</p>
         </div>
@@ -265,7 +265,7 @@ async function synchroniserFormationsPublic() {
       });
     }
   } catch (e) {
-    console.warn("Mise Ã  jour des formations ignorÃ©e.");
+    console.warn("Mise Ã  jour des formations ignorée.");
   }
 }
 
@@ -282,18 +282,19 @@ async function synchroniserStatistiquesPublic() {
   if (!militants) return;
 
   try {
-    const totalValides = militants.filter(m => m.statut === 'valide').length || militants.length;
-    const statMilitants = document.getElementById('publicStatMilitants') || document.querySelector('.carte-chiffre-cle:nth-child(2) .nombre-chiffre-cle');
-    if (statMilitants && totalValides > 0) {
+    // Ne pas écraser les statistiques officielles de la commune avec les quelques tests locaux
+    const totalValides = militants.filter(m => m.statut === 'valide').length;
+    const statMilitants = document.getElementById('publicStatMilitants');
+    if (statMilitants && totalValides > 500) {
       statMilitants.setAttribute('data-compteur', totalValides);
       statMilitants.textContent = '+' + totalValides;
     }
   } catch (e) {
-    console.warn("Mise Ã  jour des statistiques ignorÃ©e.");
+    console.warn("Mise Ã  jour des statistiques ignorée.");
   }
 }
 
-// 5. Synchronisation des Photos de la Galerie UploadÃ©es depuis le Studio
+// 5. Synchronisation des Photos de la Galerie Uploadées depuis le Studio
 async function synchroniserGaleriePublic() {
   let listCMS = null;
   if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
@@ -332,8 +333,8 @@ async function synchroniserGaleriePublic() {
         <div class="carte-galerie-image-box">
           <img src="${src}" alt="${photo.titre || 'Photo AEEMCI Koumassi'}" loading="lazy" onerror="this.src='images/logo.png';">
           <div class="carte-galerie-survol">
-            <span class="badge-galerie-tag">ActivitÃ© Koumassi</span>
-            <h3 class="carte-galerie-titre">${photo.titre || 'ActivitÃ© Koumassi'}</h3>
+            <span class="badge-galerie-tag">Activité Koumassi</span>
+            <h3 class="carte-galerie-titre">${photo.titre || 'Activité Koumassi'}</h3>
           </div>
         </div>
       `;
@@ -342,7 +343,7 @@ async function synchroniserGaleriePublic() {
   }
 }
 
-// 6. Synchronisation des CoordonnÃ©es Officielles & Footer
+// 6. Synchronisation des Coordonnées Officielles & Footer
 async function synchroniserContactPublic() {
   let contact = null;
   if (window.cmsRead && typeof window.cmsRead.fetchSection === 'function') {
@@ -369,11 +370,11 @@ async function synchroniserContactPublic() {
       whatsappLinks.forEach(a => a.href = contact.whatsappLink);
     }
   } catch (e) {
-    console.warn("Mise Ã  jour des coordonnÃ©es du footer ignorÃ©e.");
+    console.warn("Mise Ã  jour des coordonnées du footer ignorée.");
   }
 }
 
-// 7. Initialisation des Animations de RÃ©vÃ©lation au DÃ©filement
+// 7. Initialisation des Animations de Révélation au Défilement
 function initialiserAnimationsScroll() {
   const observerOptions = {
     threshold: 0.12
@@ -394,7 +395,7 @@ function initialiserAnimationsScroll() {
   });
 }
 
-// 8. Animation dynamique de comptage pour les Chiffres ClÃ©s (Impact)
+// 8. Animation dynamique de comptage pour les Chiffres Clés (Impact)
 function initialiserCompteursChiffres() {
   const elements = document.querySelectorAll('.nombre-chiffre-cle[data-compteur]');
   if (elements.length === 0) return;
@@ -416,28 +417,31 @@ function animerCompteur(el) {
   const prefix = el.getAttribute('data-prefix') || '';
   const suffix = el.getAttribute('data-suffix') || '';
   let depart = 0;
-  const duree = 1500;
-  const pasTemps = 20;
-  const etapes = duree / pasTemps;
-  const increment = cible / etapes;
+  const duree = 1200;
+  const debut = performance.now();
 
-  const timer = setInterval(() => {
-    depart += increment;
-    if (depart >= cible) {
-      el.textContent = `${prefix}${cible}${suffix}`;
-      clearInterval(timer);
+  function step(maintenant) {
+    const progression = Math.min((maintenant - debut) / duree, 1);
+    // Easing out cubic
+    const easeOut = 1 - Math.pow(1 - progression, 3);
+    const valeur = Math.round(easeOut * cible);
+    el.textContent = `${prefix}${valeur}${suffix}`;
+
+    if (progression < 1) {
+      requestAnimationFrame(step);
     } else {
-      el.textContent = `${prefix}${Math.floor(depart)}${suffix}`;
+      el.textContent = `${prefix}${cible}${suffix}`;
     }
-  }, pasTemps);
+  }
+
+  requestAnimationFrame(step);
 }
 
-// 9. GESTION DU COMPTE Ã€ REBOURS OFFICIEL
+// 9. GESTION DU COMPTE À REBOURS OFFICIEL (EXÉCUTIF & ULTRA-PRO)
 function initialiserCompteAReboursAutomatique() {
   const container = document.getElementById('section-widget-evenement');
   if (!container) return;
 
-  // 1. Rassembler les Ã©vÃ©nements du code et ceux configurÃ©s dans le CMS
   let evenementsDisponibles = [...EVENEMENTS_AEEMCI];
 
   const customRaw = localStorage.getItem('aeemci_evenements_custom');
@@ -448,12 +452,12 @@ function initialiserCompteAReboursAutomatique() {
         if (c.date && !isNaN(new Date(c.date).getTime())) {
           evenementsDisponibles.unshift({
             id: c.id || Date.now(),
-            titre: c.titre || 'Ã‰vÃ©nement AEEMCI',
+            titre: c.titre || 'Événement AEEMCI',
             theme: c.desc || c.description || '',
             date: c.date,
             dateAffichee: c.date,
             lieu: c.lieu || 'Koumassi',
-            badge: c.badge || 'PROCHAIN Ã‰VÃ‰NEMENT',
+            badge: c.badge || 'PROCHAIN ÉVÉNEMENT',
             affiche: c.image || 'images/secofis.jpg',
             lien: c.lien || 'https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm'
           });
@@ -462,28 +466,26 @@ function initialiserCompteAReboursAutomatique() {
     } catch(e) {}
   }
 
-  // 2. Filtrer STRICTEMENT les Ã©vÃ©nements futurs (les Ã©vÃ©nements passÃ©s sont masquÃ©s automatiquement)
   const maintenant = Date.now();
   const evenementsFuturs = evenementsDisponibles
     .filter(ev => new Date(ev.date).getTime() > maintenant)
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-  // 3. Cas A : Aucun Ã©vÃ©nement futur -> Affichage d'une banniÃ¨re d'information Ã©lÃ©gante
   if (evenementsFuturs.length === 0) {
     container.innerHTML = `
       <div class="conteneur">
         <div class="banniere-evenement-compteur" style="grid-template-columns: 80px 1fr auto; gap: 20px;">
-          <div style="font-size: 2.8rem; text-align: center;">ðŸ“…</div>
+          <div style="font-size: 2.5rem; text-align: center; color: var(--or);"><i class="fa-solid fa-calendar-days"></i></div>
           <div>
-            <span class="badge-tag or" style="margin-bottom: 6px; display: inline-block;">Mandat 2025â€“2026</span>
-            <h3 style="font-size: 1.35rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px;">Prochains Ã‰vÃ©nements &amp; Calendrier Associatif</h3>
+            <span class="badge-tag or" style="margin-bottom: 6px; display: inline-block;">Mandat 2025–2026</span>
+            <h3 style="font-size: 1.35rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px;">Prochains Événements &amp; Calendrier Associatif</h3>
             <p style="color: rgba(255,255,255,0.85); font-size: 0.9rem; margin: 0;">
-              Les prochaines dates de formations et rencontres de la rentrÃ©e solennelle sont en cours de programmation. Rejoignez notre communautÃ© WhatsApp pour recevoir les annonces officielles en temps rÃ©el.
+              Les prochaines dates de formations et rencontres de la rentrée solennelle sont en cours de programmation. Rejoignez notre communauté WhatsApp pour recevoir les annonces officielles en temps réel.
             </p>
           </div>
           <div>
-            <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000; padding: 12px 24px; font-weight: 800; font-size: 0.88rem; white-space: nowrap;">
-              Rejoindre la CommunautÃ© WhatsApp â†’
+            <a href="https://chat.whatsapp.com/KUd1Zmc2JEfBsIWdH5HPdm" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #062215; padding: 12px 24px; font-weight: 800; font-size: 0.88rem; white-space: nowrap;">
+              Rejoindre la Communauté WhatsApp →
             </a>
           </div>
         </div>
@@ -492,33 +494,36 @@ function initialiserCompteAReboursAutomatique() {
     return;
   }
 
-  // 4. Cas B : Un Ã©vÃ©nement futur existe -> Affichage dynamique avec compte Ã  rebours prÃ©cis
   const prochain = evenementsFuturs[0];
   const targetTime = new Date(prochain.date).getTime();
 
   container.innerHTML = `
     <div class="conteneur">
       <div class="banniere-evenement-compteur">
-        <!-- Vignette Affiche -->
-        <div style="position: relative; cursor: pointer;" onclick="ouvrirAfficheModal('${prochain.affiche}')">
-          <img id="hero-actu-image" loading="lazy" src="${prochain.affiche}" alt="${prochain.titre}" style="width: 85px; height: 115px; object-fit: cover; border-radius: 10px; border: 2px solid var(--or); box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: transform 0.3s ease;">
-          <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.75); color: #FFF; font-size: 0.65rem; padding: 2px 5px; border-radius: 4px;">ðŸ” Zoom</span>
+        <!-- Vignette Affiche avec Zoom Modal -->
+        <div style="position: relative; cursor: pointer; flex-shrink: 0;" onclick="ouvrirAfficheModal('${prochain.affiche}')" title="Cliquer pour agrandir l'affiche">
+          <img id="hero-actu-image" loading="lazy" src="${prochain.affiche}" alt="${prochain.titre}" style="width: 90px; height: 120px; object-fit: cover; border-radius: 10px; border: 2px solid var(--or); box-shadow: 0 8px 24px rgba(0,0,0,0.35); transition: transform 0.3s ease;">
+          <span style="position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.8); color: #FFFFFF; font-size: 0.68rem; font-weight: 700; padding: 3px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+            <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom
+          </span>
         </div>
 
-        <!-- Informations Ã‰vÃ©nement -->
-        <div>
+        <!-- Informations Événement -->
+        <div style="flex: 1;">
           <span class="badge-tag or" style="margin-bottom: 8px;">${prochain.badge}</span>
-          <h3 id="hero-actu-titre" style="font-size: 1.45rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 4px; line-height: 1.3;">${prochain.titre}</h3>
-          <div id="hero-actu-theme" style="font-size: 0.92rem; color: var(--or-clair); font-weight: 700; margin-bottom: 6px;">
-            ThÃ¨me : ${prochain.theme}
+          <h3 id="hero-actu-titre" style="font-size: 1.4rem; color: #FFFFFF; font-family: var(--font-titre); margin-bottom: 6px; line-height: 1.35; font-weight: 800;">${prochain.titre}</h3>
+          <div id="hero-actu-theme" style="font-size: 0.95rem; color: var(--or-clair); font-weight: 600; margin-bottom: 8px; line-height: 1.4;">
+            <strong>Thème :</strong> ${prochain.theme}
           </div>
-          <p id="hero-actu-details" style="color: rgba(255,255,255,0.88); font-size: 0.88rem; margin: 0;">
-            ðŸ“ ${prochain.lieu} â€¢ ðŸ“… ${prochain.dateAffichee}
+          <p id="hero-actu-details" style="color: rgba(255,255,255,0.92); font-size: 0.90rem; margin: 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span><i class="fa-solid fa-location-dot" style="color: var(--or); margin-right: 5px;"></i>${prochain.lieu}</span>
+            <span style="color: var(--or);">•</span>
+            <span><i class="fa-solid fa-calendar-day" style="color: var(--or); margin-right: 5px;"></i>${prochain.dateAffichee}</span>
           </p>
         </div>
 
-        <!-- Compte Ã  rebours & CTA Inscription -->
-        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px;">
+        <!-- Compte à rebours & CTA Inscription -->
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 12px; flex-shrink: 0;">
           <div class="compte-rebours-box">
             <div class="chronometre-unite">
               <div class="chronometre-valeur" id="compteurJours">00</div>
@@ -538,8 +543,8 @@ function initialiserCompteAReboursAutomatique() {
             </div>
           </div>
 
-          <a href="${prochain.lien}" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #000000; border: none; padding: 10px 20px; font-size: 0.88rem; font-weight: 800;">
-            S'inscrire sur WhatsApp â†’
+          <a href="${prochain.lien}" target="_blank" rel="noopener" class="bouton-cta-primaire" style="background: var(--or-gradient); color: #062215; border: none; padding: 12px 22px; font-size: 0.90rem; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; border-radius: 8px; box-shadow: 0 4px 15px rgba(212,175,55,0.3); width: 100%; justify-content: center;">
+            <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem;"></i> S'inscrire sur WhatsApp →
           </a>
         </div>
       </div>
@@ -576,7 +581,7 @@ function initialiserCompteAReboursAutomatique() {
 
 // 10. RACCOURCIS CLAVIER & ACCÃˆS DISCRET
 function initialiserRaccourcisClavier() {
-  // Purge de sÃ©curitÃ© immÃ©diate de toute trace de modale rÃ©siduelle
+  // Purge de sécurité immédiate de toute trace de modale résiduelle
   try {
     const oldModal = document.getElementById('modalPresentationOfficielle');
     if (oldModal) oldModal.remove();
@@ -587,14 +592,14 @@ function initialiserRaccourcisClavier() {
   document.addEventListener('keydown', function(e) {
     if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
 
-    // Touche Ã‰chap : Fermer les modales ouvertes
+    // Touche Échap : Fermer les modales ouvertes
     if (e.key === 'Escape') {
       if (typeof fermerAfficheModal === 'function') fermerAfficheModal();
       if (typeof fermerMenuWeb === 'function') fermerMenuWeb();
       if (typeof fermerLightboxGalerie === 'function') fermerLightboxGalerie();
     }
 
-    // Ctrl + Shift + A : AccÃ¨s Studio CrÃ©ateur
+    // Ctrl + Shift + A : Accès Studio Créateur
     if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
       e.preventDefault();
       window.location.href = 'studio/index.html';
@@ -618,7 +623,7 @@ function initialiserRaccourcisClavier() {
   });
 }
 
-// 12. BARRE DÃ‰CORATIVE DE DÃ‰FILEMENT (GOLDEN SCROLL INDICATOR)
+// 12. BARRE DÉCORATIVE DE DÉFILEMENT (GOLDEN SCROLL INDICATOR)
 window.addEventListener('scroll', function() {
   const bar = document.getElementById('scrollProgressBar');
   if (bar) {
@@ -671,7 +676,7 @@ window.addEventListener('scroll', function() {
 })();
 
 // ==========================================================================
-// 14. NAVIGATION MOBILE CLASSIQUE 100% SITE WEB (DROPDOWN ACCORDÃ‰ON)
+// 14. NAVIGATION MOBILE CLASSIQUE 100% SITE WEB (DROPDOWN ACCORDÉON)
 // ==========================================================================
 function toggleMenuWeb(event) {
   if (event) {
@@ -704,7 +709,7 @@ function fermerMenuWeb() {
 window.toggleMenuWeb = toggleMenuWeb;
 window.fermerMenuWeb = fermerMenuWeb;
 
-// Ã‰couteurs de navigation
+// Écouteurs de navigation
 (function initNavigationWeb() {
   function attacherEvenements() {
     // Fermeture automatique au clic sur un lien du menu
@@ -714,7 +719,7 @@ window.fermerMenuWeb = fermerMenuWeb;
       });
     });
 
-    // Fermeture au clic en dehors de l'en-tÃªte
+    // Fermeture au clic en dehors de l'en-tête
     document.addEventListener('click', function(e) {
       const entete = document.querySelector('.entete-site');
       if (entete && !entete.contains(e.target)) {
@@ -722,7 +727,7 @@ window.fermerMenuWeb = fermerMenuWeb;
       }
     });
 
-    // Fermeture automatique si redimensionnement vers Ã©cran large
+    // Fermeture automatique si redimensionnement vers écran large
     window.addEventListener('resize', function() {
       if (window.innerWidth > 992) {
         fermerMenuWeb();
@@ -738,7 +743,7 @@ window.fermerMenuWeb = fermerMenuWeb;
 })();
 
 // ==========================================================================
-// 15. DÃ‰TECTION MODE APPLICATION INSTALLÃ‰E (PWA OBSOLÃˆTE) & BASCULE VERS SITE
+// 15. DÉTECTION MODE APPLICATION INSTALLÉE (PWA OBSOLÃˆTE) & BASCULE VERS SITE
 // ==========================================================================
 (function detecterModeApplication() {
   function verifierModeStandalone() {
@@ -752,8 +757,8 @@ window.fermerMenuWeb = fermerMenuWeb;
       bandeau.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex:1;">' +
         '<span style="font-size:20px;line-height:1;">ðŸŒ</span>' +
         '<div>' +
-          '<strong style="color:#78350F;font-size:13.5px;">Vous Ãªtes dans l\'ancienne application installÃ©e sur votre PC.</strong><br>' +
-          '<span>Pour ouvrir le vrai site web dans Google Chrome : utilisez le bouton ci-contre. Pour supprimer cette fenÃªtre d\'application, cliquez sur les 3 points <strong>â€¢â€¢â€¢</strong> en haut Ã  droite puis sur <em>Â« DÃ©sinstaller Â»</em>.</span>' +
+          '<strong style="color:#78350F;font-size:13.5px;">Vous êtes dans l\'ancienne application installée sur votre PC.</strong><br>' +
+          '<span>Pour ouvrir le vrai site web dans Google Chrome : utilisez le bouton ci-contre. Pour supprimer cette fenêtre d\'application, cliquez sur les 3 points <strong>•••</strong> en haut Ã  droite puis sur <em>« Désinstaller »</em>.</span>' +
         '</div>' +
       '</div>' +
       '<div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">' +

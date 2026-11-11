@@ -389,7 +389,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-moderne {
   position: relative;
-  padding: 100px 0 90px;
+  padding: 85px 0 135px 0 !important;
   background: linear-gradient(135deg, #062215 0%, #0C3823 55%, #03140A 100%) !important;
   color: #FFFFFF !important;
   overflow: hidden;
@@ -2564,7 +2564,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  z-index: 3;
+  z-index: 2;
   pointer-events: none;
 }
 .hero-shape-divider svg {
@@ -3567,8 +3567,17 @@ a.contact-valeur:hover {
 /* ==========================================================================
    CARTE VISUELLE PRESIDENTIELLE & SCEAU HERALDIQUE (COLONNE DROITE)
    ========================================================================== */
+.hero-carte-visuelle {
+  position: relative !important;
+  z-index: 5 !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
 .hero-medaillon-cadre-pro {
   position: relative !important;
+  z-index: 5 !important;
+  margin-bottom: 15px !important;
   width: 100% !important;
   max-width: 410px !important;
   background: linear-gradient(145deg, rgba(12, 56, 35, 0.72) 0%, rgba(6, 34, 21, 0.88) 100%) !important;
@@ -4119,4 +4128,93 @@ a.contact-valeur:hover {
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
+}
+
+/* ==========================================================================
+   CARTES CHIFFRES CLES HAUTE PRECISION & PRESTIGE
+   ========================================================================== */
+.carte-chiffre-cle {
+  background: #FFFFFF !important;
+  border-radius: 20px !important;
+  padding: 34px 24px 30px !important;
+  text-align: center !important;
+  border: 1px solid rgba(12, 56, 35, 0.08) !important;
+  box-shadow: 0 10px 30px -5px rgba(12, 56, 35, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.8) inset !important;
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.carte-chiffre-cle::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #10B981 0%, #0C3823 50%, #D4AF37 100%) !important;
+  transition: height 0.3s ease !important;
+}
+
+.carte-chiffre-cle:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 20px 45px -8px rgba(12, 56, 35, 0.16), 0 0 0 2px rgba(212, 175, 55, 0.45) !important;
+  border-color: rgba(212, 175, 55, 0.4) !important;
+}
+
+.carte-chiffre-cle:hover::before {
+  height: 5px !important;
+}
+
+.chiffre-icone-wrapper {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 18px !important;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.10) 0%, rgba(212, 175, 55, 0.16) 100%) !important;
+  border: 1.5px solid rgba(212, 175, 55, 0.35) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 16px !important;
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  box-shadow: 0 4px 12px rgba(12, 56, 35, 0.05) !important;
+}
+
+.carte-chiffre-cle:hover .chiffre-icone-wrapper {
+  transform: scale(1.12) rotate(4deg) !important;
+  background: linear-gradient(135deg, #0C3823 0%, #10B981 100%) !important;
+  box-shadow: 0 8px 20px rgba(12, 56, 35, 0.25) !important;
+}
+
+.carte-chiffre-cle:hover .chiffre-icone-wrapper i {
+  color: #FFFFFF !important;
+}
+
+.nombre-chiffre-cle {
+  font-family: var(--font-titre, 'Montserrat', sans-serif) !important;
+  font-size: clamp(2.3rem, 3.8vw, 3.1rem) !important;
+  font-weight: 900 !important;
+  color: var(--vert-emeraude, #0C3823) !important;
+  line-height: 1.1 !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.5px !important;
+}
+
+.titre-chiffre-cle {
+  font-size: 1.05rem !important;
+  font-weight: 800 !important;
+  color: var(--texte-sombre, #0F172A) !important;
+  margin-bottom: 6px !important;
+  font-family: var(--font-titre, sans-serif) !important;
+}
+
+.label-chiffre-cle {
+  font-size: 0.88rem !important;
+  color: var(--texte-doux, #64748B) !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
 }
