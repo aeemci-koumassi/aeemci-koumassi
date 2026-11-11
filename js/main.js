@@ -735,3 +735,44 @@ window.fermerMenuWeb = fermerMenuWeb;
     attacherEvenements();
   }
 })();
+
+// ==========================================================================
+// 15. DÉTECTION MODE APPLICATION INSTALLÉE (PWA OBSOLÈTE) & BASCULE VERS SITE
+// ==========================================================================
+(function detecterModeApplication() {
+  function verifierModeStandalone() {
+    const estApp = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (estApp) {
+      if (document.getElementById('bandeauAlerteApplication')) return;
+      const bandeau = document.createElement('div');
+      bandeau.id = 'bandeauAlerteApplication';
+      bandeau.style.cssText = 'position:fixed; top:0; left:0; right:0; z-index:999999; background:#FEF3C7; border-bottom:2px solid #D97706; color:#92400E; padding:10px 16px; font-family:system-ui,sans-serif; font-size:13px; line-height:1.4; display:flex; align-items:center; justify-content:space-between; box-shadow:0 4px 15px rgba(0,0,0,0.15); gap:12px;';
+      
+      bandeau.innerHTML = '<div style="display:flex;align-items:center;gap:10px;flex:1;">' +
+        '<span style="font-size:20px;line-height:1;">🌐</span>' +
+        '<div>' +
+          '<strong style="color:#78350F;font-size:13.5px;">Vous êtes dans l\'ancienne application installée sur votre PC.</strong><br>' +
+          '<span>Pour ouvrir le vrai site web dans Google Chrome : utilisez le bouton ci-contre. Pour supprimer cette fenêtre d\'application, cliquez sur les 3 points <strong>•••</strong> en haut à droite puis sur <em>« Désinstaller »</em>.</span>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">' +
+        '<a href="https://aeemci-koumassi.github.io/" target="_blank" rel="noopener" style="background:#0C3823;color:#D4AF37;padding:6px 12px;border-radius:6px;font-weight:700;text-decoration:none;font-size:12px;white-space:nowrap;border:1px solid #D4AF37;">' +
+          'Ouvrir dans Chrome ↗' +
+        '</a>' +
+        '<button onclick="this.parentElement.parentElement.remove()" style="background:transparent;border:none;font-size:18px;cursor:pointer;color:#92400E;padding:0 4px;" title="Fermer">&times;</button>' +
+      '</div>';
+
+      document.body.prepend(bandeau);
+      const entete = document.querySelector('.entete-site');
+      if (entete) {
+        entete.style.marginTop = '58px';
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', verifierModeStandalone);
+  } else {
+    verifierModeStandalone();
+  }
+})();
